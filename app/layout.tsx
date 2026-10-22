@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import AppHeader from '@/components/homepage/header/Header';
+import NavWrapper from '@/components/homepage/header/NavWrapper'
 import AppFooter from '@/components/homepage/footer/Footer'
 
 
@@ -11,8 +11,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {/* Header */}
-        <AppHeader />
-        <main className="min-h-screen">
+        <NavWrapper />
+        <main className="min-h-screen bg-cover bg-center bg-[url(/MainBackground.png)] bg-fixed">
           {children}
         </main>
         <AppFooter />
