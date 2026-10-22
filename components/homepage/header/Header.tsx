@@ -1,12 +1,43 @@
+"use client"
+
+import { motion, useScroll, useMotionValueEvent } from 'motion/react'
+import { useState } from 'react'
+
 import Image from "next/image"
 import Link from "next/link"
 
+import { AppHeaderProps } from "@/lib/definitions"
+
 import HamburgerIcon from '@/components/ui/HamburgerIcon'
 
-export default function AppHeader(){
+export default function AppHeader({
+    onMobileOpen
+}: AppHeaderProps){
+
+    const { scrollY } = useScroll(); // tracks scroll position
+    // scrollY -> represents the vertical scroll position in pixels
+
+    const [hidden, setHidden] = useState(false); // tracks whether the header is hidden
+
+    useMotionValueEvent(scrollY,"change",(current) => {
+
+        const previous = scrollY.getPrevious() ?? 0
+
+        if (current > previous && current > 150) {
+                setHidden(true)
+        } else{
+            setHidden(false)
+        }
+    })
 
     return(
-        <header>
+        <motion.header 
+            animate={{
+                y:hidden ? -140 : 0,
+                opacity:hidden ? 0 : 1
+            }}
+            transition={{ duration:0.3, ease: "easeInOut"}}
+            className="fixed inset-x-0 top-0">
             {/* General Header Container */}
             <div className="w-full bg-white text-gray-900 shadow-md backdrop-blur-md">
                 <div id="header-container" className="mx-auto px-4 flex items-center justify-between">
@@ -108,7 +139,7 @@ export default function AppHeader(){
 
                     {/* Mobile Hamburger Menu Button */}
                     <div className="block lg:hidden">
-                        <button className="p-2 text-gray-700 hover:text-blue-500 rounded-xl bg-slate-100" aria-label="Open mobile menu">
+                        <button onClick={onMobileOpen} className="p-2 text-gray-700 hover:text-blue-500 rounded-xl bg-slate-100" aria-label="Open mobile menu">
                             <HamburgerIcon className="w-6 h-6"/>
                         </button>
                     </div>
@@ -131,6 +162,6 @@ export default function AppHeader(){
                 </div>
 
             </div>
-        </header>
+        </motion.header>
     )
 }
