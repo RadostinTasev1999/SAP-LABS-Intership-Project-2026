@@ -9,6 +9,7 @@ import Link from "next/link"
 import { AppHeaderProps } from "@/lib/definitions"
 
 import HamburgerIcon from '@/components/ui/HamburgerIcon'
+import CompanyLogo from '@/components/ui/CompanyLogo'
 
 export default function AppHeader({
     onMobileOpen
@@ -37,20 +38,15 @@ export default function AppHeader({
                 opacity:hidden ? 0 : 1
             }}
             transition={{ duration:0.3, ease: "easeInOut"}}
-            className="fixed inset-x-0 top-0">
+            className="fixed inset-x-0 top-0 z-50">
             {/* General Header Container */}
-            <div className="w-full bg-white text-gray-900 shadow-md backdrop-blur-md">
-                <div id="header-container" className="mx-auto px-4 flex items-center justify-between">
+            <div className="w-full text-gray-900 shadow-md backdrop-blur-md bg-white/60">
+                <div id="header-container" className="mx-auto px-4 flex items-center justify-between py-2">
                     {/* DESKTOP VIEW */}
 
                     {/* Left: Logo */}
                     <div className="hidden lg:block shrink-0">
-                        <Image 
-                            src='/AutoMove Car Transport Logo.png'
-                            width={300}
-                            height={300}
-                            alt="company-logo"
-                            />
+                        <CompanyLogo />
                     </div>
 
                     {/* Center: Main Navigation with Dropdowns */}
