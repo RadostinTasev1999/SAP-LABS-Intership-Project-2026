@@ -68,5 +68,112 @@ export const appHeaderProps = {
             ]
         }
 
+    ],
+    desktopCta: {
+        url: '/',
+        text: 'Request a Quote'
+    },
+    mobileDrawer: [
+        {
+            id:1,
+            heading: 'Transport Services',
+            icon: 'chevron-right',
+            list: [
+                {
+                    id:1,
+                    url: '/',
+                    text: 'Enclosed Car Transport'
+                },
+                {
+                    id:2,
+                    url: '/',
+                    text: 'Car Transport'
+                },
+                {
+                    id:3,
+                    url: '/',
+                    text: 'Supercar Transport'
+                },
+                {
+                    id:4,
+                    url: '/',
+                    text: 'Classic Car Transport'
+                },
+                {
+                    id:5,
+                    url: '/',
+                    text: 'Emergency vehicle transport'
+                }
+            ]
+        },
+        {
+            id:2,
+            heading: 'Routes',
+            icon: 'chevron-right',
+            list: [
+                {
+                    id:1,
+                    url: '/',
+                    text: 'Belgium to Spain'
+                },
+                {
+                    id:2,
+                    url: '/',
+                    text: 'Germany to Spain'
+                },
+                {
+                    id:3,
+                    url: '/',
+                    text: 'Netherlands to Spain'
+                },
+                {
+                    id:4,
+                    url: '/',
+                    text: 'Spain to Germany'
+                },
+                {
+                    id:5,
+                    url: '/',
+                    text: 'Spain to Netherlands'
+                }
+            ]
+        },
+        {
+            id:3,
+            heading: 'Destinations',
+            icon: 'chevron-right',
+            list: [
+                {
+                    id:1,
+                    url: '/',
+                    text: 'Belgium'
+                },
+                {
+                    id:2,
+                    url: '/',
+                    text: 'France'
+                },
+                {
+                    id:3,
+                    url: '/',
+                    text: 'Germany'
+                },
+                {
+                    id:4,
+                    url: '/',
+                    text: 'Italy'
+                },
+                {
+                    id:5,
+                    url: '/',
+                    text: 'Monaco'
+                }
+            ]
+        },
+        {
+            id:4,
+            url: '/',
+            text: 'Request a Quote'
+        }
     ]
 }
