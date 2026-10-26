@@ -14,7 +14,8 @@ import MobileLogo from './MobileLogo'
 
 export default function AppHeader({
     onMobileOpen,
-    navProps
+    navProps,
+    desktopCta
 }: AppHeaderProps){
 
     const { scrollY } = useScroll(); // tracks scroll position
@@ -55,7 +56,10 @@ export default function AppHeader({
                         />
 
                     {/* Right Call to Action Button */}
-                    <DesktopCta />
+                    <DesktopCta 
+                        url={desktopCta?.url}
+                        text={desktopCta?.text}
+                        />
 
                     {/* MOBILE VIEW */}
 
