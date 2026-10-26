@@ -3,6 +3,7 @@ import AppFooter from '@/components/homepage/footer/Footer';
 import AppHero from '@/components/homepage/hero/Hero'
 
 import {appHeaderProps} from '@/lib/placeholderdata'
+import { appHeroProps } from '@/lib/placeholderdata'
 
 // appHeaderProps
 // mobileDrawer props
@@ -16,10 +17,11 @@ export default function Home() {
         appHeaderProps={appHeaderProps}
         />
       <main className='min-h-screen bg-cover bg-center bg-[url(/MainBackground.png)] bg-fixed'>
-        <AppHero />
+        <AppHero 
+          appHeroProps={appHeroProps}
+          />
       </main>
       <AppFooter />
     </>
-    // <AppHero />
   );
 }
