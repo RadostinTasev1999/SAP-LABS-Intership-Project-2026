@@ -29,6 +29,7 @@ export default function NavWrapper({
             <Header 
                 onMobileOpen={onMobileOpen}
                 navProps={appHeaderProps.desktopNav}
+                desktopCta={appHeaderProps.desktopCta}
 
                 />
 
@@ -36,7 +37,8 @@ export default function NavWrapper({
                 {
                 showMenu && (
                     <MobileDrawer 
-                        onMobileClose={onMobileClose}   
+                        onMobileClose={onMobileClose} 
+                        mobileDrawer={appHeaderProps.mobileDrawer}
                         />
                 )
             }
