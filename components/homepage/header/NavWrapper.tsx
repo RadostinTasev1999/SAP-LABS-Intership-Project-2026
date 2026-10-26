@@ -4,9 +4,12 @@ import { AnimatePresence } from 'motion/react'
 
 import Header from './Header'
 import MobileDrawer from './MobileDrawer'
+import {NavWrapperProps} from '@/lib/definitions'
 import { useState } from 'react'
 
-export default function NavWrapper(){
+export default function NavWrapper({
+    appHeaderProps
+}: NavWrapperProps){
 
     // mobile menu navigation
     const [showMenu, setShowMenu] = useState(false);
@@ -25,6 +28,8 @@ export default function NavWrapper(){
         <>
             <Header 
                 onMobileOpen={onMobileOpen}
+                navProps={appHeaderProps.desktopNav}
+
                 />
 
             <AnimatePresence initial={false}>
