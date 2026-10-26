@@ -104,3 +104,88 @@ export type MobileDetailItemProps = {
     icon?: string,
     list?: MobileListItems
 }
+
+export type AppHeroProps = {
+    appHeroProps: AppHeroData
+}
+
+type AppHeroData = {
+    badgeText: string,
+    badgeType: string,
+    headingOne: string,
+    emphasis: string,
+    headingTwo:string,
+    description: string,
+    btnPrimary: BtnProps,
+    btnSecondary: BtnProps,
+    quoteHeading: string,
+    quoteParagraph: string,
+    pickupZip: InputProps,
+    deliveryZip: InputProps,
+    vehicleDetails: InputProps,
+    submitBtn: LabelProps,
+    securityNote: LabelProps
+}
+
+type LabelProps = {
+    label: string,
+    icon: string
+}
+
+type InputProps = {
+    id: string,
+    label: string,
+    placeholder: string,
+    name: string
+}
+
+type BtnProps = {
+    label: string,
+    icon: string,
+    url: string
+}
+
+export type HeroBadgeProps = {
+    badgeText: string,
+    badgeType: string
+}
+
+export type HeroHeadingProps = {
+    headingPrimary: string,
+    emphasis: string,
+    headingSecondary:string
+}
+
+export type HeroDescProp = {
+    description: string
+}
+
+export type HeroCtaProps = {
+    btnPrimary: BtnData,
+    btnSecondary: BtnData
+}
+
+type BtnData = {
+    label: string,  
+    icon: string,
+    url: string
+}
+
+export type HeroQuoteProp = {
+    quoteHeading: string
+}
+
+export type HeroQuoteParagraphProp = {
+    quoteParagraph: string
+}
+
+export type HeroQuoteFormProps = {
+    pickupZip:InputProps,
+    deliveryZip:InputProps,
+    vehicleDetails:InputProps,
+    submitBtn: LabelProps
+}
+
+export type HeroSecNoteProp = {
+    securityNote: LabelProps
+}
