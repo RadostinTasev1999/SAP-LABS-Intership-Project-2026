@@ -5,7 +5,8 @@ export type SvgProps = {
 
 export type AppHeaderProps = {
     onMobileOpen?: () => void,
-    navProps?: DesktopNav
+    navProps?: DesktopNav,
+    desktopCta?: DesktopCta
 }
 
 export type NavListItemProps = {
@@ -15,20 +16,50 @@ export type NavListItemProps = {
     dropDownMenu?: DropDownMenu
 }
 
-
+export type DesktopCtaProps = {
+    url?: string,
+    text?: string
+}
 
 
 export type MobileDrawerProps = {
-    onMobileClose: () => void
+    onMobileClose: () => void,
+    mobileDrawer: MobileDrawer
 }
 
 export type NavWrapperProps = {
-    appHeaderProps: AppHeaderData
+    appHeaderProps: AppHeaderData,
+}
+
+type DesktopCta = {
+    url: string,
+    text: string
 }
 
 type AppHeaderData = {
-    desktopNav: DesktopNav
+    desktopNav: DesktopNav,
+    desktopCta: DesktopCta,
+    mobileDrawer: MobileDrawer
 }
+
+export type MobileNavProps = {
+    mobileDrawer: MobileDrawer
+}
+
+type MobileDrawer = {
+    id: number,
+    heading: string,
+    icon: string,
+    list: DrawerList,
+    url?: string,
+    text?: string
+}[]
+
+type DrawerList = {
+    id:number,
+    url: string,
+    text: string
+}[]
 
 type DesktopNav = {
     id:number,
@@ -44,3 +75,32 @@ type DropDownMenu = {
     url: string,
     text: string
 }[]
+
+export type MobileDrawerBtnProp = {
+    onMobileClose: () => void
+}
+
+export type MobileDrawerListData = {
+    heading?: string,
+    icon?: string,
+    list?: MobileListItems,
+    url?: string,
+    text?: string
+}
+
+type MobileListItems = {
+    id: number,
+    url: string,
+    text: string
+}[]
+
+export type MobileDrawerItemProps = {
+    url: string,
+    text: string
+}
+
+export type MobileDetailItemProps = {
+    heading?: string,
+    icon?: string,
+    list?: MobileListItems
+}
