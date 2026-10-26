@@ -1,5 +1,3 @@
-import { JSX } from "react/jsx-runtime"
-import React from "react"
 
 export type SvgProps = {
     className?: string
