@@ -1,208 +1,93 @@
-import Link from "next/link"
-import Image from "next/image"
+
+import FooterLogo from '@/components/ui/FooterLogo'
+import Link from 'next/link'
+
+import LinkedInIcon from '@/components/ui/LinkedIn'
+import TwitterIcon from '@/components/ui/TwitterIcon'
+import FacebookIcon from '@/components/ui/FacebookIcon'
 
 export default function AppFooter(){
 
     return(
-        <footer className="w-full bg-slate-200 text-slate-600 text-sm font-normal py-12 border-t">
-            <div id="footer-container" className="mx-auto px-4">
+        <footer className="text-slate-300 py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
+            <div className="max-w-7xl mx-auto">
 
-                {/* MAIN FOOTER GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                {/* Main Footer Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-12 border-b border-slate-800">
 
-                    {/* COLUMN 1: Logo & Company Contact Info */}
-                    <div className="space-y-4">
-                        {/* Site Logo */}
-                        <Link href="#" className="inline-block" aria-label="Company-Logo">
-                            <Image 
-                                src='/EuroMove European Car Transport Logo.png'
-                                alt="Company_Logo"
-                                width={300}
-                                height={300}
-                                />
-                        </Link>
-
-                        {/* Description Paragraph */}
-                        <p className="text-slate-600 leading-relaxed text-sm">
-                            Auto Transport delivers reliable vehicle transport across Europe, with a strong focus on routes to and from Bulgaria. We offer door to door service, fast pickup and secure handling for cars, campers and high value vehicles. Available 24/7 for private and business transport.
+                    {/* Brand & Social column (Span 2 on large screens) */}
+                    <div className="lg:col-span-2 space-y-4">
+                        {/* Logo */}
+                        <div className="flex items-center">
+                            <FooterLogo />
+                        </div>
+                        {/* Description */}
+                        <p className='text-sm text-slate-400 leading-relaxed max-w-sm'>
+                            Nationwide vehicle shipping powered by 17,000+ drivers and a vetted carrier network. A Haul OS company.
                         </p>
+                        {/* Social icons */}
+                        <div className='flex flex-wrap pt-2'>
+                            {/* LinkedIn */}
+                            <Link href="/" className='p-2'>
+                                <LinkedInIcon />
+                            </Link>
+                            {/* Facebook Icon */}
+                            <Link href="/" className='p-2'>
+                                <FacebookIcon />
+                            </Link>
+                            {/* X (Twitter) */}
+                            <Link href="/" className='p-2'>
+                                <TwitterIcon />
+                            </Link>
 
-                        {/* Direct Contact Details */}
-                        <div className="pt-2 text-sm leading-6">
-                            <p>
-                                Call us 24/7
-                                <Link href="tel:+359 899 633 281" className="text-blue-600 hover:text-blue-400 font-medium">
-                                    +359 899 633 281
-                                </Link>
-                            </p>
-                            <p>
-                                Email:
-                                <Link href="mailto:info@autotransport.com" className="text-blue-600 hover:text-blue-400 font-medium">
-                                    info@autotransport.com
-                                </Link>
-                            </p>
+                        </div>
+                    </div>
+
+                    {/* Services Column */}
+                        <div className='space-y-4'>
+                            <h4 className='text-sm font-semibold tracking-wider text-slate-600 uppercase'>Services</h4>
+                            <ul className='space-y-2.5 text-sm'>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Open Transport</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Enclosed Transport</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Expedited Shipping</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Motorcycle Transport</Link></li>
+                            </ul>
                         </div>
 
-                        
-                    </div>
-                    {/* Column 2: Car Transport Services */}
-                    <div>
-                        {/* Accordion on Mobile / Expanded on Desktop */}
-                        <details className="group" >
-                            <summary className="flex justify-between items-center cursor-pointer lg:cursor-default list-none text-slate-600 font-semibold text-base mb-3 pb-2 border-b border-slate-800 lg:border-none">
-                                Car Transport
-                                <span className="lg:hidden transition-transform group-open:rotate-180">▼</span>
-                            </summary>
-
-                            <ul className="space-y-2.5 text-slate-500 text-sm mt-3 lg:mt-0">
-                                <li>
-                                    <Link href='#'>
-                                        Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Classic Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Enclosed Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Luxury Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Supercar Transport
-                                    </Link>
-                                </li>
+                        {/* Company Column */}
+                        <div className='space-y-4'>
+                            <h4 className='text-sm font-semibold tracking-wider text-slate-600 uppercase'>Company</h4>
+                            <ul className='space-y-2.5 text-sm'>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>About Us</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Contact</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Careers</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Blog</Link></li>
                             </ul>
+                        </div>
 
-                        </details>
-                    </div>
-                    {/* Column 3: Vehicle Transport */}
-                    <div>
-                        {/* Accordion on Mobile / Expanded on Desktop */}
-                        <details className="group lg:open">
-                            <summary className="flex justify-between items-center cursor-pointer lg:cursor-default list-none text-slate-600 font-semibold text-base mb-3 pb-2 border-b border-slate-800 lg:border-none">
-                                Car Transport
-                                <span className="lg:hidden transition-transform group-open:rotate-180">▼</span>
-                            </summary>
-
-                            <ul className="space-y-2.5 text-slate-500 text-sm mt-3 lg:mt-0">
-                                <li>
-                                    <Link href='#'>
-                                        Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Classic Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Enclosed Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Luxury Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Supercar Transport
-                                    </Link>
-                                </li>
+                        {/* Support Column */}
+                        <div className='space-y-4'>
+                            <h4 className='text-sm font-semibold tracking-wider text-slate-600 uppercase'>Support</h4>
+                            <ul className='space-y-2.5 text-sm'>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>(800) 951-2284</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>support@haulos.com</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>Track My Order</Link></li>
+                                <li><Link href="/" className='text-slate-500 hover:text-slate-800 transition-colors'>FAQ</Link></li>
                             </ul>
+                        </div>
 
-                        </details>
-                    </div>
-                    {/* Column 4: Fixed Routes */}
-                    <div>
-                        {/* Accordion on Mobile / Expanded on Desktop */}
-                        <details className="group lg:open">
-                            <summary className="flex justify-between items-center cursor-pointer lg:cursor-default list-none text-slate-600 font-semibold text-base mb-3 pb-2 border-b border-slate-800 lg:border-none">
-                                Car Transport
-                                <span className="lg:hidden transition-transform group-open:rotate-180">▼</span>
-                            </summary>
-
-                            <ul className="space-y-2.5 text-slate-500 text-sm mt-3 lg:mt-0">
-                                <li>
-                                    <Link href='#'>
-                                        Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Classic Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Enclosed Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Luxury Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Supercar Transport
-                                    </Link>
-                                </li>
-                            </ul>
-
-                        </details>
-                    </div>
-                    {/* Column 5: Test */}
-                    <div>
-                        {/* Accordion on Mobile / Expanded on Desktop */}
-                        <details className="group lg:open">
-                            <summary className="flex justify-between items-center cursor-pointer lg:cursor-default list-none text-slate-600 font-semibold text-base mb-3 pb-2 border-b border-slate-800 lg:border-none">
-                                Car Transport
-                                <span className="lg:hidden transition-transform group-open:rotate-180">▼</span>
-                            </summary>
-
-                            <ul className="space-y-2.5 text-slate-500 text-sm mt-3 lg:mt-0">
-                                <li>
-                                    <Link href='#'>
-                                        Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Classic Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Enclosed Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Luxury Car Transport
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='#'>
-                                        Supercar Transport
-                                    </Link>
-                                </li>
-                            </ul>
-
-                        </details>
-                    </div>
                 </div>
 
+                {/* Bottom Footer Row */}
+
+                <div className='pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400'>
+                    <div>© 2026 HAUL OS. All rights reserved.</div>
+                    <div className='flex flex-wrap justify-center gap-6'>
+                        <Link href='/'>Privacy Policy</Link>
+                        <Link href='/'>Terms of Services</Link>
+                        <Link href='/'>Sitemap</Link>
+                    </div>
+                </div>
             </div>
         </footer>
     )
