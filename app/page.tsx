@@ -16,7 +16,7 @@ export default function Home() {
       <NavWrapper 
         appHeaderProps={appHeaderProps}
         />
-      <main className='min-h-screen bg-cover bg-center bg-[url(/MainBackground.png)] bg-fixed'>
+      <main className='min-h-screen bg-cover bg-center bg-[url(/SiteBackgroundImage.png)] bg-fixed'>
         <AppHero 
           appHeroProps={appHeroProps}
           />
