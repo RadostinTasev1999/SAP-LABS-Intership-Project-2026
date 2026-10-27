@@ -9,9 +9,6 @@ import HeroSecNote from './HeroSecNote'
 import HeroCard from './HeroCard'
 
 import {AppHeroProps} from '@/lib/definitions'
-import { Separator } from '@/components/ui/separator'
-
-
 
 
 export default function AppHero({
