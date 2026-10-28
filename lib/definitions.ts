@@ -1,3 +1,4 @@
+import { JSX } from "react/jsx-runtime"
 
 export type SvgProps = {
     className?: string
@@ -188,4 +189,73 @@ export type HeroQuoteFormProps = {
 
 export type HeroSecNoteProp = {
     securityNote: LabelProps
+}
+
+export type AppFooterProps = {
+    footerGridData: FooterGridData,
+    footerBottomData: FooterBottomData
+}
+
+export type FooterBottomData = {
+    footerRights: FooterRightsProp,
+    footerInfo: FooterInfo
+}
+
+export type FooterInfoProp = {
+    footerInfo: FooterInfo
+}
+
+type FooterInfo = {
+    id: number,
+    text: string
+}[]
+
+export type FooterRightsProp = {
+    text: string
+}
+
+export type FooterGridData = {
+    footerGridOne: FooterGridOne
+    footerGridCols: FooterGridCols
+}
+
+type FooterGridOne = {
+    logo: React.FC,
+    description: string,
+    social: FooterGridSocial
+}
+
+export type FooterGridOneProps = {
+    Logo: JSX.Element,
+    description: string,
+    social: FooterGridSocial
+}
+
+type FooterGridSocial = {
+    id: number,
+    icon: React.FC
+}[]
+
+export type FooterGridColProps = {
+    heading: string,
+    items: FooterGridItems
+}
+
+type FooterGridCols = {
+    id: number,
+    heading: string,
+    items: FooterGridItems
+}[]
+
+type FooterGridItems = {
+    id:number,
+    name: string
+}[]
+
+export type FooterColItemProp = {
+    name: string
+}
+
+export type FooterRightsData = {
+    footerRights: string
 }
