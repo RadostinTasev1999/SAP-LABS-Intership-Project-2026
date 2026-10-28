@@ -7,9 +7,7 @@ import {appHeaderProps} from '@/lib/placeholderdata'
 import { appHeroProps } from '@/lib/placeholderdata'
 import { footerGridData } from '@/lib/placeholderdata';
 import { footerBottomData } from '@/lib/placeholderdata'
-
-// appHeaderProps
-// mobileDrawer props
+import {heroLayoutCardData} from '@/lib/placeholderdata'
 
 export default function Home() {
 
@@ -23,6 +21,7 @@ export default function Home() {
         {/* Hero Section */}
         <AppHero 
           appHeroProps={appHeroProps}
+          heroLayoutCardData={heroLayoutCardData}
           />
           {/* Timeline section */}
         <HeroTimeline />
