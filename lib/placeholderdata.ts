@@ -2,7 +2,10 @@ import FooterLogo from '@/components/ui/FooterLogo'
 import LinkedInIcon from '@/components/ui/LinkedIn'
 import FacebookIcon from '@/components/ui/FacebookIcon'
 import TwitterIcon from '@/components/ui/TwitterIcon'
-
+import CheckBadge from '@/components/ui/CheckBadge'
+import ChevronRight from '@/components/ui/ChevronRight'
+import RouteIcon from '@/components/ui/RouteIcon'
+import TruckIcon from '@/components/ui/TruckIcon'
 
 
 export const appHeaderProps = {
@@ -350,3 +353,43 @@ export const footerBottomData = {
         }
     ]
 }
+
+export const heroLayoutCardData = [
+    {
+        id:1,
+        icon:(
+            CheckBadge
+        ),
+        title: 'Ship your car safe & secure',
+        description: `Get a quote through our state-of-the-art car shipping cost calculator, and we'll connect you with an experienced, reputable driver.`,
+        link: 'Get Quote',
+        linkIcon: (
+            ChevronRight
+        )
+    },
+    {
+        id:2,
+        icon:(
+            RouteIcon
+        ),
+        title: 'No-hassle car transport',
+        description: `We coordinate your door-to-door car shipping order from start to finish and manage your car transportation with care and respect.`,
+        link: 'Door-to-door Service',
+        linkIcon: (
+            ChevronRight
+        )
+    },
+    {
+        id:3,
+        icon:(
+            TruckIcon
+        ),
+        title: 'More than an auto transport company',
+        description: `We offer resources for local car sellers, car dealerships, and clients looking to connect with moving companies.`,
+        link: ' Moving calculator',
+        linkIcon: (
+            ChevronRight
+        )
+    }
+]
+
