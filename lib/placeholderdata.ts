@@ -1,3 +1,9 @@
+import FooterLogo from '@/components/ui/FooterLogo'
+import LinkedInIcon from '@/components/ui/LinkedIn'
+import FacebookIcon from '@/components/ui/FacebookIcon'
+import TwitterIcon from '@/components/ui/TwitterIcon'
+
+
 
 export const appHeaderProps = {
     desktopNav: [
@@ -225,4 +231,122 @@ export const appHeroProps = {
         label: 'Your price is locked in, guaranteed. No bait-and-switch.',
         icon: 'lock-icon'
     }
+}
+
+
+export const footerGridData = {
+    footerGridOne: {
+        logo: (
+            FooterLogo
+        ),
+        description: 'Nationwide vehicle shipping powered by 17,000+ drivers and a vetted carrier network. A Haul OS company.',
+        social: [
+            {
+                id: 1,
+                icon: (
+                    LinkedInIcon
+                )
+            },
+            {
+                id: 2,
+                icon: (
+                    FacebookIcon
+                )
+            },
+            {
+                id: 3,
+                icon: (
+                    TwitterIcon
+                )
+            }
+        ]
+    },
+    footerGridCols: [
+        {
+            id:1,
+            heading: 'Services',
+            items: [
+                {
+                    id:1,
+                    name: 'Open Transport'
+                },
+                {
+                    id:2,
+                    name: 'Enclosed Transport'
+                },
+                {
+                    id:3,
+                    name: 'Expedited Shipping'
+                },
+                {
+                    id:4,
+                    name: 'Motorcycle Transport'
+                },
+            ]
+        },
+        {
+            id: 2,
+            heading: 'Company',
+            items: [
+                {
+                    id:1,
+                    name: 'About Us'
+                },
+                {
+                    id:2,
+                    name: 'Contact'
+                },
+                {
+                    id:3,
+                    name: 'Careers'
+                },
+                {
+                    id:4,
+                    name: 'Blog'
+                },
+            ]
+        },
+        {
+            id:3,
+            heading: 'Support',
+            items: [
+                {
+                    id:1,
+                    name: '(800) 951-2284'
+                },
+                {
+                    id:2,
+                    name: 'support@haulos.com'
+                },
+                {
+                    id:3,
+                    name: 'Track My Order'
+                },
+                {
+                    id:4,
+                    name: 'FAQ'
+                }
+            ]
+        }
+    ]
+}
+
+export const footerBottomData = {
+    footerRights:{
+        text: '© 2026 HAUL OS. All rights reserved.'
+    },
+    footerInfo: [
+        {
+            id:1,
+            text: 'Privacy Policy'
+        },
+        {
+            id:2,
+            text: 'Terms of Services'
+        },
+        {
+            id:3,
+            text: 'Sitemap'
+        }
+    ]
 }
