@@ -107,7 +107,29 @@ export type MobileDetailItemProps = {
 }
 
 export type AppHeroProps = {
-    appHeroProps: AppHeroData
+    appHeroProps: AppHeroData,
+    heroLayoutCardData: HeroLayoutCardData
+}
+
+export type HeroLayoutCardType = {
+    heroLayoutCardData: HeroLayoutCardData
+}
+
+type HeroLayoutCardData = {
+    id: number,
+    icon: React.FC,
+    title: string,
+    description: string,
+    link: string,
+    linkIcon: React.FC
+}[]
+
+export type HeroCardTypes = {
+    Icon: JSX.Element,
+    title: string,
+    description: string,
+    link: string,
+    LinkIcon: JSX.Element
 }
 
 type AppHeroData = {
@@ -258,4 +280,40 @@ export type FooterColItemProp = {
 
 export type FooterRightsData = {
     footerRights: string
+}
+
+export type HeroLayoutTopProps = {
+    badgeText: string,
+    badgeType: string,
+    headingPrimary: string,
+    emphasis: string,
+    headingSecondary: string,
+    description: string,
+    btnPrimary: BtnTypes,
+    btnSecondary: BtnTypes,
+    quoteHeading: string,
+    quoteParagraph: string,
+    pickupZip: InputTypes,
+    deliveryZip: InputTypes,
+    vehicleDetails: InputTypes,
+    submitBtn: BottomFormTypes,
+    securityNote: BottomFormTypes
+}
+
+type BtnTypes = {
+    label: string,
+    icon: string,
+    url: string
+}
+
+type InputTypes = {
+    id: string,
+    label: string,
+    placeholder: string,
+    name: string
+}
+
+type BottomFormTypes = {
+    label: string,
+    icon: string
 }
