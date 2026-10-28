@@ -1,7 +1,7 @@
 import { SvgProps } from "@/lib/definitions"
 
 export default function ChevronRight({
-    className
+    className="size-2.5 shrink-0"
 }:SvgProps){
 
     return(
