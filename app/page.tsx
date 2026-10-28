@@ -5,6 +5,8 @@ import HeroTimeline from '@/components/homepage/hero/HeroTimeline'
 
 import {appHeaderProps} from '@/lib/placeholderdata'
 import { appHeroProps } from '@/lib/placeholderdata'
+import { footerGridData } from '@/lib/placeholderdata';
+import { footerBottomData } from '@/lib/placeholderdata'
 
 // appHeaderProps
 // mobileDrawer props
@@ -25,7 +27,10 @@ export default function Home() {
           {/* Timeline section */}
         <HeroTimeline />
       </main>
-      <AppFooter />
+      <AppFooter 
+        footerGridData={footerGridData}
+        footerBottomData={footerBottomData}
+        />
     </>
   );
 }
