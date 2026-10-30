@@ -6,7 +6,9 @@ import CheckBadge from '@/components/ui/CheckBadge'
 import ChevronRight from '@/components/ui/ChevronRight'
 import RouteIcon from '@/components/ui/RouteIcon'
 import TruckIcon from '@/components/ui/TruckIcon'
-
+import MapPinCheck from '@/components/ui/MapPinCheck'
+import ClockIcon from '@/components/ui/ClockIcon'
+import MessageSquareIcon from '@/components/ui/MessageSquare'
 
 export const appHeaderProps = {
     desktopNav: [
@@ -393,3 +395,81 @@ export const heroLayoutCardData = [
     }
 ]
 
+export const heroTimelineData = {
+    timelineHeading: {
+        badge: 'Process',
+        heading: 'Our Process',
+        text: 'From strategy to execution, our process ensures we create custom marketing plans that drive results. We understand your goals, tailor our approach, and execute with precision to deliver measurable success.'
+    },
+    timelineSteps: [
+        {
+            id:1,
+            count: '01',
+            heading: 'Get an instant quote and book your order',
+            text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
+        },
+        {
+            id:2,
+            count: '02',
+            heading: 'Get an instant quote and book your order',
+            text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
+        },
+        {
+            id:3,
+            count: '03',
+            heading: 'Get an instant quote and book your order',
+            text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
+        }
+    ]
+}
+
+
+export const heroAboutData = {
+
+    sectionHeader: {
+        heading: 'Why choose HAUL OS',
+        text: 'These principles guide everything we do, from how we develop our products to how we interact with our customers and each other.'
+    },
+    valueCards:[
+        {
+            id:1,
+            icon:(
+                CheckBadge
+            ),
+            heading: 'Fully Insured',
+            text: 'Every carrier on our platform is required to carry cargo insurance on your vehicle, and we verify that coverage before they are assigned to your order.'
+        },
+        {
+            id:2,
+            icon:(
+                MapPinCheck
+            ),
+            heading: 'Automated Updates',
+            text: 'Get automated SMS and email updates throughout the entire process, at every milestone from pickup to delivery. No guessing.'
+        },
+        {
+            id:3,
+            icon:(
+                ClockIcon
+            ),
+            heading: 'Flexible Deposit',
+            text: 'Secure your booking with a small deposit, not hundreds upfront like competitors. Balance is not due until after delivery.'
+        },
+        {
+            id:4,
+            icon:(
+                TruckIcon
+            ),
+            heading: '17,000+ Drivers',
+            text: 'Every carrier on our platform is verified, insured, and rated. We match you with the best driver for your specific route.'
+        },
+        {
+            id:5,
+            icon:(
+                MessageSquareIcon
+            ),
+            heading: 'Concierge Support',
+            text: `Real humans, available by phone, text, and email. Your dedicated shipping advisor handles everything so you don't have to.`
+        }
+    ]
+}
