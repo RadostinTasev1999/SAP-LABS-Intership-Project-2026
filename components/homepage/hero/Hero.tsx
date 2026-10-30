@@ -34,7 +34,7 @@ export default function AppHero({
             <HeroLayoutCards 
                 heroLayoutCardData={heroLayoutCardData}
                 />
-
+            
         </section>
     )
 }
