@@ -317,3 +317,75 @@ type BottomFormTypes = {
     label: string,
     icon: string
 }
+
+export type HeroTimelineProps = {
+    timelineHeading: TimelineHeading,
+    timelineSteps: TimelineSteps
+}
+
+export type TimelineHeading = {
+    badge: string,
+    heading: string,
+    text: string
+}
+
+export type HeroTimelineStepsProp = {
+    timelineSteps: TimelineSteps
+}
+
+type TimelineSteps = {
+    id: number,
+    count: string,
+    heading: string,
+    text: string
+}[]
+
+export type HeroTimelineItemProps = {
+    count: string,
+    heading: string,
+    text: string
+}
+
+export type HeroTimelineCountProp = {
+    count: string
+}
+
+export type HeroTimelineContentProps = {
+    heading: string,
+    text: string
+}
+
+export type HeroAboutProps = {
+    heroAboutData: HeroAboutData
+}
+
+type HeroAboutData = {
+    sectionHeader: SectionHeader,
+    valueCards: ValueCards
+}
+
+type SectionHeader = {
+    heading: string,
+    text: string
+}
+
+type ValueCards = {
+    id: number,
+    icon: React.FC,
+    heading: string,
+    text: string
+}[]
+
+export type AboutSectionHeaderProp = {
+    sectionHeader: SectionHeader
+}
+
+export type AboutValuesGridProp = {
+    valueCards: ValueCards
+}
+
+export type AboutValuesCardProps = {
+    Icon: JSX.Element,
+    heading: string,
+    text: string
+}
