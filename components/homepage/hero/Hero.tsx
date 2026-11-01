@@ -30,7 +30,7 @@ export default function AppHero({
                 submitBtn={appHeroProps.submitBtn}
                 securityNote={appHeroProps.securityNote}
                 />
-            {/* Company Info Cards */}
+            {/* Company Service Info Cards */}
             <HeroLayoutCards 
                 heroLayoutCardData={heroLayoutCardData}
                 />
