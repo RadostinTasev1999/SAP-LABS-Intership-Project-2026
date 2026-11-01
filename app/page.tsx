@@ -3,6 +3,8 @@ import AppFooter from '@/components/homepage/footer/Footer';
 import AppHero from '@/components/homepage/hero/Hero'
 import HeroTimeline from '@/components/homepage/hero/HeroTimeline'
 import HeroAbout from '@/components/homepage/about/HeroAbout'
+import HeroServiceInfo from '@/components/homepage/hero/HeroServiceInfo'
+
 
 import {appHeaderProps} from '@/lib/placeholderdata'
 import { appHeroProps } from '@/lib/placeholderdata'
@@ -26,16 +28,21 @@ export default function Home() {
           appHeroProps={appHeroProps}
           heroLayoutCardData={heroLayoutCardData}
           />
-          {/* Timeline section */}
+          {/* Company Service Process Info */}
         <HeroTimeline 
             timelineHeading={heroTimelineData.timelineHeading}
             timelineSteps={heroTimelineData.timelineSteps}
             />
 
-          {/* About us Section */}
+          {/* Company Service Principles */}
           <HeroAbout 
               heroAboutData={heroAboutData}
             />
+
+            {/* ? Statistics ?*/}
+
+            {/* Car shipping price evaluation info */}
+            <HeroServiceInfo />
       </main>
       <AppFooter 
         footerGridData={footerGridData}
