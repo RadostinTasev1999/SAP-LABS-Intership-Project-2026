@@ -404,19 +404,19 @@ export const heroTimelineData = {
     timelineSteps: [
         {
             id:1,
-            count: '01',
+            count: 'Step 1',
             heading: 'Get an instant quote and book your order',
             text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
         },
         {
             id:2,
-            count: '02',
+            count: 'Step 2',
             heading: 'Get an instant quote and book your order',
             text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
         },
         {
             id:3,
-            count: '03',
+            count: 'Step 3',
             heading: 'Get an instant quote and book your order',
             text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
         }
