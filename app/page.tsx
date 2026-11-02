@@ -13,6 +13,8 @@ import { footerBottomData } from '@/lib/placeholderdata'
 import {heroLayoutCardData} from '@/lib/placeholderdata'
 import { heroTimelineData } from '@/lib/placeholderdata';
 import { heroAboutData } from '@/lib/placeholderdata'
+import { heroServiceIntro } from '@/lib/placeholderdata'
+import { heroServiceDetails } from '@/lib/placeholderdata';
 
 export default function Home() {
 
@@ -42,7 +44,10 @@ export default function Home() {
             {/* ? Statistics ?*/}
 
             {/* Car shipping price evaluation info */}
-            <HeroServiceInfo />
+            <HeroServiceInfo 
+              heroServiceIntro={heroServiceIntro}
+              heroServiceDetails={heroServiceDetails}
+              />
       </main>
       <AppFooter 
         footerGridData={footerGridData}
