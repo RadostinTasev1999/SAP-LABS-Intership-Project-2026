@@ -9,72 +9,107 @@ import TruckIcon from '@/components/ui/TruckIcon'
 import MapPinCheck from '@/components/ui/MapPinCheck'
 import ClockIcon from '@/components/ui/ClockIcon'
 import MessageSquareIcon from '@/components/ui/MessageSquare'
+import DetailsDivider from '@/components/ui/DetailsDivider'
+import SportCarIcon from '@/components/ui/SportCarIcon'
+import PlusIcon from '@/components/ui/PlusIcon'
+import SteeringWheelIcon from '@/components/ui/SteeringWheelIcon'
+// import TrailerIcon from '@/components/ui/TrailerIcon'
+import MapMarkerDistanceIcon from '@/components/ui/MapMarkerDistance'
 
 export const appHeaderProps = {
     desktopNav: [
         {
             id:1,
             url:'/',
-            text: 'Home'
-        },
-        {
-            id:2,
-            url:'/',
-            text: 'Transport'
-        },
-        {
-            id:3,
-            url:'/',
-            text: 'Transport Services',
+            text: 'How Car Shipping Works',
             icon: 'chevron',
-            dropDownMenu: [
+            dropDownSingle:[
                 {
                     id:1,
                     url: '/',
-                    text: 'Car Transport'
+                    text: 'Car Shipping Costs'
                 },
                 {
                     id:2,
                     url: '/',
-                    text: 'Enclosed Car Transport'
-                },
-                {
-                    id:3,
-                    url: '/',
-                    text: 'Supercar Transport'
-                },
-                {
-                    id:4,
-                    url: '/',
-                    text: 'Classic Car Transport'
-                },
-                {
-                    id:5,
-                    url: '/',
-                    text: 'Boat Transport'
+                    text: 'Car Shipping Preparation'
                 }
             ]
         },
         {
-            id:4,
+            id:2,
             url:'/',
-            text: 'Car Transport Routes',
+            text: 'Car Shipping Services',
             icon: 'chevron',
-            dropDownMenu: [
+            dropDownDouble: [
                 {
                     id:1,
-                    url: '/',
-                    text: 'Netherlands to Spain'
+                    heading: 'What we offer',
+                    menuItems: [
+                        {
+                            id:1,
+                            text: 'Door to Door Auto Transport'
+                        },
+                        {
+                            id:2,
+                            text: 'Open Carrier Car Shipping'
+                        },
+                        {
+                            id:3,
+                            text: 'Enclosed Car Shipping'
+                        },
+                        {
+                            id:4,
+                            text: 'Expedite Car Shipping'
+                        },
+                        {
+                            id: 5,
+                            text: 'Truck & Oversized transport'
+                        }
+                    ]
                 },
                 {
                     id:2,
-                    url: '/',
-                    text: 'Germany to Spain'
-                },
+                    heading: 'Who we serve',
+                    menuItems: [
+                        {
+                            id:1,
+                            text: 'Classic & Exotic Car Owners'
+                        },
+                        {
+                            id:2,
+                            text: 'College Students'
+                        },
+                        {
+                            id:3,
+                            text: 'Military'
+                        },
+                        {
+                            id:4,
+                            text: 'Motorcycle Enthusiasts'
+                        },
+                        {
+                            id: 5,
+                            text: 'Moving & Relocation'
+                        },
+                        {
+                            id: 6,
+                            text: 'Online Car Buyers'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id:3,
+            url:'/',
+            text: 'Why Choose Us',
+            icon: 'chevron',
+            dropDownSingle: [
                 {
-                    id:3,
+                    id:1,
                     url: '/',
-                    text: 'Belgium to Spain'
+                    text: 'Vision and Mission'
                 }
             ]
         }
@@ -406,19 +441,19 @@ export const heroTimelineData = {
             id:1,
             count: 'Step 1',
             heading: 'Get an instant quote and book your order',
-            text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
+            text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup. '
         },
         {
             id:2,
             count: 'Step 2',
-            heading: 'Get an instant quote and book your order',
-            text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
+            heading: 'We pick up your vehicle',
+            text: 'Schedule your pickup date, time and an easy-to-access pickup location with your trucker. You can even release your car while you’re at work.'
         },
         {
             id:3,
             count: 'Step 3',
-            heading: 'Get an instant quote and book your order',
-            text: 'Use our free instant quote calculator to get an estimate or call a Montway advisor at (844) 748-4550. When you’re ready to book, just follow the directions in your email or give us a  call. At booking, a representative will review your shipment information and confirm your order. No payment is required until your shipment is scheduled for pickup.'
+            heading: 'Receive your vehicle',
+            text: 'Reuniting you and your vehicle is an exciting moment—and one we look forward to at Montway! Your trucker will call you when your vehicle is almost home so you can greet them both right at your own driveway (or a nearby agreed-upon location).'
         }
     ]
 }
@@ -470,6 +505,68 @@ export const heroAboutData = {
             ),
             heading: 'Concierge Support',
             text: `Real humans, available by phone, text, and email. Your dedicated shipping advisor handles everything so you don't have to.`
+        }
+    ]
+}
+
+export const heroServiceIntro = {
+    heading: 'How much do car transport companies charge?',
+    description:[
+        {
+            id:1,
+            text: `Car shipping costs are based on several factors, including current
+                market trends, carrier availability, and fuel prices. Your total cost
+                will also depend on the type of car you want to move, where it needs
+                to go, its size, condition (or if it has any modifications), total
+                transport distance, transport type (open or enclosed trailer
+                shipment), and finally, the time of year when you book.`
+        },
+        {
+            id:2,
+            text: 'Get a quote with our car shipping calculator, use our Live Chat or call (844) 748-4550'
+        }
+    ],
+    url: '/',
+    link: 'Shipping cost information',
+    icon:(
+        ChevronRight
+    )
+}
+
+export const heroServiceDetails = {
+    divider:(
+        DetailsDivider
+    ),
+    plusIcon:(
+        PlusIcon
+    ),
+    detailsItems:[
+        {
+            id:1,
+            icon:(
+                SportCarIcon
+            ),
+            heading: 'Size and weight of vehicle',
+            description: 'Longer, taller or heavier-than-average vehicles require special accommodations by car transport companies and, as a result, the price may vary.'
+        },
+        {
+            id:2,
+            icon:(
+                SteeringWheelIcon
+            ),
+            heading: 'The car condition',
+            description: 'Shipping inoperable vehicles costs more because it requires extra tools and labor for car shipping companies to accommodate the cargo. But if your car rolls, steers, and brakes, we can ship it.'
+        },
+        {
+            id:3,
+            icon:(
+                MapMarkerDistanceIcon
+            ),
+            heading: 'The shipping distance',
+            description: `You can track your order by logging into your account and visiting the
+                                Orders section. You will receive tracking information via email once your
+                                order ships. For real-time updates, you can also use the tracking number
+                                provided in your shipping confirmation email.`
         }
     ]
 }
