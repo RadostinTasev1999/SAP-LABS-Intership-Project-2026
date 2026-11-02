@@ -3,13 +3,16 @@ import ChevronIcon from "@/components/ui/ChevronIcon"
 
 import { NavListItemProps } from "@/lib/definitions"
 
-import NavDropdownItem from './NavDropdownItem'
+import DropDownSingle from './DropDownSingle'
+import DropDownDouble from './DropDownDouble'
 
 export default function NavListItem({
+    id,
     url,
     text,
     icon,
-    dropDownMenu
+    dropDownSingle,
+    dropDownDouble
 }: NavListItemProps){
 
     return(
@@ -22,30 +25,25 @@ export default function NavListItem({
                 }
             </Link>
 
-
-            {/* Dropdown Card Container (Hidden until parent hover) */}
+            
+            {/* DropDown Card container without Heading*/}
             {
-                dropDownMenu && (
-                    <div className="absolute left-0 top-full pt-2 hidden group-hover:block z-50 border border-slate-200 backdrop-blur-md bg-white/90 w-64 rounded-3xl">
-                        <div className="p-4">
-                            <ul className="space-y-2 text-sm font-normal">
-                                <li>
-                                    {
-                                        dropDownMenu.map((el) => (
-                                            <NavDropdownItem
-                                                key={el.id}
-                                                url={el.url}
-                                                text={el.text}
-                                            />
-                                        ))
-                                    }
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                id !== 2 && dropDownSingle && (
+                        <DropDownSingle 
+                            dropDownSingle={dropDownSingle}
+                            />
+                )
+
+            }
+            {
+                id === 2 && dropDownDouble && (
+                    <DropDownDouble
+                        dropDownDouble={dropDownDouble}
+                        />
                 )
             }
-
+                    
+                    
         </li>
     )
 }
