@@ -4,6 +4,11 @@ export type SvgProps = {
     className?: string
 }
 
+export type IconProps = {
+    className?: string,
+    width?: string
+}
+
 export type AppHeaderProps = {
     onMobileOpen?: () => void,
     navProps?: DesktopNav,
@@ -11,10 +16,12 @@ export type AppHeaderProps = {
 }
 
 export type NavListItemProps = {
+    id: number,
     url: string,
     text: string,
     icon?: string,
-    dropDownMenu?: DropDownMenu
+    dropDownSingle?: DropDownMenu,
+    dropDownDouble?: DropDownDoubleMenu
 }
 
 export type DesktopCtaProps = {
@@ -67,8 +74,8 @@ type DesktopNav = {
     url: string,
     text: string,
     icon?: string,
-    dropDownMenu: DropDownMenu
-
+    dropDownSingle?: DropDownMenu,
+    dropDownDouble?: DropDownDoubleMenu
 }[]
 
 type DropDownMenu = {
@@ -76,6 +83,19 @@ type DropDownMenu = {
     url: string,
     text: string
 }[]
+
+type DropDownDoubleMenu = {
+    id:number,
+    heading: string,
+    menuItems: MenuItems
+}[]
+
+type MenuItems = {
+    id: number,
+    text: string
+}[]
+
+
 
 export type MobileDrawerBtnProp = {
     onMobileClose: () => void
@@ -387,5 +407,113 @@ export type AboutValuesGridProp = {
 export type AboutValuesCardProps = {
     Icon: JSX.Element,
     heading: string,
+    text: string
+}
+
+export type HeroServiceInfoProps = {
+    heroServiceIntro: HeroServiceIntro
+    heroServiceDetails: HeroServiceDetails
+}
+
+type HeroServiceIntro = {
+    heading: string,
+    description: Description,
+    url: string,
+    link: string,
+    icon: React.FC<SvgProps>
+}
+
+type Description = {
+    id: number,
+    text: string
+}[]
+
+export type HeroServiceDescriptionProp = {
+    description: Description
+}
+
+type HeroServiceDetails = {
+    divider: React.FC,
+    plusIcon: React.FC,
+    detailsItems: DetailsItems
+}
+
+type DetailsItems = {
+    id: number,
+    icon: React.FC<IconProps>,
+    heading: string,
+    description: string
+}[]
+
+export type HeroServiceLeftProps = {
+    heading: string,
+    description: Description,
+    url: string,
+    link: string,
+    Icon: JSX.Element
+}
+
+export type HeroServiceHeadingProp = {
+    heading: string
+}
+
+export type HeroServiceBtnProps = {
+    url: string,
+    link: string,
+    Icon: JSX.Element
+}
+
+export type HeroServiceRightProps = {
+    Divider: JSX.Element,
+    PlusIcon: JSX.Element,
+    detailsItems: DetailsItems
+}
+
+export type HeroServiceDetailProps = {
+    Icon: JSX.Element,
+    heading: string,
+    description: string,
+    PlusIcon: JSX.Element
+}
+
+export type DetailsItemsHeadingProp = {
+    heading: string
+}
+
+export type DetailsItemHeadingProps = {
+    Icon: JSX.Element,
+    heading: string
+}
+
+export type DetailsDescriptionProp = {
+    description: string
+}
+
+export type DropDownContainerProps = {
+    dropDownHeadingOne?: string,
+    dropDownHeadingTwo?: string,
+    dropDownMenu: DropDownMenu
+}
+
+export type DropDownSingleProp = {
+    dropDownSingle: DropDownMenu
+}
+
+export type DropDownSingleColProps = {
+    url: string,
+    text: string
+}
+
+export type DropDownDoubleProp = {
+    dropDownDouble: DropDownDoubleMenu
+}
+
+export type DropDownDoubleColProps = {
+    heading: string,
+    menuItems: MenuItems,
+    id: number
+}
+
+export type DropDownDoubleItemProp = {
     text: string
 }
