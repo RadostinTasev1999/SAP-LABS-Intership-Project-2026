@@ -1,4 +1,5 @@
 import { JSX } from "react/jsx-runtime"
+import { Dispatch } from "react"
 
 export type SvgProps = {
     className?: string
@@ -165,9 +166,16 @@ type AppHeroData = {
     quoteParagraph: string,
     pickupZip: InputProps,
     deliveryZip: InputProps,
-    vehicleDetails: InputProps,
+    transportType: TransportRadioProps,
     submitBtn: LabelProps,
     securityNote: LabelProps
+}
+
+type TransportRadioProps = {
+    radioOne: string,
+    tipOpen: string
+    radioTwo: string
+    tipEnclosed: string
 }
 
 type LabelProps = {
@@ -222,12 +230,32 @@ export type HeroQuoteParagraphProp = {
     quoteParagraph: string
 }
 
-export type HeroQuoteFormProps = {
+export type QuoteDestinationProps = {
+    destinationState: DestinationState,
+    dispatchDestination: Dispatch<Action>,
+    destinationSubmit: (e :React.SyntheticEvent<HTMLFormElement>) => void,
     pickupZip:InputProps,
     deliveryZip:InputProps,
-    vehicleDetails:InputProps,
+    transportType: TransportRadioProps,
     submitBtn: LabelProps
 }
+
+
+
+export type Action = {
+    type: string,
+    field: string,
+    value: string
+}
+
+export type DestinationState = {
+    origin: string,
+    destination: string,
+    open: boolean,
+    enclosed: boolean
+}
+
+
 
 export type HeroSecNoteProp = {
     securityNote: LabelProps
@@ -315,7 +343,7 @@ export type HeroLayoutTopProps = {
     quoteParagraph: string,
     pickupZip: InputTypes,
     deliveryZip: InputTypes,
-    vehicleDetails: InputTypes,
+    transportType: TransportRadioProps,
     submitBtn: BottomFormTypes,
     securityNote: BottomFormTypes
 }
@@ -517,3 +545,15 @@ export type DropDownDoubleColProps = {
 export type DropDownDoubleItemProp = {
     text: string
 }
+
+
+export type HeroQuoteCardProps = {
+    quoteHeading: string,
+    quoteParagraph: string,
+    pickupZip: InputProps,
+    deliveryZip: InputProps,
+    transportType: TransportRadioProps,
+    submitBtn: LabelProps,
+    securityNote: LabelProps
+}
+
