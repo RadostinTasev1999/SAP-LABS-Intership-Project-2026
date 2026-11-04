@@ -247,24 +247,24 @@ export const appHeroProps = {
     quoteParagraph: 'No obligation. No credit card required.',
     pickupZip: {
         id: 'hqf-origin',
-        label: 'Pickup ZIP',
-        placeholder: 'e.g. 85281',
+        label: 'Pickup Location',
+        placeholder: 'ZIP or City',
         name: 'origin'
     },
     deliveryZip: {
         id: 'hqf-destination',
-        label: 'Delivery ZIP',
-        placeholder: 'e.g. 60614',
+        label: 'Delivery Location',
+        placeholder: 'ZIP or City',
         name: 'destination'
     },
-    vehicleDetails: {
-        id:'hqf-vehicle',
-        label: 'Vehicle (VIN or Year, Make, Model)',
-        placeholder: 'VIN or e.g. 2022 Toyota Camry',
-        name: 'vehicle'
+    transportType: {
+        radioOne: 'Open',
+        tipOpen: 'Open trailers are the most cost effective and popular method to transport vehicles. Most new vehicles are transported to car dealerships on open trailers.',
+        radioTwo: 'Enclosed',
+        tipEnclosed: 'Enclosed trailers protect vehicles from weather, dirt, and rock chips during transport. They are ideal for high-value vehicles.'
     },
     submitBtn:{
-        label: 'Get My Quote',
+        label: 'Start my Quote',
         icon: 'arrow-right'
     },
     securityNote: {
