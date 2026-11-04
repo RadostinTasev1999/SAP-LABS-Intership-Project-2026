@@ -26,7 +26,7 @@ export default function AppHero({
                 quoteParagraph={appHeroProps.quoteParagraph}
                 pickupZip={appHeroProps.pickupZip}
                 deliveryZip={appHeroProps.deliveryZip}
-                vehicleDetails={appHeroProps.vehicleDetails}
+                transportType={appHeroProps.transportType}
                 submitBtn={appHeroProps.submitBtn}
                 securityNote={appHeroProps.securityNote}
                 />
