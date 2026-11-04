@@ -4,9 +4,11 @@ import HeroBadge from './HeroBadge'
 import HeroHeading from './HeroHeading'
 import HeroDescription from './HeroDescription'
 import HeroCta from './HeroCta'
+
+import HeroQuoteCard from './HeroQuoteCard'
 import HeroQuoteHeading from './HeroQuoteHeading'
 import HeroQuoteParagraph from './HeroQuoteParagraph'
-import HeroQuoteForm from './HeroQuoteForm'
+import HeroQuoteForm from './QuoteDestinationForm'
 import HeroSecNote from './HeroSecNote'
 
 export default function HeroLayoutTop({
@@ -22,7 +24,7 @@ export default function HeroLayoutTop({
     quoteParagraph,
     pickupZip,
     deliveryZip,
-    vehicleDetails,
+    transportType,
     submitBtn,
     securityNote
 }: HeroLayoutTopProps){
@@ -31,7 +33,6 @@ export default function HeroLayoutTop({
         <div
                 className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 py-6 md:px-8 md:py-8 lg:px-10 lg:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 rounded-t-2xl border-b border-slate-400 bg-blue-50/90">
                 {/* Left column: Hero-content */}
-
                 <div className="flex flex-col items-start">
                     {/* Trust badge */}
                     <HeroBadge 
@@ -57,34 +58,16 @@ export default function HeroLayoutTop({
                         />
                 </div>
                 {/* Right column: Quote form card */}
-
-                <div
-                    className='w-full p-6 sm:p-9'
-                >
-                    {/* Card heading */}
-                    <HeroQuoteHeading 
-                        quoteHeading={quoteHeading}
+                <HeroQuoteCard
+                    quoteHeading={quoteHeading}
+                    quoteParagraph={quoteParagraph}
+                    pickupZip={pickupZip}
+                    deliveryZip={deliveryZip}
+                    transportType={transportType}
+                    submitBtn={submitBtn}
+                    securityNote={securityNote}
                         />
-
-                    {/* Quote text */}
-                    <HeroQuoteParagraph 
-                        quoteParagraph={quoteParagraph}
-                        />
-                    {/* Quote form */}
-
-                    <HeroQuoteForm 
-                        pickupZip={pickupZip}
-                        deliveryZip={deliveryZip}
-                        vehicleDetails={vehicleDetails}
-                        submitBtn={submitBtn}
-                        />
-
-                    {/* Security note */}
-                    <HeroSecNote 
-                        securityNote={securityNote}
-                        />
-
-                </div>
+                
             </div>
     )
 }
