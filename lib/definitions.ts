@@ -1,5 +1,5 @@
 import { JSX } from "react/jsx-runtime"
-import { Dispatch } from "react"
+import { ChangeEvent, Dispatch, MouseEventHandler } from "react"
 
 export type SvgProps = {
     className?: string
@@ -232,12 +232,52 @@ export type HeroQuoteParagraphProp = {
 
 export type QuoteDestinationProps = {
     destinationState: DestinationState,
-    dispatchDestination: Dispatch<Action>,
-    destinationSubmit: (e :React.SyntheticEvent<HTMLFormElement>) => void,
+    handleDestinationChange: (e: ChangeEvent, id: string, name: string) => void,
     pickupZip:InputProps,
     deliveryZip:InputProps,
     transportType: TransportRadioProps,
-    submitBtn: LabelProps
+    submitBtn: LabelProps,
+    destinationSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void,
+    dispatchQuoteData: Dispatch<Action>
+}
+
+export type QuotePickupInputProps = {
+    pickupZip: InputProps,
+    origin: string,
+    handleOriginChange: (event: ChangeEvent<HTMLInputElement>) => void,
+    handleSelectOrigin: (data: SelectedLocation, field: string) => void,
+    fetchData: (searchTerm: string) => void,
+    originResult: DestinationResult,
+    showResult: boolean,
+    hideResult: (e?: React.MouseEvent<HTMLInputElement> ,field?: string) => void
+}
+
+type DestinationResult = {
+    id: string,
+    zip: string,
+    city: string,
+    state: string,
+    state_name: string,
+    type: string,
+    county_fips: string,
+    county_name: string,
+    county_fips_all: string[],
+    lat: number,
+    lng: number
+}[]
+
+export type SelectedLocation = {
+    id: string,
+    zip: string,
+    city: string,
+    state: string,
+    state_name: string,
+    type: string,
+    county_fips: string,
+    county_name: string,
+    county_fips_all: string[],
+    lat: number,
+    lng: number
 }
 
 
@@ -555,5 +595,34 @@ export type HeroQuoteCardProps = {
     transportType: TransportRadioProps,
     submitBtn: LabelProps,
     securityNote: LabelProps
+}
+
+export type QuoteDeliveryInputProps = {
+   deliveryZip: InputProps,
+   delivery: string,
+   handleDeliveryChange: (e: ChangeEvent<HTMLInputElement>) => void,
+   deliveryResult: DestinationResult,
+   fetchData: (searchTerm: string) => void,
+   deliverySearch: boolean,
+   handleSelectDelivery: (el: SelectedLocation, field: string) => void
+}
+
+
+export type SearchDestinationAreaProp = {
+    originResult: DestinationResult
+}
+
+
+export type DestinationFormState = {
+    origin:string,
+    delivery:string,
+    transport: string,
+    year: string,
+    make: string,
+    model: string,
+    isDriving: boolean,
+    email: string,
+    pickupData: string,
+    phone?: string
 }
 
