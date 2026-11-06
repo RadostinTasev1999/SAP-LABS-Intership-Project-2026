@@ -246,16 +246,16 @@ export const appHeroProps = {
     quoteHeading: 'Get your price in 60 seconds',
     quoteParagraph: 'No obligation. No credit card required.',
     pickupZip: {
-        id: 'hqf-origin',
+        id: 'pickup-origin',
         label: 'Pickup Location',
         placeholder: 'ZIP or City',
         name: 'origin'
     },
     deliveryZip: {
-        id: 'hqf-destination',
+        id: 'pickup-destination',
         label: 'Delivery Location',
         placeholder: 'ZIP or City',
-        name: 'destination'
+        name: 'delivery'
     },
     transportType: {
         radioOne: 'Open',
