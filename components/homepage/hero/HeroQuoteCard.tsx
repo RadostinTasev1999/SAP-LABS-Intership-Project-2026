@@ -1,72 +1,88 @@
 "use client"
 
+import { 
+  Stepper,
+  StepperContent,
+  StepperIndicator,
+  StepperItem,
+  StepperNav,
+  StepperPanel,
+  StepperSeparator,
+  StepperTitle,
+  StepperTrigger
+} from '@/components/reui/stepper'
+
+import { CheckIcon } from 'lucide-react'
+import { LoaderCircleIcon } from 'lucide-react'
+
+import QuoteVehicleForm from './vehicleForm/QuoteVehicleForm'
 import HeroQuoteHeading from "./HeroQuoteHeading"
 import HeroQuoteParagraph from "./HeroQuoteParagraph"
-import QuoteDestinationForm from './QuoteDestinationForm'
+import QuoteDestinationForm from './destinationForm/QuoteDestinationForm'
 import HeroSecNote from "./HeroSecNote"
 
-import { HeroQuoteCardProps } from '@/lib/definitions'
 import { useReducer } from "react"
 
-import { DestinationState, Action } from '@/lib/definitions'
+import { HeroQuoteCardProps } from '@/lib/definitions'
+import { DestinationFormState } from '@/lib/definitions'
+import { Action } from '@/lib/definitions'
 
-const initialDestination = {
-    origin: '',
-    destination: '',
-    open: true,
-    enclosed: false
+
+const initialState = {
+    origin:'',
+    delivery:'',
+    transport: 'open',
+    year: '',
+    make: '',
+    model: '',
+    isDriving: true,
+    email: '',
+    pickupData: '',
+    phone: ''
 }
 
-/*
-    { type: 'transportType', field: 'transportType', value: e.currentTarget.value}
-*/
+const quoteReducer = (state: DestinationFormState, action: Action) => {
 
-// { type: 'transportType', field: 'open', value: e.currentTarget.value}
-// { type: 'transportType', field: 'open', value: e.currentTarget.value}
-// { type: 'transportType', field: 'open', value: e.currentTarget.value}
-// { type: 'transportType', field: 'enclosed', value: e.currentTarget.value }
-const destinationReducer = (state: DestinationState, action: Action) => {
-    
     switch (action.type) {
-
-        case 'pickupLocation':
+        case "SET_ORIGIN":
             
-        return {
-            ...state,
-            [action.field]: action.value
-        }
+            return {
+                ...state,
+                [action.field]: action.value
+            };
 
-        case 'deliveryLocation':
-
-        return {
-            ...state,
-            [action.field]: action.value
-        }
+        case "SET_DELIVERY":
             
-        case 'transportType':
+            return {
+                ...state,
+                [action.field]: action.value
+            };
 
-            if (action.field === 'open') {
-
-                return {
-                    ...state,
-                    [action.field]: action.value,
-                    'enclosed': !state.enclosed
-                }
-            } else if (action.field === 'enclosed') {
-                
-                return {
-                    ...state,
-                    [action.field]: action.value,
-                    'open': !state.open
-                }
-            }
-
+        case "SET_TRANSPORT":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            };
+    
         default:
             return {
                 ...state
-            }
+            };
     }
 }
+
+const steps = [
+    {
+        title: 'Destination'
+    },
+    {
+        title: 'Vehicle'
+    },
+    {
+        title: 'Date'
+    }
+]
 
 export default function HeroQuoteCard({
     quoteHeading,
@@ -78,14 +94,16 @@ export default function HeroQuoteCard({
     securityNote
 }: HeroQuoteCardProps){
 
-    const [destinationState, dispatchDestination] = useReducer(destinationReducer, initialDestination)
+    const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState)
 
-
+    
     const destinationSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+
         e.preventDefault();
 
-        console.log('Form state is:', destinationState)
+        console.log('Quote data is:', quoteData)
     }
+
 
     return (
         <div
@@ -100,22 +118,65 @@ export default function HeroQuoteCard({
             <HeroQuoteParagraph
                 quoteParagraph={quoteParagraph}
             />
-            {/* Quote form */}
+            {/* Destination*/}
 
-            <QuoteDestinationForm
-                destinationState={destinationState}
-                dispatchDestination={dispatchDestination}
-                destinationSubmit={destinationSubmit}
+            {/* <QuoteDestinationForm
                 pickupZip={pickupZip}
                 deliveryZip={deliveryZip}
                 transportType={transportType}
                 submitBtn={submitBtn}
-            />
+                destinationSubmit={destinationSubmit}
+                dispatchQuoteData={dispatchQuoteData}
+            /> */}
+
+            <QuoteVehicleForm />
+
+            {/* Stepper */}
+            <Stepper
+                className='w-full max-w-md space-y-8 mt-4'
+                defaultValue={4}
+                indicators={{
+                    completed: (
+                        <CheckIcon className='size-6 text-green-500' />
+                    ),
+                    loading: (
+                        <LoaderCircleIcon className='size-3.5 animate-spin'/>
+                    )
+                }}
+                >
+
+                    <StepperNav>
+                        {
+                            steps.map((step, index) => (
+                                <StepperItem
+                                    key={index}
+                                    step={index + 1}
+                                    className='relative flex-1 items-start'
+                                    >
+                                        <StepperTrigger
+                                            className='flex flex-col gap-2.5'
+                                            >
+                                            <StepperIndicator>{index + 1}</StepperIndicator>
+                                            <StepperTitle>{step.title}</StepperTitle>
+                                        </StepperTrigger>
+
+                                        {
+                                            steps.length > index + 1 && (
+                                                <StepperSeparator className='group-data-[state=completed]/step:bg-primary absolute inset-x-0 top-3 left-[calc(50%+0.875rem)] m-0 group-data-[orientation=horizontal]/stepper-nav:w-[calc(100%-2rem+0.225rem)] group-data-[orientation=horizontal]/stepper-nav:flex-none' />
+                                            )
+                                        }
+
+                                </StepperItem>
+                            ))
+                        }
+                    </StepperNav>
+
+            </Stepper>
 
             {/* Security note */}
-            <HeroSecNote
+            {/* <HeroSecNote
                 securityNote={securityNote}
-            />
+            /> */}
 
         </div>
     )
