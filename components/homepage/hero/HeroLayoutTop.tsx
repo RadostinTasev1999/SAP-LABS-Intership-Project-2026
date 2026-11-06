@@ -6,10 +6,7 @@ import HeroDescription from './HeroDescription'
 import HeroCta from './HeroCta'
 
 import HeroQuoteCard from './HeroQuoteCard'
-import HeroQuoteHeading from './HeroQuoteHeading'
-import HeroQuoteParagraph from './HeroQuoteParagraph'
-import HeroQuoteForm from './QuoteDestinationForm'
-import HeroSecNote from './HeroSecNote'
+
 
 export default function HeroLayoutTop({
     badgeText,
