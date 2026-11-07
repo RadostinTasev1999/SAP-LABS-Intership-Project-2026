@@ -28,43 +28,43 @@ export default function HeroLayoutTop({
 
     return(
         <div
-                className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 py-6 md:px-8 md:py-8 lg:px-10 lg:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 rounded-t-2xl border-b border-slate-400 bg-blue-50/90">
-                {/* Left column: Hero-content */}
-                <div className="flex flex-col items-start">
-                    {/* Trust badge */}
-                    <HeroBadge 
-                        badgeText={badgeText}
-                        badgeType={badgeType}
-                        />
-                    {/* Main Heading */}
-                    <HeroHeading 
-                        headingPrimary={headingPrimary}
-                        emphasis={emphasis}
-                        headingSecondary={headingSecondary}
-                        />
+            className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 py-6 md:px-8 md:py-8 lg:px-10 lg:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 rounded-t-2xl border-b border-slate-400 bg-blue-50/90">
+            {/* Left column: Hero-content */}
+            <div className="flex flex-col items-start">
+                {/* Trust badge */}
+                <HeroBadge
+                    badgeText={badgeText}
+                    badgeType={badgeType}
+                />
+                {/* Main Heading */}
+                <HeroHeading
+                    headingPrimary={headingPrimary}
+                    emphasis={emphasis}
+                    headingSecondary={headingSecondary}
+                />
 
-                    {/* Description */}
-                    <HeroDescription 
-                        description={description}
-                        />
+                {/* Description */}
+                <HeroDescription
+                    description={description}
+                />
 
-                    {/* CTA links */}
-                    <HeroCta 
-                        btnPrimary={btnPrimary}
-                        btnSecondary={btnSecondary}
-                        />
-                </div>
-                {/* Right column: Quote form card */}
-                <HeroQuoteCard
-                    quoteHeading={quoteHeading}
-                    quoteParagraph={quoteParagraph}
-                    pickupZip={pickupZip}
-                    deliveryZip={deliveryZip}
-                    transportType={transportType}
-                    submitBtn={submitBtn}
-                    securityNote={securityNote}
-                        />
-                
+                {/* CTA links */}
+                <HeroCta
+                    btnPrimary={btnPrimary}
+                    btnSecondary={btnSecondary}
+                />
             </div>
+            {/* Right column: Quote form card */}
+            <HeroQuoteCard
+                quoteHeading={quoteHeading}
+                quoteParagraph={quoteParagraph}
+                pickupZip={pickupZip}
+                deliveryZip={deliveryZip}
+                transportType={transportType}
+                submitBtn={submitBtn}
+                securityNote={securityNote}
+            />
+
+        </div>
     )
 }
