@@ -44,7 +44,7 @@ export default function QuoteDestinationForm({
     deliveryZip,
     transportType,
     submitBtn,
-    destinationSubmit,
+    destinationComplete,
     dispatchQuoteData
 }: QuoteDestinationProps){
 
@@ -161,7 +161,7 @@ const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
     
 
     return(
-        <form onSubmit={destinationSubmit} className='mt-6'>
+        <div className='mt-6'>
             {/* Pickup and delivery ZIP codes */}
             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
                 {/* Pickup ZIP */}
@@ -245,12 +245,13 @@ const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
 
             {/* Submit button */}
             <button
-                type='submit'
+                type='button'
                 className='mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-slate-900 px-6 py-4 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-slate-800'
+                onClick={destinationComplete}
             >
                 {submitBtn.label}
                 {submitBtn.icon === 'arrow-right' ? <ArrowRight /> : ""} 
             </button>
-        </form>
+        </div>
     )
 }
