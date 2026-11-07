@@ -231,13 +231,13 @@ export type HeroQuoteParagraphProp = {
 }
 
 export type QuoteDestinationProps = {
-    destinationState: DestinationState,
-    handleDestinationChange: (e: ChangeEvent, id: string, name: string) => void,
+    destinationState?: DestinationState,
+    handleDestinationChange?: (e: ChangeEvent, id: string, name: string) => void,
     pickupZip:InputProps,
     deliveryZip:InputProps,
     transportType: TransportRadioProps,
     submitBtn: LabelProps,
-    destinationSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void,
+    destinationComplete: MouseEventHandler<HTMLButtonElement>,
     dispatchQuoteData: Dispatch<Action>
 }
 
@@ -285,7 +285,7 @@ export type SelectedLocation = {
 export type Action = {
     type: string,
     field: string,
-    value: string
+    value: string | boolean
 }
 
 export type DestinationState = {
@@ -626,3 +626,20 @@ export type DestinationFormState = {
     phone?: string
 }
 
+
+
+export type QuoteFormState = {
+    showDestinationForm: boolean,
+    showVehicleForm: boolean,
+    showContactForm: boolean
+}
+
+export type QuoteVehicleProps = {
+    vehicleComplete: MouseEventHandler<HTMLButtonElement>
+}
+
+
+export type PriorityItems = {
+    text: string,
+    value: string
+}
