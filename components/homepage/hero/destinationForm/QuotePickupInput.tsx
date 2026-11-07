@@ -17,7 +17,7 @@ export default function QuotePickupInput({
 
     useEffect(() => {
 
-        if (showResult === false) {
+        if (!showResult) {
             return;
         }
 
