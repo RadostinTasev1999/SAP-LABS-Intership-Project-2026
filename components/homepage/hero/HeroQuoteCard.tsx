@@ -1,8 +1,8 @@
 "use client"
 
-import QuoteContactForm from './contactForm/contactForm'
+import { destinationReducer } from '@/app/api/action'
 
-import { MouseEvent, MouseEventHandler } from 'react'
+import { MouseEvent, MouseEventHandler, useActionState } from 'react'
 
 import { 
   Stepper,
@@ -23,7 +23,8 @@ import QuoteVehicleForm from './vehicleForm/QuoteVehicleForm'
 import HeroQuoteHeading from "./HeroQuoteHeading"
 import HeroQuoteParagraph from "./HeroQuoteParagraph"
 import QuoteDestinationForm from './destinationForm/QuoteDestinationForm'
-import HeroSecNote from "./HeroSecNote"
+import QuoteContactForm from './contactForm/contactForm'
+
 import { QuoteFormState } from '@/lib/definitions'
 
 import { useReducer } from "react"
@@ -42,7 +43,7 @@ const initialState = {
     model: '',
     isDriving: true,
     email: '',
-    pickupData: '',
+    priority: '',
     phone: ''
 }
 
@@ -101,9 +102,17 @@ const stateReducer = (state: QuoteFormState, action: Action) => {
     }
 }
 
+// { type: 'SET_YEAR', field: 'year', value: e.target.value}
+// { type: 'SET_MAKE', field: 'make', value: e.target.value }
+// { type: 'SET_MODEL', field: field, value: e.target.value}
+// { type: 'SET_EMAIL', field: field, value: e.target.value}
+// { type: 'SET_PHONE', field: field, value: e.target.value }
+// { type: 'SET_PRIORITY', field: field, value: e.target.value }
+// 
 const quoteReducer = (state: DestinationFormState, action: Action) => {
 
     switch (action.type) {
+
         case "SET_ORIGIN":
             
             return {
@@ -124,7 +133,49 @@ const quoteReducer = (state: DestinationFormState, action: Action) => {
                 ...state,
                 [action.field]: action.value
             };
-    
+
+        case "SET_YEAR":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            };
+
+        case "SET_MAKE":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            };
+        
+        case "SET_MODEL":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            };
+
+        case "SET_EMAIL":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            };
+
+        case "SET_PHONE":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            };
+
+        case "SET_PRIORITY":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            };
+
         default:
             return {
                 ...state
@@ -144,6 +195,15 @@ const steps = [
     }
 ]
 
+const initialDestination = {
+    success: '',
+    errors: {
+        origin:'',
+        delivery: '',
+        message: ''
+    }
+}
+
 export default function HeroQuoteCard({
     quoteHeading,
     quoteParagraph,
@@ -156,12 +216,26 @@ export default function HeroQuoteCard({
 
     const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState);
     const [quoteState, dispatchQuoteState] = useReducer(stateReducer, quoteInitialState)
+    
+    const [destinationState, dispatchDestination] = useReducer(destinationReducer, initialDestination)
 
-    // onClick handler for destination quote inputs
+
     const destinationComplete = (event: MouseEvent<HTMLButtonElement>) => {
 
         event.preventDefault()
         console.log('Quote data is:', quoteData)
+        // Validate inputs
+        const actionPayload = {
+            origin: quoteData.origin,
+            delivery: quoteData.delivery
+        }
+
+       
+
+        
+
+        // safeParse -> validates unknown data against a schema, without throwing an exception when validation fails
+
         // Hide Destination form
         dispatchQuoteState({ type: 'HIDE_DESTINATION', field:'showDestinationForm', value: false })
         // Show Vehicle form
@@ -175,8 +249,18 @@ export default function HeroQuoteCard({
         event?.preventDefault();
         // Hide Vehicle inputs
         dispatchQuoteState({type: 'HIDE_VEHICLE', field: 'showVehicleForm', value: false});
+
+        console.log('Current quote data is:', quoteData)
         // Show Contact inputs
         dispatchQuoteState({ type: 'SHOW_CONTACT', field: 'showContactForm', value: true})
+    }
+
+    const contactComplete = (event: MouseEvent<HTMLButtonElement>) => {
+
+        event.preventDefault();
+
+        console.log('Quote data is:', quoteData)
+
     }
 
 
@@ -185,10 +269,6 @@ export default function HeroQuoteCard({
             className='w-full p-6 sm:p-9'
         >
             
-
-            {/* Quote text */}
-            
-            {/* Destination*/}
         {
             quoteState.showDestinationForm && (
                     <>
@@ -215,12 +295,16 @@ export default function HeroQuoteCard({
                 quoteState.showVehicleForm && (
                     <QuoteVehicleForm 
                         vehicleComplete={vehicleComplete}
+                        dispatchQuoteData={dispatchQuoteData}
                         />
                 )
             }
             {
                 quoteState.showContactForm && (
-                    <QuoteContactForm />
+                    <QuoteContactForm 
+                        contactComplete={contactComplete}
+                        dispatchQuoteData={dispatchQuoteData}
+                    />
                 )
             }
             
