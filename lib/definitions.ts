@@ -284,8 +284,8 @@ export type SelectedLocation = {
 
 export type Action = {
     type: string,
-    field: string,
-    value: string | boolean
+    field: string | {id: string, year: string, make: string, model: string},
+    value: string | boolean | {id: string, year: string, make: string, model: string}
 }
 
 export type DestinationState = {
@@ -622,7 +622,7 @@ export type DestinationFormState = {
     model: string,
     isDriving: boolean,
     email: string,
-    pickupData: string,
+    priority: string,
     phone?: string
 }
 
@@ -635,11 +635,142 @@ export type QuoteFormState = {
 }
 
 export type QuoteVehicleProps = {
-    vehicleComplete: MouseEventHandler<HTMLButtonElement>
+    vehicleComplete: MouseEventHandler<HTMLButtonElement>,
+    dispatchQuoteData: Dispatch<Action>
 }
 
+type Fields = {
+    name: string,
+    type: string
+}[]
 
-export type PriorityItems = {
-    text: string,
+type OptionsConfig = {
+    YEARS_STATIC: YEARS_STATIC,
+    MAKE_REMOTE: MAKE_REMOTE,
+    MODEL_REMOTE_DYNAMIC: MODEL_REMOTE_DYNAMIC
+}
+
+type YEARS_STATIC = {
+    type: string,
+    options: Options
+}
+
+type MAKE_REMOTE = {
+    type: string,
+    path: string,
+    labelKey: string,
+    valueKey: string
+}
+
+type MODEL_REMOTE_DYNAMIC = {
+    type: string,
+    dependencies: string[],
+    path: string,
+    labelKey: string,
+    valueKey: string
+}
+
+type Options = {
+    label: string,
+    value: string
+}[]
+
+
+
+export type PriorityItemsProp = {
     value: string
 }
+
+export type VehicleState = {
+    id: string,
+    year: string,
+    make: string,
+    model: string
+}[]
+
+
+
+type Year = {
+    id: string,
+    year: string
+}[]
+
+type Make = {
+    id: string,
+    make: string
+}[]
+
+type Model = {
+    id: string,
+    model: string
+}[]
+
+export type VehicleSelectInputProps = {
+   years?: YearsArr,
+   makes?: MakesArr,
+   models?: ModelsArr
+   label: string,
+   id: string,
+   name: string,
+   defaultValue: string,
+   handleSelectChange?: (e: ChangeEvent) => void
+}
+
+type ModelsArr = {
+    id: string,
+    model: string
+}[]
+
+type YearsArr = {
+    id: string,
+    year: number
+}[]
+
+type MakesArr = {
+    id: string,
+    make: string
+}[]
+
+export type VehicleElement = {
+    id: string,
+    year: number,
+    make: string,
+    model: string
+}
+
+export type QuoteContactProps = {
+    contactComplete: (event: MouseEvent<HTMLButtonElement>) => void,
+    dispatchQuoteData: Dispatch<Action>
+}
+
+export type EmailInputProps = {
+    id: string,
+    label: string,
+    name: string,
+    placeholder: string,
+    email: string,
+    handleInputChange: (e: ChangeEvent) => void,
+}
+
+export type PhoneInputProps = {
+    id: string,
+    label: string,
+    name: string,
+    placeholder: string,
+    handleInputChange: (event: ChangeEvent) => void,
+    phone: string
+}
+
+export type PriorityInputProps = {
+    id: string,
+    label: string,
+    name: string,
+    handleInputChange: (event: ChangeEvent) => void,
+    priorityList: PriorityList,
+    priority: string
+}
+
+type PriorityList = {
+    id: string,
+    value: string
+}[]
