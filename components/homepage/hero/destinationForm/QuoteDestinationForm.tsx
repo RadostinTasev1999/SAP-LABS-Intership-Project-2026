@@ -1,13 +1,16 @@
 "use client"
 
+
+import  {ErrorState} from '@/lib/definitions'
 import QuotePickupInput from './QuotePickupInput'
 import QuoteDeliveryInput from './QuoteDeliveryInput';
+import {DestinationAction} from '@/lib/definitions'
 
 import { styled } from '@mui/material/styles';
 import { IconButton } from '@mui/material';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, MouseEventHandler, useReducer, useState } from 'react';
 
 import { SelectedLocation } from '@/lib/definitions'
 
@@ -30,22 +33,94 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const API_URL = 'http://localhost:3000/zips'
-
-
-
 // {type: 'SET_ORIGIN', field: field, value: `${data.city}, ${data.state} ${data.zip}`}
 // {type: 'SET_DELIVERY', field: field, value: `${data.city}, ${data.state} ${data.zip}`}
 // {type: 'SET_TRANSPORT', field: 'transport', value: e.target.value}
 
+const initialErrors = {
+    originError: '',
+    deliveryError: ''
+}
+// { type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Valid Origin'}
+// {type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Pickup location'}
+// {type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Pickup location'}
 
+// {type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Pickup location'}
+
+// { type: 'DELIVERY_ERROR', field: 'deliveryError', value: 'Please Select Delivery location'}
+
+// { type: 'RESET_ORIGIN', field: 'originError', value: ''}
+// { type: 'RESET_DELIVERY', field: 'deliveryError', value: ''}
+// {type: 'INVALID_ORIGIN', field: 'originError', value: 'Please Select Valid Origin' }
+// { type: 'INVALID_DELIVERY', field: 'deliveryError', value: 'Please Select Valid Delivery Location'}
+
+// { type: 'INVALID_DELIVERY', field: 'deliveryError', value: 'Please Select Valid Delivery Location'}
+const errorReducer = (state: ErrorState, action: DestinationAction) => {
+
+    switch (action.type) {
+
+        case "ORIGIN_ERROR":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+        
+        case "DELIVERY_ERROR":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case "RESET_ORIGIN":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case "RESET_DELIVERY":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+        
+        case "INVALID_ORIGIN":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case "INVALID_DELIVERY":
+            
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+            
+    
+        default:
+            return {
+                ...state
+            }
+    }
+    
+
+}
+
+
+const locationRegExp = /^[A-Za-z0-9]+(?:[ .'-][A-Za-z0-9]+)*, [A-Z]{2} \d{5}$/
 
 export default function QuoteDestinationForm({
     pickupZip,
     deliveryZip,
     transportType,
     submitBtn,
-    destinationComplete,
-    dispatchQuoteData
+    dispatchQuoteData,
+    dispatchQuoteState
 }: QuoteDestinationProps){
 
     
@@ -56,7 +131,67 @@ const [deliveryResult, setDeliveryResult] = useState([])
 const [showResult, setShowResult] = useState(false)
 
 const [deliverySearch, showDeliverySearch] = useState(false);
-const [transport, setTransport] = useState('open')
+const [transport, setTransport] = useState('open');
+const [isDisabled, setIsDisabled] = useState(false)
+
+const [destinationErrors, dispatchErrors] = useReducer(errorReducer, initialErrors);
+
+    const validateDestinationInputs = (origin: string, delivery: string): boolean => {
+
+        let isValid = true;
+
+        // validate empty inputs
+        if (!origin) {
+            console.log('Origin is an empty string!')
+            dispatchErrors({type: 'ORIGIN_ERROR', field: 'originError', value: 'Please Select Pickup location'})
+            isValid = false
+        } 
+        if (!delivery) {
+            console.log('Delivery is:', delivery)
+            dispatchErrors({ type: 'DELIVERY_ERROR', field: 'deliveryError', value: 'Please Select Delivery location'});
+            isValid = false;
+        }
+
+        // Validate origin field against regular expression
+        if (!locationRegExp.test(origin)) {
+            // update state of originError prop
+           dispatchErrors({type: 'INVALID_ORIGIN', field: 'originError', value: 'Please Select Valid Pickup location' });
+            // disable submit button
+            isValid = false
+        }
+        // Validate delivery field against regular expression
+        if (!locationRegExp.test(delivery)) {
+            console.log('Delivery after regex test is:', delivery)
+            // Miami, FL 33101
+            // Update deliveryError prop 
+            dispatchErrors({ type: 'INVALID_DELIVERY', field: 'deliveryError', value: 'Please Select Valid Delivery Location'});
+            // disable submit button
+            isValid = false;
+
+        }
+
+
+        return isValid
+    }
+
+    const destinationComplete = (event: MouseEvent<HTMLButtonElement>) => {
+
+        event.preventDefault();
+       
+        // Validate inputs
+        const inputValidation = validateDestinationInputs(origin,delivery);
+        console.log('Input validation value:', inputValidation)
+        console.log('Origin value:', origin)
+        if (!inputValidation) {
+            setIsDisabled(true);
+            return;
+        }
+        // safeParse -> validates unknown data against a schema, without throwing an exception when validation fails
+        // Hide Destination form
+        dispatchQuoteState({ type: 'HIDE_DESTINATION', field: 'showDestinationForm', value: false })
+        // Show Vehicle form
+        dispatchQuoteState({ type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true })
+    }
 
 
 const fetchData = (searchTerm: string) => {
@@ -80,8 +215,6 @@ const fetchLocation = async(state: string, searchTerm: string) => {
 
     const whereQuery = JSON.stringify({or:[{city: {contains:state}},{zip: {contains:state}}]});
 
-    console.log(whereQuery)
-
     const url = `${API_URL}?_where=${encodeURIComponent(whereQuery)}`
     
     // ?_where={"or":[{"city":${state}},{"zip":${state}}]}`
@@ -91,8 +224,6 @@ const fetchLocation = async(state: string, searchTerm: string) => {
 
         const response = await fetch(url);
         const result = await response.json();
-
-        console.log('Result is:', result)
 
         if (searchTerm === 'origin') {
             setOriginResult(result)
@@ -112,18 +243,33 @@ const fetchLocation = async(state: string, searchTerm: string) => {
 const handleSelectOrigin = (data: SelectedLocation, field: string) => {
 
     console.log(`${data.city}, ${data.state} ${data.zip}`);
+    // Update QuoteData state
     dispatchQuoteData({type: 'SET_ORIGIN', field: field, value: `${data.city}, ${data.state} ${data.zip}`})
-    setShowResult(false)
+    // hide select list
+    setShowResult(false);
+    // update origin field state
     setOrigin(`${data.city}, ${data.state} ${data.zip}`)
+    if (isDisabled) {
+        // remove error message
+        dispatchErrors({type: 'RESET_ORIGIN', field: 'originError', value: ''});
+        // enable submit button
+        setIsDisabled(false);
+    }
     
 }
 
 
 const handleOriginChange = (e: ChangeEvent<HTMLInputElement>) => {
 
-    
-    setOrigin(e.target.value);
+    // ! TODO
+    // Update input state
+    setOrigin(e.target.value); 
+    // Remove error message
+    dispatchErrors({ type: 'RESET_ORIGIN', field: 'originError', value: ''})
+    // Show result list
     setShowResult(true);
+    // enable submit button
+    setIsDisabled(false);
 }
 
 const hideResult = (e: React.MouseEvent<HTMLInputElement>, field: string) => {
@@ -139,15 +285,30 @@ const hideResult = (e: React.MouseEvent<HTMLInputElement>, field: string) => {
 
 const handleDeliveryChange = (e: ChangeEvent<HTMLInputElement>) => {
 
+    // update input state
     setDelivery(e.target.value);
+    // remove error message
+    dispatchErrors({ type: 'RESET_DELIVERY', field: 'deliveryError', value: ''});
+    // show search list
     showDeliverySearch(true);
+    // enable submit button
+    setIsDisabled(false);
 }
 
 const handleSelectDelivery = (data: SelectedLocation, field: string) => {
 
+    // update QuoteData state
     dispatchQuoteData({type: 'SET_DELIVERY', field: field, value: `${data.city}, ${data.state} ${data.zip}`})
+    // update delivery input state
     setDelivery(`${data.city}, ${data.state} ${data.zip}`);
+    // hide delivery result list
     showDeliverySearch(false)
+    if (isDisabled) {
+        // reset deliveryError state
+        dispatchErrors({ type: 'RESET_DELIVERY', field: 'deliveryError', value: ''})
+        // enable submit button
+        setIsDisabled(false);
+    }
 }
 
 const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -174,6 +335,7 @@ const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
                     originResult={originResult}
                     showResult={showResult}
                     hideResult={hideResult}
+                    destinationErrors={destinationErrors}
                     />
                 
                 {/* Delivery ZIP */}
@@ -185,6 +347,7 @@ const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
                     fetchData={fetchData}
                     deliverySearch={deliverySearch}
                     handleSelectDelivery={handleSelectDelivery}
+                    destinationErrors={destinationErrors}
                     />
             </div>
             
@@ -248,6 +411,7 @@ const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
                 type='button'
                 className='mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-slate-900 px-6 py-4 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-slate-800'
                 onClick={destinationComplete}
+                disabled={isDisabled ? true : false}
             >
                 {submitBtn.label}
                 {submitBtn.icon === 'arrow-right' ? <ArrowRight /> : ""} 
