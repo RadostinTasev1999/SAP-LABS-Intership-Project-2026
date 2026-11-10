@@ -6,7 +6,8 @@ export default function PhoneInput({
     name,
     placeholder,
     handleInputChange,
-    phone
+    phone,
+    contactErrors
 }: PhoneInputProps){
 
 
@@ -24,6 +25,11 @@ export default function PhoneInput({
                 value={phone}
                 onChange={handleInputChange}
             />
+            {
+                contactErrors.phoneError && (
+                    <span className='text-[#BF211E] text-xs font-semibold'>{contactErrors.phoneError}</span>
+                )
+            }
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import { EmailInputProps } from '@/lib/definitions'
+import { p } from 'motion/react-client'
 
 export default function EmailInput({
     id,
@@ -6,7 +7,8 @@ export default function EmailInput({
     name,
     placeholder,
     email,
-    handleInputChange
+    handleInputChange,
+    contactErrors
 }: EmailInputProps){
 
     return (
@@ -24,6 +26,11 @@ export default function EmailInput({
                 value={email}
                 onChange={handleInputChange}
             />
+            {
+                contactErrors.emailError && (
+                    <span className='text-[#BF211E] text-xs font-semibold'>{contactErrors.emailError}</span>
+                )
+            }
         </div>
     )
 }
