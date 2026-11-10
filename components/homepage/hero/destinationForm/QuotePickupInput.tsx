@@ -12,7 +12,8 @@ export default function QuotePickupInput({
     originResult,
     handleSelectOrigin,
     showResult,
-    hideResult
+    hideResult,
+    destinationErrors
 }: QuotePickupInputProps){
 
     useEffect(() => {
@@ -40,14 +41,19 @@ export default function QuotePickupInput({
                 onChange={handleOriginChange}
                 onClick={hideResult}
                     />
-
+                    
+                {
+                    destinationErrors.originError && (
+                        <span className='text-[#BF211E] text-xs font-semibold'>{destinationErrors.originError}</span>
+                    )
+                }
                 
                 {
                     showResult && (
-                    <ul className='absolute top-full left-0 right-0 mt-1 bg-white rounded-xl max-h-52 overflow-y-auto z-50 divide-y divide-slate-200'>
+                    <ul className='absolute top-full left-0 right-0 mt-1 bg-white rounded-md max-h-52 overflow-y-auto z-50 divide-y divide-slate-200'>
                         {
                             originResult && originResult.map((el) => (
-                                <li key={el.id} onClick={() => handleSelectOrigin(el,pickupZip.name)} className='px-4 py-2.5 text-xs font-semibold cursor-pointer transition-colors'>
+                                <li key={el.id} onClick={() => handleSelectOrigin(el,pickupZip.name)} className='px-4 py-2.5 text-base font-semibold cursor-pointer transition-colors'>
                                     {`${el.city}, ${el.state} ${el.zip}`}
                                 </li>
                             ))
