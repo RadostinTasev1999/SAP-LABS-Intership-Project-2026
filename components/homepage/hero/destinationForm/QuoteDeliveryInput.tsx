@@ -9,7 +9,8 @@ export default function QuoteDeliveryInput({
     deliveryResult,
     fetchData,
     deliverySearch,
-    handleSelectDelivery
+    handleSelectDelivery,
+    destinationErrors
     
 }: QuoteDeliveryInputProps){
 
@@ -41,12 +42,18 @@ export default function QuoteDeliveryInput({
                 value={delivery}
                 onChange={handleDeliveryChange}
             />
+            {/* Error message */}
+            {
+                destinationErrors.deliveryError && (
+                    <span className='text-[#BF211E] text-xs font-semibold'>{destinationErrors.deliveryError}</span>
+                )
+            }
             {
                 deliverySearch && (
-                    <ul className='absolute top-full left-0 right-0 mt-1 bg-white rounded-xl max-h-52 overflow-y-auto z-50 divide-y divide-slate-200'>
+                    <ul className='absolute top-full left-0 right-0 mt-1 bg-white rounded-md max-h-52 overflow-y-auto z-50 divide-y divide-slate-200'>
                         {
                             deliveryResult && deliveryResult.map((el) => (
-                                <li key={el.id} onClick={() => handleSelectDelivery(el, deliveryZip.name)} className='px-4 py-2.5 text-xs font-semibold cursor-pointer transition-colors'>
+                                <li key={el.id} onClick={() => handleSelectDelivery(el, deliveryZip.name)} className='px-4 py-2.5 text-base font-semibold cursor-pointer transition-colors'>
                                     {`${el.city}, ${el.state} ${el.zip}`}
                                 </li>
                             ))
