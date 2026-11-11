@@ -1,5 +1,5 @@
 import Link from "next/link"
-import ChevronIcon from "@/components/ui/ChevronIcon"
+import ChevronIcon from "@/components/shared/icons/ChevronIcon"
 
 import { NavListItemProps } from "@/lib/definitions"
 

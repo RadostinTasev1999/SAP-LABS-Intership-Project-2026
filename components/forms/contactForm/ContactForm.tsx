@@ -1,6 +1,6 @@
 "use client"
 
-import ArrowRight from "@/components/ui/ArrowRight"
+import ArrowRight from "@/components/shared/icons/ArrowRight"
 
 import EmailInput from './EmailInput'
 import PhoneInput from './PhoneInput'
@@ -18,15 +18,8 @@ const initialErrors = {
     emailError: '',
     phoneError: ''
 }
-
-// {type: 'EMPTY_EMAIL', field: 'emailError', value: 'Please enter email' }
-// {type: 'EMPTY_EMAIL', field: 'emailError', value: 'Please enter email' }
-// { type: 'RESET_EMAIL', field: 'emailError', value: ''}
-
-// { type: 'RESET_EMAIL', field: 'emailError', value: ''}
-
-// { type: 'EMPTY_PHONE', field: 'phoneError', value: 'Please enter phone'}
-// {type: 'RESET_PHONE', field: 'phoneError', value: ''}
+// {type: 'INVALID_EMAIL', field: 'emailError', value: 'Please enter valid email'}
+// { type: 'INVALID_PHONE', field: 'phoneError', value: 'Please enter valid phone'}
 const contactsReducer = (state: ContactErrorState, action: ContactsAction) => {
 
     switch (action.type) {
@@ -58,6 +51,20 @@ const contactsReducer = (state: ContactErrorState, action: ContactsAction) => {
             ...state,
             [action.field]: action.value
         }
+
+        case 'INVALID_EMAIL':
+            
+        return {
+            ...state,
+            [action.field]: action.value
+        }
+
+        case 'INVALID_PHONE':
+            
+        return {
+            ...state,
+            [action.field]: action.value
+        }
             
     
         default:
@@ -68,8 +75,13 @@ const contactsReducer = (state: ContactErrorState, action: ContactsAction) => {
     
 }
 
+
+const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const phoneRegExp = /^\(\d{3}\) \d{3}-\d{4}$/
+
 export default function QuoteContactForm({
-    dispatchQuoteData
+    dispatchQuoteData,
+    handleActiveStep
 }: QuoteContactProps){
 
     const [email, setEmail] = useState('');
@@ -97,7 +109,20 @@ export default function QuoteContactForm({
             dispatchErrors({ type: 'EMPTY_PHONE', field: 'phoneError', value: 'Please enter phone'})
             isValid = false;
         }
-
+        // test email input against regex
+        if (!emailRegExp.test(email)) {
+            // show error message
+            dispatchErrors({type: 'INVALID_EMAIL', field: 'emailError', value: 'Please enter valid email'})
+            // disable submit button
+            isValid = false;
+        }
+        // test phone input against regex
+        if (!phoneRegExp.test(phone)) {
+            // display error message
+            dispatchErrors({ type: 'INVALID_PHONE', field: 'phoneError', value: 'Please enter valid phone'})
+            // disable submit button
+            isValid = false;
+        }
 
         return isValid
     }
@@ -113,8 +138,12 @@ export default function QuoteContactForm({
             setIsDisabled(true);
             return;
         }
-        
 
+        // logic if validation passes:
+        console.log('Priority value is:', priority)
+        dispatchQuoteData({ type: 'set_contactdata', email: email, priority: priority, phone: phone});
+        // Mark Form as complete
+        handleActiveStep(4)
     }
 
     const handleInputChange = (e: ChangeEvent) => {
@@ -127,35 +156,36 @@ export default function QuoteContactForm({
             case "email":
                 // update email input state
                 setEmail(e.target.value);
-                // update QuoteData state
-                dispatchQuoteData({ type: 'SET_EMAIL', field: field, value: e.target.value})
-                // 
+                
                 if (isDisabled) {
+                    // enable submit button
+                    setIsDisabled(false);
+                } 
+                if (contactErrors.emailError) {
                     // clear error message
                     dispatchErrors({ type: 'RESET_EMAIL', field: 'emailError', value: ''})
-                    // enable submit button
-                    setIsDisabled(false)
                 }
+
                 break;
 
             case "phone":
                 // update phone input state
                 setPhone(e.target.value);
                 // update quoteData state
-                dispatchQuoteData({ type: 'SET_PHONE', field: field, value: e.target.value })
-                
+
                 if (isDisabled) {
-                    // remove error message
-                    dispatchErrors({type: 'RESET_PHONE', field: 'phoneError', value: ''})
                     // enable submit button
                     setIsDisabled(false);
+                }
+                if (contactErrors.phoneError) {
+                    // clear error message
+                    dispatchErrors({type: 'RESET_PHONE', field: 'phoneError', value: ''})
                 }
                 break;
 
             case "priority":
                 
                 setPriority(e.target.value)
-                dispatchQuoteData({ type: 'SET_PRIORITY', field: field, value: e.target.value })
                 break;
         
             default:
@@ -222,7 +252,7 @@ export default function QuoteContactForm({
 
                     <button 
                         onClick={contactComplete} 
-                        className="inline-flex w-full items-center justify-center rounded-md bg-green-600 px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-green-500"
+                        className={`inline-flex w-full items-center justify-center rounded-md bg-green-600 px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-green-500 ${isDisabled ? 'bg-slate-400 hover:bg-slate-600' : '' }`}
                         disabled={isDisabled ? true : false}     
                             >
                         Calculate Quote

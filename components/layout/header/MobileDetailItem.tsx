@@ -1,4 +1,4 @@
-import ChevronRight from "@/components/ui/ChevronRight"
+import ChevronRight from "@/components/shared/icons/ChevronRight"
 
 import MobileDrawerItems from './MobileDrawerItems'
 

@@ -1,4 +1,4 @@
-import LockIcon from "@/components/ui/LockIcon"
+import LockIcon from "@/components/shared/icons/LockIcon"
 
 import {HeroSecNoteProp} from '@/lib/definitions'
 

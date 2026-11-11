@@ -14,11 +14,11 @@ import { ChangeEvent, MouseEventHandler, useReducer, useState } from 'react';
 
 import { SelectedLocation } from '@/lib/definitions'
 
-import ArrowRight from '@/components/ui/ArrowRight'
+import ArrowRight from '@/components/shared/icons/ArrowRight'
 
 import { QuoteDestinationProps } from '@/lib/definitions'
 
-import QuestionCircleIcon from '@/components/ui/QuestionCircleIcon'
+import QuestionCircleIcon from '@/components/shared/icons/QuestionCircleIcon'
 
 // MUI library
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -120,7 +120,8 @@ export default function QuoteDestinationForm({
     transportType,
     submitBtn,
     dispatchQuoteData,
-    dispatchQuoteState
+    dispatchQuoteState,
+    handleActiveStep
 }: QuoteDestinationProps){
 
     
@@ -187,6 +188,8 @@ const [destinationErrors, dispatchErrors] = useReducer(errorReducer, initialErro
             return;
         }
         // safeParse -> validates unknown data against a schema, without throwing an exception when validation fails
+        // Mark Destination Stepper as complete
+        handleActiveStep(2)
         // Hide Destination form
         dispatchQuoteState({ type: 'HIDE_DESTINATION', field: 'showDestinationForm', value: false })
         // Show Vehicle form

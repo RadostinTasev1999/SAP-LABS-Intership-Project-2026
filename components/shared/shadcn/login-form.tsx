@@ -1,14 +1,14 @@
 import { cn } from "cn"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/shared/shadcn/button"
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+} from "@/components/shared/shadcn/field"
+import { Input } from "@/components/shared/shadcn/input"
 import Link from "next/link"
 
 export function LoginForm({

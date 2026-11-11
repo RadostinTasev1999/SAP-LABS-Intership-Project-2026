@@ -1,4 +1,4 @@
-import CheckBadge from "@/components/ui/CheckBadge"
+import CheckBadge from "@/components/shared/icons/CheckBadge"
 
 import {HeroBadgeProps} from '@/lib/definitions'
 

@@ -1,4 +1,4 @@
-import { Field } from "@/components/ui/field"
+import { Field } from "@/components/shared/shadcn/field"
 import {
   Select,
   SelectContent,
@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/shared/shadcn/select"
 
 const items = [
   { label: "Select an item", value: null },

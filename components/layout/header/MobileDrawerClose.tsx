@@ -1,4 +1,4 @@
-import CloseIcon from "@/components/ui/CloseIcon"
+import CloseIcon from "@/components/shared/icons/CloseIcon"
 import {MobileDrawerBtnProp} from '@/lib/definitions'
 
 export default function MobileDrawerClose({

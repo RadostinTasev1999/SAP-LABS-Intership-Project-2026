@@ -1,4 +1,4 @@
-import HamburgerIcon from "@/components/ui/HamburgerIcon"
+import HamburgerIcon from "@/components/shared/icons/HamburgerIcon"
 
 import {AppHeaderProps} from '@/lib/definitions'
 

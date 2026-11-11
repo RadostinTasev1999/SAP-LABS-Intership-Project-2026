@@ -1,6 +1,6 @@
 "use client"
 
-import ArrowRight from "@/components/ui/ArrowRight"
+import ArrowRight from "@/components/shared/icons/ArrowRight"
 
 import VehicleSelectInput from './VehicleSelectInput'
 
@@ -48,7 +48,8 @@ const API_URL = 'http://localhost:3000/vehicles';
 
 export default function QuoteVehicleForm({
     vehicleComplete,
-    dispatchQuoteData
+    dispatchQuoteData,
+    handleActiveStep
 }: QuoteVehicleProps){
 
     // const [vehicleData, dispatchVehicleData] = useReducer(vehicleReducer, initialState )
@@ -85,7 +86,7 @@ export default function QuoteVehicleForm({
     }
    
     useEffect(() => {
-        
+
         const loadData = async() => {
             const response = await fetch(API_URL);
             const result = await response.json();

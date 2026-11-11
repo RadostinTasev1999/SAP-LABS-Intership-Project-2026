@@ -1,5 +1,5 @@
 import HeroCard from "./HeroCard"
-import CardDivider from '@/components/ui/CardDivider'
+import CardDivider from '@/components/shared/divider/CardDivider'
 
 import {HeroLayoutCardType} from '@/lib/definitions'
 

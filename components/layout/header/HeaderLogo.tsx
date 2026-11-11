@@ -1,4 +1,4 @@
-import CompanyLogo from '@/components/ui/CompanyLogo'
+import CompanyLogo from '@/components/shared/logo/CompanyLogo'
 
 export default function HeaderLogo(){
    

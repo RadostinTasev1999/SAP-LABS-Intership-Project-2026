@@ -1,6 +1,6 @@
 import Link from "next/link"
-import ArrowRight from "@/components/ui/ArrowRight"
-import PhoneIcon from "@/components/ui/PhoneIcon"
+import ArrowRight from "@/components/shared/icons/ArrowRight"
+import PhoneIcon from "@/components/shared/icons/PhoneIcon"
 
 import {HeroCtaProps} from '@/lib/definitions'
 

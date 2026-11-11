@@ -10,7 +10,7 @@ import {
   StepperSeparator,
   StepperTitle,
   StepperTrigger,
-} from "@/components/reui/stepper"
+} from "@/components/shared/shadcn/stepper"
 import { CheckIcon, LoaderCircleIcon } from "lucide-react"
 
 const steps = [{ title: "Step 1" }, { title: "Step 2" }, { title: "Step 3" }]

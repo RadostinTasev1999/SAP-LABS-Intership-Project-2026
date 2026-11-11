@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/shared/shadcn/card'
 
 import Link from 'next/link'
 import { HeroCardTypes } from '@/lib/definitions'

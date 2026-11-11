@@ -1,6 +1,6 @@
 import { HeroServiceRightProps } from '@/lib/definitions'
 
-import HeroServiceDetail from '@/components/homepage/hero/HeroServiceDetail'
+import HeroServiceDetail from '@/components/layout/hero/HeroServiceDetail'
 
 export default function HeroServiceRight({
     Divider,
