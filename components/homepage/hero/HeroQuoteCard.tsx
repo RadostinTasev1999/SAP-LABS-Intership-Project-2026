@@ -1,8 +1,6 @@
 "use client"
 
-import { destinationReducer } from '@/app/api/action'
-
-import { MouseEvent, MouseEventHandler, useActionState } from 'react'
+import { MouseEvent, useEffect } from 'react'
 
 import { 
   Stepper,
@@ -14,20 +12,20 @@ import {
   StepperSeparator,
   StepperTitle,
   StepperTrigger
-} from '@/components/reui/stepper'
+} from '@/components/shared/shadcn/stepper'
 
 import { CheckIcon } from 'lucide-react'
 import { LoaderCircleIcon } from 'lucide-react'
 
-import QuoteVehicleForm from './vehicleForm/QuoteVehicleForm'
+import QuoteVehicleForm from '../../forms/vehicleForm/QuoteVehicleForm'
 import HeroQuoteHeading from "./HeroQuoteHeading"
 import HeroQuoteParagraph from "./HeroQuoteParagraph"
-import QuoteDestinationForm from './destinationForm/QuoteDestinationForm'
-import QuoteContactForm from './contactForm/contactForm'
+import QuoteDestinationForm from '../../forms/destinationForm/QuoteDestinationForm'
+import QuoteContactForm from '../../forms/contactForm/ContactForm'
 
 import { QuoteFormState } from '@/lib/definitions'
 
-import { useReducer } from "react"
+import { useReducer, useState } from "react"
 
 import { HeroQuoteCardProps } from '@/lib/definitions'
 import { DestinationFormState } from '@/lib/definitions'
@@ -54,12 +52,7 @@ const quoteInitialState = {
 
 }
 
-// { type: 'HIDE_DESTINATION', field:'showDestinationForm', value: false }
-// { type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true}
-// {type: 'HIDE_VEHICLE', field: 'showVehicleForm', value: false}
-// { type: 'SHOW_CONTACT', field: 'showContactForm', value: true}
-// -----------------------------------------------------------
-// { type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true}
+// { type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true }
 const stateReducer = (state: QuoteFormState, action: Action) => {
 
     switch (action.type) {
@@ -102,13 +95,9 @@ const stateReducer = (state: QuoteFormState, action: Action) => {
     }
 }
 
-// { type: 'SET_YEAR', field: 'year', value: e.target.value}
-// { type: 'SET_MAKE', field: 'make', value: e.target.value }
-// { type: 'SET_MODEL', field: field, value: e.target.value}
-// { type: 'SET_EMAIL', field: field, value: e.target.value}
-// { type: 'SET_PHONE', field: field, value: e.target.value }
-// { type: 'SET_PRIORITY', field: field, value: e.target.value }
-// {type: 'SET_ORIGIN', field: field, value: `${data.city}, ${data.state} ${data.zip}`}
+// { type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true }
+
+// { type: 'set_contactdata', email: email, priority: priority, phone: phone}
 const quoteReducer = (state: DestinationFormState, action: Action) => {
 
     switch (action.type) {
@@ -155,26 +144,14 @@ const quoteReducer = (state: DestinationFormState, action: Action) => {
                 [action.field]: action.value
             };
 
-        case "SET_EMAIL":
-            
-            return {
-                ...state,
-                [action.field]: action.value
-            };
+        case "set_contactdata":
 
-        case "SET_PHONE":
-            
             return {
                 ...state,
-                [action.field]: action.value
-            };
-
-        case "SET_PRIORITY":
-            
-            return {
-                ...state,
-                [action.field]: action.value
-            };
+                email: action.email,
+                priority: action.priority,
+                phone: action.phone
+            }
 
         default:
             return {
@@ -216,10 +193,36 @@ export default function HeroQuoteCard({
 
     const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState);
     const [quoteState, dispatchQuoteState] = useReducer(stateReducer, quoteInitialState)
+    const [activeStep, setActiveStep] = useState(1)
     
     // const [destinationState, dispatchDestination] = useReducer(destinationReducer, initialDestination)
 
+    const handleActiveStep = (state: number) => {
 
+        setActiveStep(state);
+
+    }
+
+    const onStepChange = (step: number) => {
+        console.log('Step changed!', step)
+
+        switch (step) {
+            case 1:
+                
+                break;
+
+            case 2:
+                
+                break;
+
+            case 3:
+                
+                break;
+        
+            default:
+                break;
+        }
+    }
     
 
     // onClick handler for vehicle quote form
@@ -227,6 +230,8 @@ export default function HeroQuoteCard({
     const vehicleComplete = (event: MouseEvent<HTMLButtonElement>) => {
 
         event?.preventDefault();
+        // Mark Vehicle form as completed
+        handleActiveStep(3)
         // Hide Vehicle inputs
         dispatchQuoteState({type: 'HIDE_VEHICLE', field: 'showVehicleForm', value: false});
 
@@ -235,6 +240,9 @@ export default function HeroQuoteCard({
         dispatchQuoteState({ type: 'SHOW_CONTACT', field: 'showContactForm', value: true})
     }
 
+    useEffect(() => {
+        console.log('Quote data is:', quoteData)
+    },[quoteData])
 
     return (
         <div
@@ -259,6 +267,7 @@ export default function HeroQuoteCard({
                             submitBtn={submitBtn}
                             dispatchQuoteData={dispatchQuoteData}
                             dispatchQuoteState={dispatchQuoteState}
+                            handleActiveStep={handleActiveStep}
                         />
                     </> 
             )
@@ -268,6 +277,7 @@ export default function HeroQuoteCard({
                     <QuoteVehicleForm 
                         vehicleComplete={vehicleComplete}
                         dispatchQuoteData={dispatchQuoteData}
+                        handleActiveStep={handleActiveStep}
                         />
                 )
             }
@@ -275,6 +285,7 @@ export default function HeroQuoteCard({
                 quoteState.showContactForm && (
                     <QuoteContactForm 
                         dispatchQuoteData={dispatchQuoteData}
+                        handleActiveStep={handleActiveStep}
                     />
                 )
             }
@@ -285,7 +296,8 @@ export default function HeroQuoteCard({
             {/* Stepper */}
             <Stepper
                 className='w-full max-w-md space-y-8 mt-4 py-4 border-y border-slate-400'
-                defaultValue={4}
+                value={activeStep}
+                onValueChange={onStepChange}
                 indicators={{
                     completed: (
                         <CheckIcon className='size-6 text-green-500' />
@@ -304,12 +316,12 @@ export default function HeroQuoteCard({
                                     step={index + 1}
                                     className='relative flex-1 items-start'
                                     >
-                                        <StepperTrigger
-                                            className='flex flex-col gap-2.5'
-                                            >
-                                            <StepperIndicator>{index + 1}</StepperIndicator>
-                                            <StepperTitle>{step.title}</StepperTitle>
-                                        </StepperTrigger>
+                                    <StepperTrigger
+                                        className='flex flex-col gap-2.5'
+                                    >
+                                        <StepperIndicator>{index + 1}</StepperIndicator>
+                                        <StepperTitle>{step.title}</StepperTitle>
+                                    </StepperTrigger>                          
 
                                         {
                                             steps.length > index + 1 && (

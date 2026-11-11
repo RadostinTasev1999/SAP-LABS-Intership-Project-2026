@@ -1,9 +1,9 @@
-import NavWrapper from '@/components/homepage/header/NavWrapper';
-import AppFooter from '@/components/homepage/footer/Footer';
-import AppHero from '@/components/homepage/hero/Hero'
-import HeroTimeline from '@/components/homepage/hero/HeroTimeline'
-import HeroAbout from '@/components/homepage/about/HeroAbout'
-import HeroServiceInfo from '@/components/homepage/hero/HeroServiceInfo'
+import NavWrapper from '@/components/layout/header/NavWrapper';
+import AppFooter from '@/components/layout/footer/Footer';
+import AppHero from '@/components/layout/hero/Hero'
+import HeroTimeline from '@/components/layout/hero/HeroTimeline'
+import HeroAbout from '@/components/layout/about/HeroAbout'
+import HeroServiceInfo from '@/components/layout/hero/HeroServiceInfo'
 
 
 import {appHeaderProps} from '@/lib/placeholderdata'
