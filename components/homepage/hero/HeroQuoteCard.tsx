@@ -108,7 +108,7 @@ const stateReducer = (state: QuoteFormState, action: Action) => {
 // { type: 'SET_EMAIL', field: field, value: e.target.value}
 // { type: 'SET_PHONE', field: field, value: e.target.value }
 // { type: 'SET_PRIORITY', field: field, value: e.target.value }
-// 
+// {type: 'SET_ORIGIN', field: field, value: `${data.city}, ${data.state} ${data.zip}`}
 const quoteReducer = (state: DestinationFormState, action: Action) => {
 
     switch (action.type) {
@@ -217,30 +217,10 @@ export default function HeroQuoteCard({
     const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState);
     const [quoteState, dispatchQuoteState] = useReducer(stateReducer, quoteInitialState)
     
-    const [destinationState, dispatchDestination] = useReducer(destinationReducer, initialDestination)
+    // const [destinationState, dispatchDestination] = useReducer(destinationReducer, initialDestination)
 
 
-    const destinationComplete = (event: MouseEvent<HTMLButtonElement>) => {
-
-        event.preventDefault()
-        console.log('Quote data is:', quoteData)
-        // Validate inputs
-        const actionPayload = {
-            origin: quoteData.origin,
-            delivery: quoteData.delivery
-        }
-
-       
-
-        
-
-        // safeParse -> validates unknown data against a schema, without throwing an exception when validation fails
-
-        // Hide Destination form
-        dispatchQuoteState({ type: 'HIDE_DESTINATION', field:'showDestinationForm', value: false })
-        // Show Vehicle form
-        dispatchQuoteState({ type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true})
-    }
+    
 
     // onClick handler for vehicle quote form
 
@@ -253,14 +233,6 @@ export default function HeroQuoteCard({
         console.log('Current quote data is:', quoteData)
         // Show Contact inputs
         dispatchQuoteState({ type: 'SHOW_CONTACT', field: 'showContactForm', value: true})
-    }
-
-    const contactComplete = (event: MouseEvent<HTMLButtonElement>) => {
-
-        event.preventDefault();
-
-        console.log('Quote data is:', quoteData)
-
     }
 
 
@@ -285,8 +257,8 @@ export default function HeroQuoteCard({
                             deliveryZip={deliveryZip}
                             transportType={transportType}
                             submitBtn={submitBtn}
-                            destinationComplete={destinationComplete}
                             dispatchQuoteData={dispatchQuoteData}
+                            dispatchQuoteState={dispatchQuoteState}
                         />
                     </> 
             )
@@ -302,7 +274,6 @@ export default function HeroQuoteCard({
             {
                 quoteState.showContactForm && (
                     <QuoteContactForm 
-                        contactComplete={contactComplete}
                         dispatchQuoteData={dispatchQuoteData}
                     />
                 )
