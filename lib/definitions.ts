@@ -238,7 +238,8 @@ export type QuoteDestinationProps = {
     transportType: TransportRadioProps,
     submitBtn: LabelProps,
     dispatchQuoteData: Dispatch<Action>,
-    dispatchQuoteState: Dispatch<Action>
+    dispatchQuoteState: Dispatch<Action>,
+    handleActiveStep: (state: number) => void
 }
 
 export type QuotePickupInputProps = {
@@ -285,8 +286,11 @@ export type SelectedLocation = {
 
 export type Action = {
     type: string,
-    field: string | {id: string, year: string, make: string, model: string},
-    value: string | boolean | {id: string, year: string, make: string, model: string}
+    field?: string, 
+    value?: string | boolean,
+    email: string,
+    priority: string,
+    phone: string
 }
 
 export type DestinationAction = {
@@ -650,7 +654,8 @@ export type QuoteFormState = {
 
 export type QuoteVehicleProps = {
     vehicleComplete: MouseEventHandler<HTMLButtonElement>,
-    dispatchQuoteData: Dispatch<Action>
+    dispatchQuoteData: Dispatch<Action>,
+    handleActiveStep: (state: number) => void
 }
 
 type Fields = {
@@ -753,7 +758,8 @@ export type VehicleElement = {
 }
 
 export type QuoteContactProps = {
-    dispatchQuoteData: Dispatch<Action>
+    dispatchQuoteData: Dispatch<Action>,
+    handleActiveStep: (state: number) => void
 }
 
 export type EmailInputProps = {
