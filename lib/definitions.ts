@@ -237,8 +237,8 @@ export type QuoteDestinationProps = {
     deliveryZip:InputProps,
     transportType: TransportRadioProps,
     submitBtn: LabelProps,
-    destinationComplete: MouseEventHandler<HTMLButtonElement>,
-    dispatchQuoteData: Dispatch<Action>
+    dispatchQuoteData: Dispatch<Action>,
+    dispatchQuoteState: Dispatch<Action>
 }
 
 export type QuotePickupInputProps = {
@@ -249,7 +249,8 @@ export type QuotePickupInputProps = {
     fetchData: (searchTerm: string) => void,
     originResult: DestinationResult,
     showResult: boolean,
-    hideResult: (e?: React.MouseEvent<HTMLInputElement> ,field?: string) => void
+    hideResult: (e?: React.MouseEvent<HTMLInputElement> ,field?: string) => void,
+    destinationErrors: ErrorState
 }
 
 type DestinationResult = {
@@ -286,6 +287,18 @@ export type Action = {
     type: string,
     field: string | {id: string, year: string, make: string, model: string},
     value: string | boolean | {id: string, year: string, make: string, model: string}
+}
+
+export type DestinationAction = {
+    type: string,
+    field: string,
+    value: string
+}
+
+export type ContactsAction = {
+    type: string,
+    field: string,
+    value: string
 }
 
 export type DestinationState = {
@@ -604,7 +617,8 @@ export type QuoteDeliveryInputProps = {
    deliveryResult: DestinationResult,
    fetchData: (searchTerm: string) => void,
    deliverySearch: boolean,
-   handleSelectDelivery: (el: SelectedLocation, field: string) => void
+   handleSelectDelivery: (el: SelectedLocation, field: string) => void,
+   destinationErrors: ErrorState
 }
 
 
@@ -739,7 +753,6 @@ export type VehicleElement = {
 }
 
 export type QuoteContactProps = {
-    contactComplete: (event: MouseEvent<HTMLButtonElement>) => void,
     dispatchQuoteData: Dispatch<Action>
 }
 
@@ -750,6 +763,7 @@ export type EmailInputProps = {
     placeholder: string,
     email: string,
     handleInputChange: (e: ChangeEvent) => void,
+    contactErrors: ContactErrorState
 }
 
 export type PhoneInputProps = {
@@ -758,7 +772,8 @@ export type PhoneInputProps = {
     name: string,
     placeholder: string,
     handleInputChange: (event: ChangeEvent) => void,
-    phone: string
+    phone: string,
+    contactErrors: ContactErrorState
 }
 
 export type PriorityInputProps = {
@@ -774,3 +789,13 @@ type PriorityList = {
     id: string,
     value: string
 }[]
+
+export type ErrorState = {
+    originError: string,
+    deliveryError: string
+}
+
+export type ContactErrorState = {
+    emailError: string,
+    phoneError: string
+}
