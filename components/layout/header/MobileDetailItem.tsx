@@ -18,7 +18,7 @@ export default function MobileDetailItem({
         </span>
       </summary>
       <ul className="mt-1 pl-4 pr-2 space-y-1 border-l-2 border-gray-100 ml-3">
-        {list &&
+        {list && list.length !== 0 &&
           list.map((el) => (
             <MobileDrawerItems key={el.id} url={el.url} text={el.text} />
           ))}
