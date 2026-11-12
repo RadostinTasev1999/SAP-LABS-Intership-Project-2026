@@ -1,35 +1,22 @@
 "use client";
 
 import { MouseEvent, useEffect } from "react";
-
-import {
-  Stepper,
-  StepperContent,
-  StepperIndicator,
-  StepperItem,
-  StepperNav,
-  StepperPanel,
-  StepperSeparator,
-  StepperTitle,
-  StepperTrigger,
-} from "@/components/shared/shadcn/stepper";
-
-import { CheckIcon } from "lucide-react";
-import { LoaderCircleIcon } from "lucide-react";
+import { DashRing } from "@/components/shared/shadcn/dash-ring";
 
 import QuoteVehicleForm from "../../forms/vehicleForm/QuoteVehicleForm";
 import HeroQuoteHeading from "./HeroQuoteHeading";
 import HeroQuoteParagraph from "./HeroQuoteParagraph";
 import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationForm";
 import QuoteContactForm from "../../forms/contactForm/ContactForm";
+import StepperComponent from '@/components/shared/stepper/Stepper'
 
 import { QuoteFormState } from "@/lib/definitions";
 
-import { useReducer, useState } from "react";
+import { useReducer, useState, useCallback,Suspense } from "react";
 
 import { HeroQuoteCardProps } from "@/lib/definitions";
 import { DestinationFormState } from "@/lib/definitions";
-import { Action } from "@/lib/definitions";
+import { QuoteStateAction } from "@/lib/definitions";
 
 const initialState = {
   origin: "",
@@ -51,31 +38,40 @@ const quoteInitialState = {
 };
 
 // { type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true }
-const stateReducer = (state: QuoteFormState, action: Action) => {
+/*
+  {type: 'hide_contact', field: 'showContactForm', value: false }
+*/
+const stateReducer = (state: QuoteFormState, action: QuoteStateAction) => {
   switch (action.type) {
-    case "HIDE_DESTINATION":
+    case "show_destination":
       return {
         ...state,
         [action.field]: action.value,
       };
-    case "SHOW_VEHICLE":
+    case "hide_destination":
       return {
         ...state,
         [action.field]: action.value,
       };
-    case "HIDE_VEHICLE":
+    case "show_vehicle":
       return {
         ...state,
         [action.field]: action.value,
       };
-    case "SHOW_CONTACT":
+    case "hide_vehicle":
       return {
         ...state,
         [action.field]: action.value,
       };
-    case "HIDE_CONTACT":
+    case "show_contact":
       return {
         ...state,
+        [action.field]: action.value,
+      };
+    case "hide_contact":
+      return {
+        ...state,
+        [action.field]: action.value,
       };
 
     default:
@@ -170,6 +166,7 @@ export default function HeroQuoteCard({
   transportType,
   submitBtn,
   securityNote,
+  renderOffer
 }: HeroQuoteCardProps) {
   const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState);
   const [quoteState, dispatchQuoteState] = useReducer(
@@ -185,16 +182,65 @@ export default function HeroQuoteCard({
   };
 
   const onStepChange = (step: number) => {
-    console.log("Step changed!", step);
-
     switch (step) {
       case 1:
+        // If Destination form is active, do nothing
+        if (quoteState.showDestinationForm) {
+          return;
+        }
+
+        // hide vehicle or contact infor inputs
+        if (quoteState.showVehicleForm) {
+          dispatchQuoteState({
+            type: "hide_vehicle",
+            field: "showVehicleForm",
+            value: false,
+          });
+        } else if (quoteState.showContactForm) {
+          dispatchQuoteState({
+            type: "hide_contact",
+            field: "showContactForm",
+            value: false,
+          });
+        }
+        // Show destination form
+        dispatchQuoteState({
+          type: "show_destination",
+          field: "showDestinationForm",
+          value: true,
+        });
+        // update active step
+        setActiveStep(step);
+
         break;
 
       case 2:
+        // If Vehicle form is active, do nothing
+        if (quoteState.showVehicleForm || quoteState.showDestinationForm) {
+          return;
+        }
+
+        // Hide Contact Info Form
+        if (quoteState.showContactForm) {
+          dispatchQuoteState({
+            type: "hide_contact",
+            field: "showContactForm",
+            value: false,
+          });
+        }
+        // Show Vehicle form
+        dispatchQuoteState({
+          type: "show_vehicle",
+          field: "showVehicleForm",
+          value: true,
+        });
+        // Update Active step
+        setActiveStep(step);
         break;
 
       case 3:
+        // Do nothing
+
         break;
 
       default:
@@ -204,25 +250,23 @@ export default function HeroQuoteCard({
 
   // onClick handler for vehicle quote form
 
-  const vehicleComplete = (event: MouseEvent<HTMLButtonElement>) => {
-    event?.preventDefault();
+  const vehicleComplete = useCallback(() => {
     // Mark Vehicle form as completed
     handleActiveStep(3);
     // Hide Vehicle inputs
     dispatchQuoteState({
-      type: "HIDE_VEHICLE",
+      type: "hide_vehicle",
       field: "showVehicleForm",
       value: false,
     });
 
-    console.log("Current quote data is:", quoteData);
     // Show Contact inputs
     dispatchQuoteState({
-      type: "SHOW_CONTACT",
+      type: "show_contact",
       field: "showContactForm",
       value: true,
     });
-  };
+  }, []);
 
   useEffect(() => {
     console.log("Quote data is:", quoteData);
@@ -230,67 +274,46 @@ export default function HeroQuoteCard({
 
   return (
     <div className="w-full p-6 sm:p-9">
-      {quoteState.showDestinationForm && (
-        <>
-          <HeroQuoteHeading quoteHeading={quoteHeading} />
+      <Suspense fallback={<DashRing className="size-10 mx-auto my-4" />}>
+        {quoteState.showDestinationForm && (
+          <>
+            <HeroQuoteHeading quoteHeading={quoteHeading} />
 
-          <HeroQuoteParagraph quoteParagraph={quoteParagraph} />
+            <HeroQuoteParagraph quoteParagraph={quoteParagraph} />
 
-          <QuoteDestinationForm
-            pickupZip={pickupZip}
-            deliveryZip={deliveryZip}
-            transportType={transportType}
-            submitBtn={submitBtn}
+            <QuoteDestinationForm
+              pickupZip={pickupZip}
+              deliveryZip={deliveryZip}
+              transportType={transportType}
+              submitBtn={submitBtn}
+              dispatchQuoteData={dispatchQuoteData}
+              dispatchQuoteState={dispatchQuoteState}
+              handleActiveStep={handleActiveStep}
+            />
+          </>
+        )}
+        {quoteState.showVehicleForm && (
+          <QuoteVehicleForm
+            vehicleComplete={vehicleComplete}
             dispatchQuoteData={dispatchQuoteData}
-            dispatchQuoteState={dispatchQuoteState}
             handleActiveStep={handleActiveStep}
           />
-        </>
-      )}
-      {quoteState.showVehicleForm && (
-        <QuoteVehicleForm
-          vehicleComplete={vehicleComplete}
-          dispatchQuoteData={dispatchQuoteData}
-          handleActiveStep={handleActiveStep}
-        />
-      )}
-      {quoteState.showContactForm && (
-        <QuoteContactForm
-          dispatchQuoteData={dispatchQuoteData}
-          handleActiveStep={handleActiveStep}
-        />
-      )}
+        )}
+        {quoteState.showContactForm && (
+          <QuoteContactForm
+            dispatchQuoteData={dispatchQuoteData}
+            handleActiveStep={handleActiveStep}
+            renderOffer={renderOffer}
+          />
+        )}
 
-      {/* Stepper */}
-      <Stepper
-        className="w-full max-w-md space-y-8 mt-4 py-4 border-y border-slate-400"
-        value={activeStep}
-        onValueChange={onStepChange}
-        indicators={{
-          completed: <CheckIcon className="size-6 text-green-500" />,
-          loading: <LoaderCircleIcon className="size-3.5 animate-spin" />,
-        }}
-      >
-        <StepperNav>
-          {steps.map((step, index) => (
-            <StepperItem
-              key={index}
-              step={index + 1}
-              className="relative flex-1 items-start"
-            >
-              <StepperTrigger className="flex flex-col gap-2.5">
-                <StepperIndicator>{index + 1}</StepperIndicator>
-                <StepperTitle>{step.title}</StepperTitle>
-              </StepperTrigger>
-
-              {steps.length > index + 1 && (
-                <StepperSeparator className="group-data-[state=completed]/step:bg-primary absolute inset-x-0 top-3 left-[calc(50%+0.875rem)] m-0 group-data-[orientation=horizontal]/stepper-nav:w-[calc(100%-2rem+0.225rem)] group-data-[orientation=horizontal]/stepper-nav:flex-none" />
-              )}
-            </StepperItem>
-          ))}
-        </StepperNav>
-      </Stepper>
-
+        {/* Stepper */}
+        <StepperComponent
+            activeStep={activeStep}
+            onStepChange={onStepChange}
+            steps={steps}
+            />
+      </Suspense>
       {/* Security note */}
       {/* <HeroSecNote
                 securityNote={securityNote}
