@@ -8,7 +8,7 @@ export default function AppFooter({
   footerBottomData,
 }: AppFooterProps) {
   return (
-    <footer className="text-slate-300 py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
+    <footer className="mt-auto text-slate-300 py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         {/* Main Footer Grid */}
         <FooterGrid
