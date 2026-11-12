@@ -1,15 +1,15 @@
-import { cn } from "cn"
+import { cn } from "cn";
 
-import { Button } from "@/components/shared/shadcn/button"
+import { Button } from "@/components/shared/shadcn/button";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "@/components/shared/shadcn/field"
-import { Input } from "@/components/shared/shadcn/input"
-import Link from "next/link"
+} from "@/components/shared/shadcn/field";
+import { Input } from "@/components/shared/shadcn/input";
+import Link from "next/link";
 
 export function LoginForm({
   className,
@@ -26,7 +26,12 @@ export function LoginForm({
         </div>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
-          <Input id="email" type="email" placeholder="admin123@company.com" required />
+          <Input
+            id="email"
+            type="email"
+            placeholder="admin123@company.com"
+            required
+          />
         </Field>
         <Field>
           <div className="flex items-center">
@@ -41,10 +46,16 @@ export function LoginForm({
           <Input id="password" type="password" required />
         </Field>
         <Field>
-          <Button className="mt-4 border-slate-950/50" variant="outline" type="submit">Login</Button>
+          <Button
+            className="mt-4 border-slate-950/50"
+            variant="outline"
+            type="submit"
+          >
+            Login
+          </Button>
         </Field>
         {/* <FieldSeparator>Or continue with</FieldSeparator> */}
       </FieldGroup>
     </form>
-  )
+  );
 }

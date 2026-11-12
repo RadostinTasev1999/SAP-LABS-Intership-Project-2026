@@ -1,29 +1,22 @@
-import HeroTimelineCount from './HeroTimelineCount'
-import HeroTimelineContent from './HeroTimelineContent'
+import HeroTimelineCount from "./HeroTimelineCount";
+import HeroTimelineContent from "./HeroTimelineContent";
 
-import { HeroTimelineItemProps } from '@/lib/definitions'
+import { HeroTimelineItemProps } from "@/lib/definitions";
 
 export default function HeroTimelineItem({
-    count,
-    heading,
-    text
-}: HeroTimelineItemProps){
+  count,
+  heading,
+  text,
+}: HeroTimelineItemProps) {
+  return (
+    <div className="flex items-start ">
+      {/* Step Container */}
 
-    return(
-        <div className="flex items-start ">
-            {/* Step Container */}
-            
-            {/* Count */}
-            <HeroTimelineCount 
-                count={count}
-                />
+      {/* Count */}
+      <HeroTimelineCount count={count} />
 
-            {/* Content */}
-            <HeroTimelineContent 
-                heading={heading}
-                text={text}
-                />
-            
-        </div>
-    )
+      {/* Content */}
+      <HeroTimelineContent heading={heading} text={text} />
+    </div>
+  );
 }

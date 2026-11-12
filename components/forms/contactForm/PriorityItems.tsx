@@ -1,12 +1,5 @@
-import { PriorityItemsProp } from '@/lib/definitions'
+import { PriorityItemsProp } from "@/lib/definitions";
 
-export default function PriorityItems({
-    value
-}: PriorityItemsProp){
-
-    return (
-        <option value={value}>
-            {value}
-        </option>
-    )
+export default function PriorityItems({ value }: PriorityItemsProp) {
+  return <option value={value}>{value}</option>;
 }

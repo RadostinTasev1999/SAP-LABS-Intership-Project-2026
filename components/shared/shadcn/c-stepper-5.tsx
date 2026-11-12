@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Stepper,
@@ -10,10 +10,10 @@ import {
   StepperSeparator,
   StepperTitle,
   StepperTrigger,
-} from "@/components/shared/shadcn/stepper"
-import { CheckIcon, LoaderCircleIcon } from "lucide-react"
+} from "@/components/shared/shadcn/stepper";
+import { CheckIcon, LoaderCircleIcon } from "lucide-react";
 
-const steps = [{ title: "Step 1" }, { title: "Step 2" }, { title: "Step 3" }]
+const steps = [{ title: "Step 1" }, { title: "Step 2" }, { title: "Step 3" }];
 
 export function Pattern() {
   return (
@@ -21,12 +21,8 @@ export function Pattern() {
       className="w-full max-w-md space-y-8"
       defaultValue={2}
       indicators={{
-        completed: (
-          <CheckIcon className="size-3.5" />
-        ),
-        loading: (
-          <LoaderCircleIcon className="size-3.5 animate-spin" />
-        ),
+        completed: <CheckIcon className="size-3.5" />,
+        loading: <LoaderCircleIcon className="size-3.5 animate-spin" />,
       }}
     >
       <StepperNav>
@@ -60,5 +56,5 @@ export function Pattern() {
         ))}
       </StepperPanel>
     </Stepper>
-  )
+  );
 }

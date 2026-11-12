@@ -1,4 +1,4 @@
-import { Field } from "@/components/shared/shadcn/field"
+import { Field } from "@/components/shared/shadcn/field";
 import {
   Select,
   SelectContent,
@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/shared/shadcn/select"
+} from "@/components/shared/shadcn/select";
 
 const items = [
   { label: "Select an item", value: null },
@@ -14,7 +14,7 @@ const items = [
     label: `Item ${i}`,
     value: `item-${i}`,
   })),
-]
+];
 
 export function Pattern() {
   return (
@@ -34,5 +34,5 @@ export function Pattern() {
         </SelectContent>
       </Select>
     </Field>
-  )
+  );
 }

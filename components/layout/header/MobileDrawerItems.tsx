@@ -1,17 +1,19 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import {MobileDrawerItemProps} from '@/lib/definitions'
+import { MobileDrawerItemProps } from "@/lib/definitions";
 
 export default function MobileDrawerItems({
-    url,
-    text
+  url,
+  text,
 }: MobileDrawerItemProps) {
-
-    return(
-        <li>
-            <Link href={url} className='block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md'>
-               {text}
-            </Link>
-        </li>
-    )
+  return (
+    <li>
+      <Link
+        href={url}
+        className="block px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md"
+      >
+        {text}
+      </Link>
+    </li>
+  );
 }

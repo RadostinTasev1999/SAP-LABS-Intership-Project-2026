@@ -1,807 +1,791 @@
-import { JSX } from "react/jsx-runtime"
-import { ChangeEvent, Dispatch, MouseEventHandler } from "react"
+import { JSX } from "react/jsx-runtime";
+import { ChangeEvent, Dispatch, MouseEventHandler } from "react";
 
 export type SvgProps = {
-    className?: string
-}
+  className?: string;
+};
 
 export type IconProps = {
-    className?: string,
-    width?: string
-}
+  className?: string;
+  width?: string;
+};
 
 export type AppHeaderProps = {
-    onMobileOpen?: () => void,
-    navProps?: DesktopNav,
-    desktopCta?: DesktopCta
-}
+  onMobileOpen?: () => void;
+  navProps?: DesktopNav;
+  desktopCta?: DesktopCta;
+};
 
 export type NavListItemProps = {
-    id: number,
-    url: string,
-    text: string,
-    icon?: string,
-    dropDownSingle?: DropDownMenu,
-    dropDownDouble?: DropDownDoubleMenu
-}
+  id: number;
+  url: string;
+  text: string;
+  icon?: string;
+  dropDownSingle?: DropDownMenu;
+  dropDownDouble?: DropDownDoubleMenu;
+};
 
 export type DesktopCtaProps = {
-    url?: string,
-    text?: string
-}
-
+  url?: string;
+  text?: string;
+};
 
 export type MobileDrawerProps = {
-    onMobileClose: () => void,
-    mobileDrawer: MobileDrawer
-}
+  onMobileClose: () => void;
+  mobileDrawer: MobileDrawer;
+};
 
 export type NavWrapperProps = {
-    appHeaderProps: AppHeaderData,
-}
+  appHeaderProps: AppHeaderData;
+};
 
 type DesktopCta = {
-    url: string,
-    text: string
-}
+  url: string;
+  text: string;
+};
 
 type AppHeaderData = {
-    desktopNav: DesktopNav,
-    desktopCta: DesktopCta,
-    mobileDrawer: MobileDrawer
-}
+  desktopNav: DesktopNav;
+  desktopCta: DesktopCta;
+  mobileDrawer: MobileDrawer;
+};
 
 export type MobileNavProps = {
-    mobileDrawer: MobileDrawer
-}
+  mobileDrawer: MobileDrawer;
+};
 
 type MobileDrawer = {
-    id: number,
-    heading: string,
-    icon: string,
-    list: DrawerList,
-    url?: string,
-    text?: string
-}[]
+  id: number;
+  heading: string;
+  icon: string;
+  list: DrawerList;
+  url?: string;
+  text?: string;
+}[];
 
 type DrawerList = {
-    id:number,
-    url: string,
-    text: string
-}[]
+  id: number;
+  url: string;
+  text: string;
+}[];
 
 type DesktopNav = {
-    id:number,
-    url: string,
-    text: string,
-    icon?: string,
-    dropDownSingle?: DropDownMenu,
-    dropDownDouble?: DropDownDoubleMenu
-}[]
+  id: number;
+  url: string;
+  text: string;
+  icon?: string;
+  dropDownSingle?: DropDownMenu;
+  dropDownDouble?: DropDownDoubleMenu;
+}[];
 
 type DropDownMenu = {
-    id: number,
-    url: string,
-    text: string
-}[]
+  id: number;
+  url: string;
+  text: string;
+}[];
 
 type DropDownDoubleMenu = {
-    id:number,
-    heading: string,
-    menuItems: MenuItems
-}[]
+  id: number;
+  heading: string;
+  menuItems: MenuItems;
+}[];
 
 type MenuItems = {
-    id: number,
-    text: string
-}[]
-
-
+  id: number;
+  text: string;
+}[];
 
 export type MobileDrawerBtnProp = {
-    onMobileClose: () => void
-}
+  onMobileClose: () => void;
+};
 
 export type MobileDrawerListData = {
-    heading?: string,
-    icon?: string,
-    list?: MobileListItems,
-    url?: string,
-    text?: string
-}
+  heading?: string;
+  icon?: string;
+  list?: MobileListItems;
+  url?: string;
+  text?: string;
+};
 
 type MobileListItems = {
-    id: number,
-    url: string,
-    text: string
-}[]
+  id: number;
+  url: string;
+  text: string;
+}[];
 
 export type MobileDrawerItemProps = {
-    url: string,
-    text: string
-}
+  url: string;
+  text: string;
+};
 
 export type MobileDetailItemProps = {
-    heading?: string,
-    icon?: string,
-    list?: MobileListItems
-}
+  heading?: string;
+  icon?: string;
+  list?: MobileListItems;
+};
 
 export type AppHeroProps = {
-    appHeroProps: AppHeroData,
-    heroLayoutCardData: HeroLayoutCardData
-}
+  appHeroProps: AppHeroData;
+  heroLayoutCardData: HeroLayoutCardData;
+};
 
 export type HeroLayoutCardType = {
-    heroLayoutCardData: HeroLayoutCardData
-}
+  heroLayoutCardData: HeroLayoutCardData;
+};
 
 type HeroLayoutCardData = {
-    id: number,
-    icon: React.FC,
-    title: string,
-    description: string,
-    link: string,
-    linkIcon: React.FC
-}[]
+  id: number;
+  icon: React.FC;
+  title: string;
+  description: string;
+  link: string;
+  linkIcon: React.FC;
+}[];
 
 export type HeroCardTypes = {
-    Icon: JSX.Element,
-    title: string,
-    description: string,
-    link: string,
-    LinkIcon: JSX.Element
-}
+  Icon: JSX.Element;
+  title: string;
+  description: string;
+  link: string;
+  LinkIcon: JSX.Element;
+};
 
 type AppHeroData = {
-    badgeText: string,
-    badgeType: string,
-    headingOne: string,
-    emphasis: string,
-    headingTwo:string,
-    description: string,
-    btnPrimary: BtnProps,
-    btnSecondary: BtnProps,
-    quoteHeading: string,
-    quoteParagraph: string,
-    pickupZip: InputProps,
-    deliveryZip: InputProps,
-    transportType: TransportRadioProps,
-    submitBtn: LabelProps,
-    securityNote: LabelProps
-}
+  badgeText: string;
+  badgeType: string;
+  headingOne: string;
+  emphasis: string;
+  headingTwo: string;
+  description: string;
+  btnPrimary: BtnProps;
+  btnSecondary: BtnProps;
+  quoteHeading: string;
+  quoteParagraph: string;
+  pickupZip: InputProps;
+  deliveryZip: InputProps;
+  transportType: TransportRadioProps;
+  submitBtn: LabelProps;
+  securityNote: LabelProps;
+};
 
 type TransportRadioProps = {
-    radioOne: string,
-    tipOpen: string
-    radioTwo: string
-    tipEnclosed: string
-}
+  radioOne: string;
+  tipOpen: string;
+  radioTwo: string;
+  tipEnclosed: string;
+};
 
 type LabelProps = {
-    label: string,
-    icon: string
-}
+  label: string;
+  icon: string;
+};
 
 type InputProps = {
-    id: string,
-    label: string,
-    placeholder: string,
-    name: string
-}
+  id: string;
+  label: string;
+  placeholder: string;
+  name: string;
+};
 
 type BtnProps = {
-    label: string,
-    icon: string,
-    url: string
-}
+  label: string;
+  icon: string;
+  url: string;
+};
 
 export type HeroBadgeProps = {
-    badgeText: string,
-    badgeType: string
-}
+  badgeText: string;
+  badgeType: string;
+};
 
 export type HeroHeadingProps = {
-    headingPrimary: string,
-    emphasis: string,
-    headingSecondary:string
-}
+  headingPrimary: string;
+  emphasis: string;
+  headingSecondary: string;
+};
 
 export type HeroDescProp = {
-    description: string
-}
+  description: string;
+};
 
 export type HeroCtaProps = {
-    btnPrimary: BtnData,
-    btnSecondary: BtnData
-}
+  btnPrimary: BtnData;
+  btnSecondary: BtnData;
+};
 
 type BtnData = {
-    label: string,  
-    icon: string,
-    url: string
-}
+  label: string;
+  icon: string;
+  url: string;
+};
 
 export type HeroQuoteProp = {
-    quoteHeading: string
-}
+  quoteHeading: string;
+};
 
 export type HeroQuoteParagraphProp = {
-    quoteParagraph: string
-}
+  quoteParagraph: string;
+};
 
 export type QuoteDestinationProps = {
-    destinationState?: DestinationState,
-    handleDestinationChange?: (e: ChangeEvent, id: string, name: string) => void,
-    pickupZip:InputProps,
-    deliveryZip:InputProps,
-    transportType: TransportRadioProps,
-    submitBtn: LabelProps,
-    dispatchQuoteData: Dispatch<Action>,
-    dispatchQuoteState: Dispatch<Action>,
-    handleActiveStep: (state: number) => void
-}
+  destinationState?: DestinationState;
+  handleDestinationChange?: (e: ChangeEvent, id: string, name: string) => void;
+  pickupZip: InputProps;
+  deliveryZip: InputProps;
+  transportType: TransportRadioProps;
+  submitBtn: LabelProps;
+  dispatchQuoteData: Dispatch<Action>;
+  dispatchQuoteState: Dispatch<Action>;
+  handleActiveStep: (state: number) => void;
+};
 
 export type QuotePickupInputProps = {
-    pickupZip: InputProps,
-    origin: string,
-    handleOriginChange: (event: ChangeEvent<HTMLInputElement>) => void,
-    handleSelectOrigin: (data: SelectedLocation, field: string) => void,
-    fetchData: (searchTerm: string) => void,
-    originResult: DestinationResult,
-    showResult: boolean,
-    hideResult: (e?: React.MouseEvent<HTMLInputElement> ,field?: string) => void,
-    destinationErrors: ErrorState
-}
+  pickupZip: InputProps;
+  origin: string;
+  handleOriginChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleSelectOrigin: (data: SelectedLocation, field: string) => void;
+  fetchData: (searchTerm: string) => void;
+  originResult: DestinationResult;
+  showResult: boolean;
+  hideResult: (e?: React.MouseEvent<HTMLInputElement>, field?: string) => void;
+  destinationErrors: ErrorState;
+};
 
 type DestinationResult = {
-    id: string,
-    zip: string,
-    city: string,
-    state: string,
-    state_name: string,
-    type: string,
-    county_fips: string,
-    county_name: string,
-    county_fips_all: string[],
-    lat: number,
-    lng: number
-}[]
+  id: string;
+  zip: string;
+  city: string;
+  state: string;
+  state_name: string;
+  type: string;
+  county_fips: string;
+  county_name: string;
+  county_fips_all: string[];
+  lat: number;
+  lng: number;
+}[];
 
 export type SelectedLocation = {
-    id: string,
-    zip: string,
-    city: string,
-    state: string,
-    state_name: string,
-    type: string,
-    county_fips: string,
-    county_name: string,
-    county_fips_all: string[],
-    lat: number,
-    lng: number
-}
-
-
+  id: string;
+  zip: string;
+  city: string;
+  state: string;
+  state_name: string;
+  type: string;
+  county_fips: string;
+  county_name: string;
+  county_fips_all: string[];
+  lat: number;
+  lng: number;
+};
 
 export type Action = {
-    type: string,
-    field?: string, 
-    value?: string | boolean,
-    email: string,
-    priority: string,
-    phone: string
-}
+  type: string;
+  field?: string;
+  value?: string | boolean;
+  email: string;
+  priority: string;
+  phone: string;
+};
 
 export type DestinationAction = {
-    type: string,
-    field: string,
-    value: string
-}
+  type: string;
+  field: string;
+  value: string;
+};
 
 export type ContactsAction = {
-    type: string,
-    field: string,
-    value: string
-}
+  type: string;
+  field: string;
+  value: string;
+};
 
 export type DestinationState = {
-    origin: string,
-    destination: string,
-    open: boolean,
-    enclosed: boolean
-}
-
-
+  origin: string;
+  destination: string;
+  open: boolean;
+  enclosed: boolean;
+};
 
 export type HeroSecNoteProp = {
-    securityNote: LabelProps
-}
+  securityNote: LabelProps;
+};
 
 export type AppFooterProps = {
-    footerGridData: FooterGridData,
-    footerBottomData: FooterBottomData
-}
+  footerGridData: FooterGridData;
+  footerBottomData: FooterBottomData;
+};
 
 export type FooterBottomData = {
-    footerRights: FooterRightsProp,
-    footerInfo: FooterInfo
-}
+  footerRights: FooterRightsProp;
+  footerInfo: FooterInfo;
+};
 
 export type FooterInfoProp = {
-    footerInfo: FooterInfo
-}
+  footerInfo: FooterInfo;
+};
 
 type FooterInfo = {
-    id: number,
-    text: string
-}[]
+  id: number;
+  text: string;
+}[];
 
 export type FooterRightsProp = {
-    text: string
-}
+  text: string;
+};
 
 export type FooterGridData = {
-    footerGridOne: FooterGridOne
-    footerGridCols: FooterGridCols
-}
+  footerGridOne: FooterGridOne;
+  footerGridCols: FooterGridCols;
+};
 
 type FooterGridOne = {
-    logo: React.FC,
-    description: string,
-    social: FooterGridSocial
-}
+  logo: React.FC;
+  description: string;
+  social: FooterGridSocial;
+};
 
 export type FooterGridOneProps = {
-    Logo: JSX.Element,
-    description: string,
-    social: FooterGridSocial
-}
+  Logo: JSX.Element;
+  description: string;
+  social: FooterGridSocial;
+};
 
 type FooterGridSocial = {
-    id: number,
-    icon: React.FC
-}[]
+  id: number;
+  icon: React.FC;
+}[];
 
 export type FooterGridColProps = {
-    heading: string,
-    items: FooterGridItems
-}
+  heading: string;
+  items: FooterGridItems;
+};
 
 type FooterGridCols = {
-    id: number,
-    heading: string,
-    items: FooterGridItems
-}[]
+  id: number;
+  heading: string;
+  items: FooterGridItems;
+}[];
 
 type FooterGridItems = {
-    id:number,
-    name: string
-}[]
+  id: number;
+  name: string;
+}[];
 
 export type FooterColItemProp = {
-    name: string
-}
+  name: string;
+};
 
 export type FooterRightsData = {
-    footerRights: string
-}
+  footerRights: string;
+};
 
 export type HeroLayoutTopProps = {
-    badgeText: string,
-    badgeType: string,
-    headingPrimary: string,
-    emphasis: string,
-    headingSecondary: string,
-    description: string,
-    btnPrimary: BtnTypes,
-    btnSecondary: BtnTypes,
-    quoteHeading: string,
-    quoteParagraph: string,
-    pickupZip: InputTypes,
-    deliveryZip: InputTypes,
-    transportType: TransportRadioProps,
-    submitBtn: BottomFormTypes,
-    securityNote: BottomFormTypes
-}
+  badgeText: string;
+  badgeType: string;
+  headingPrimary: string;
+  emphasis: string;
+  headingSecondary: string;
+  description: string;
+  btnPrimary: BtnTypes;
+  btnSecondary: BtnTypes;
+  quoteHeading: string;
+  quoteParagraph: string;
+  pickupZip: InputTypes;
+  deliveryZip: InputTypes;
+  transportType: TransportRadioProps;
+  submitBtn: BottomFormTypes;
+  securityNote: BottomFormTypes;
+};
 
 type BtnTypes = {
-    label: string,
-    icon: string,
-    url: string
-}
+  label: string;
+  icon: string;
+  url: string;
+};
 
 type InputTypes = {
-    id: string,
-    label: string,
-    placeholder: string,
-    name: string
-}
+  id: string;
+  label: string;
+  placeholder: string;
+  name: string;
+};
 
 type BottomFormTypes = {
-    label: string,
-    icon: string
-}
+  label: string;
+  icon: string;
+};
 
 export type HeroTimelineProps = {
-    timelineHeading: TimelineHeading,
-    timelineSteps: TimelineSteps
-}
+  timelineHeading: TimelineHeading;
+  timelineSteps: TimelineSteps;
+};
 
 export type TimelineHeading = {
-    badge: string,
-    heading: string,
-    text: string
-}
+  badge: string;
+  heading: string;
+  text: string;
+};
 
 export type HeroTimelineStepsProp = {
-    timelineSteps: TimelineSteps
-}
+  timelineSteps: TimelineSteps;
+};
 
 type TimelineSteps = {
-    id: number,
-    count: string,
-    heading: string,
-    text: string
-}[]
+  id: number;
+  count: string;
+  heading: string;
+  text: string;
+}[];
 
 export type HeroTimelineItemProps = {
-    count: string,
-    heading: string,
-    text: string
-}
+  count: string;
+  heading: string;
+  text: string;
+};
 
 export type HeroTimelineCountProp = {
-    count: string
-}
+  count: string;
+};
 
 export type HeroTimelineContentProps = {
-    heading: string,
-    text: string
-}
+  heading: string;
+  text: string;
+};
 
 export type HeroAboutProps = {
-    heroAboutData: HeroAboutData
-}
+  heroAboutData: HeroAboutData;
+};
 
 type HeroAboutData = {
-    sectionHeader: SectionHeader,
-    valueCards: ValueCards
-}
+  sectionHeader: SectionHeader;
+  valueCards: ValueCards;
+};
 
 type SectionHeader = {
-    heading: string,
-    text: string
-}
+  heading: string;
+  text: string;
+};
 
 type ValueCards = {
-    id: number,
-    icon: React.FC,
-    heading: string,
-    text: string
-}[]
+  id: number;
+  icon: React.FC;
+  heading: string;
+  text: string;
+}[];
 
 export type AboutSectionHeaderProp = {
-    sectionHeader: SectionHeader
-}
+  sectionHeader: SectionHeader;
+};
 
 export type AboutValuesGridProp = {
-    valueCards: ValueCards
-}
+  valueCards: ValueCards;
+};
 
 export type AboutValuesCardProps = {
-    Icon: JSX.Element,
-    heading: string,
-    text: string
-}
+  Icon: JSX.Element;
+  heading: string;
+  text: string;
+};
 
 export type HeroServiceInfoProps = {
-    heroServiceIntro: HeroServiceIntro
-    heroServiceDetails: HeroServiceDetails
-}
+  heroServiceIntro: HeroServiceIntro;
+  heroServiceDetails: HeroServiceDetails;
+};
 
 type HeroServiceIntro = {
-    heading: string,
-    description: Description,
-    url: string,
-    link: string,
-    icon: React.FC<SvgProps>
-}
+  heading: string;
+  description: Description;
+  url: string;
+  link: string;
+  icon: React.FC<SvgProps>;
+};
 
 type Description = {
-    id: number,
-    text: string
-}[]
+  id: number;
+  text: string;
+}[];
 
 export type HeroServiceDescriptionProp = {
-    description: Description
-}
+  description: Description;
+};
 
 type HeroServiceDetails = {
-    divider: React.FC,
-    plusIcon: React.FC,
-    detailsItems: DetailsItems
-}
+  divider: React.FC;
+  plusIcon: React.FC;
+  detailsItems: DetailsItems;
+};
 
 type DetailsItems = {
-    id: number,
-    icon: React.FC<IconProps>,
-    heading: string,
-    description: string
-}[]
+  id: number;
+  icon: React.FC<IconProps>;
+  heading: string;
+  description: string;
+}[];
 
 export type HeroServiceLeftProps = {
-    heading: string,
-    description: Description,
-    url: string,
-    link: string,
-    Icon: JSX.Element
-}
+  heading: string;
+  description: Description;
+  url: string;
+  link: string;
+  Icon: JSX.Element;
+};
 
 export type HeroServiceHeadingProp = {
-    heading: string
-}
+  heading: string;
+};
 
 export type HeroServiceBtnProps = {
-    url: string,
-    link: string,
-    Icon: JSX.Element
-}
+  url: string;
+  link: string;
+  Icon: JSX.Element;
+};
 
 export type HeroServiceRightProps = {
-    Divider: JSX.Element,
-    PlusIcon: JSX.Element,
-    detailsItems: DetailsItems
-}
+  Divider: JSX.Element;
+  PlusIcon: JSX.Element;
+  detailsItems: DetailsItems;
+};
 
 export type HeroServiceDetailProps = {
-    Icon: JSX.Element,
-    heading: string,
-    description: string,
-    PlusIcon: JSX.Element
-}
+  Icon: JSX.Element;
+  heading: string;
+  description: string;
+  PlusIcon: JSX.Element;
+};
 
 export type DetailsItemsHeadingProp = {
-    heading: string
-}
+  heading: string;
+};
 
 export type DetailsItemHeadingProps = {
-    Icon: JSX.Element,
-    heading: string
-}
+  Icon: JSX.Element;
+  heading: string;
+};
 
 export type DetailsDescriptionProp = {
-    description: string
-}
+  description: string;
+};
 
 export type DropDownContainerProps = {
-    dropDownHeadingOne?: string,
-    dropDownHeadingTwo?: string,
-    dropDownMenu: DropDownMenu
-}
+  dropDownHeadingOne?: string;
+  dropDownHeadingTwo?: string;
+  dropDownMenu: DropDownMenu;
+};
 
 export type DropDownSingleProp = {
-    dropDownSingle: DropDownMenu
-}
+  dropDownSingle: DropDownMenu;
+};
 
 export type DropDownSingleColProps = {
-    url: string,
-    text: string
-}
+  url: string;
+  text: string;
+};
 
 export type DropDownDoubleProp = {
-    dropDownDouble: DropDownDoubleMenu
-}
+  dropDownDouble: DropDownDoubleMenu;
+};
 
 export type DropDownDoubleColProps = {
-    heading: string,
-    menuItems: MenuItems,
-    id: number
-}
+  heading: string;
+  menuItems: MenuItems;
+  id: number;
+};
 
 export type DropDownDoubleItemProp = {
-    text: string
-}
-
+  text: string;
+};
 
 export type HeroQuoteCardProps = {
-    quoteHeading: string,
-    quoteParagraph: string,
-    pickupZip: InputProps,
-    deliveryZip: InputProps,
-    transportType: TransportRadioProps,
-    submitBtn: LabelProps,
-    securityNote: LabelProps
-}
+  quoteHeading: string;
+  quoteParagraph: string;
+  pickupZip: InputProps;
+  deliveryZip: InputProps;
+  transportType: TransportRadioProps;
+  submitBtn: LabelProps;
+  securityNote: LabelProps;
+};
 
 export type QuoteDeliveryInputProps = {
-   deliveryZip: InputProps,
-   delivery: string,
-   handleDeliveryChange: (e: ChangeEvent<HTMLInputElement>) => void,
-   deliveryResult: DestinationResult,
-   fetchData: (searchTerm: string) => void,
-   deliverySearch: boolean,
-   handleSelectDelivery: (el: SelectedLocation, field: string) => void,
-   destinationErrors: ErrorState
-}
-
+  deliveryZip: InputProps;
+  delivery: string;
+  handleDeliveryChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  deliveryResult: DestinationResult;
+  fetchData: (searchTerm: string) => void;
+  deliverySearch: boolean;
+  handleSelectDelivery: (el: SelectedLocation, field: string) => void;
+  destinationErrors: ErrorState;
+};
 
 export type SearchDestinationAreaProp = {
-    originResult: DestinationResult
-}
-
+  originResult: DestinationResult;
+};
 
 export type DestinationFormState = {
-    origin:string,
-    delivery:string,
-    transport: string,
-    year: string,
-    make: string,
-    model: string,
-    isDriving: boolean,
-    email: string,
-    priority: string,
-    phone?: string
-}
-
-
+  origin: string;
+  delivery: string;
+  transport: string;
+  year: string;
+  make: string;
+  model: string;
+  isDriving: boolean;
+  email: string;
+  priority: string;
+  phone?: string;
+};
 
 export type QuoteFormState = {
-    showDestinationForm: boolean,
-    showVehicleForm: boolean,
-    showContactForm: boolean
-}
+  showDestinationForm: boolean;
+  showVehicleForm: boolean;
+  showContactForm: boolean;
+};
 
 export type QuoteVehicleProps = {
-    vehicleComplete: MouseEventHandler<HTMLButtonElement>,
-    dispatchQuoteData: Dispatch<Action>,
-    handleActiveStep: (state: number) => void
-}
+  vehicleComplete: MouseEventHandler<HTMLButtonElement>;
+  dispatchQuoteData: Dispatch<Action>;
+  handleActiveStep: (state: number) => void;
+};
 
 type Fields = {
-    name: string,
-    type: string
-}[]
+  name: string;
+  type: string;
+}[];
 
 type OptionsConfig = {
-    YEARS_STATIC: YEARS_STATIC,
-    MAKE_REMOTE: MAKE_REMOTE,
-    MODEL_REMOTE_DYNAMIC: MODEL_REMOTE_DYNAMIC
-}
+  YEARS_STATIC: YEARS_STATIC;
+  MAKE_REMOTE: MAKE_REMOTE;
+  MODEL_REMOTE_DYNAMIC: MODEL_REMOTE_DYNAMIC;
+};
 
 type YEARS_STATIC = {
-    type: string,
-    options: Options
-}
+  type: string;
+  options: Options;
+};
 
 type MAKE_REMOTE = {
-    type: string,
-    path: string,
-    labelKey: string,
-    valueKey: string
-}
+  type: string;
+  path: string;
+  labelKey: string;
+  valueKey: string;
+};
 
 type MODEL_REMOTE_DYNAMIC = {
-    type: string,
-    dependencies: string[],
-    path: string,
-    labelKey: string,
-    valueKey: string
-}
+  type: string;
+  dependencies: string[];
+  path: string;
+  labelKey: string;
+  valueKey: string;
+};
 
 type Options = {
-    label: string,
-    value: string
-}[]
-
-
+  label: string;
+  value: string;
+}[];
 
 export type PriorityItemsProp = {
-    value: string
-}
+  value: string;
+};
 
 export type VehicleState = {
-    id: string,
-    year: string,
-    make: string,
-    model: string
-}[]
-
-
+  id: string;
+  year: string;
+  make: string;
+  model: string;
+}[];
 
 type Year = {
-    id: string,
-    year: string
-}[]
+  id: string;
+  year: string;
+}[];
 
 type Make = {
-    id: string,
-    make: string
-}[]
+  id: string;
+  make: string;
+}[];
 
 type Model = {
-    id: string,
-    model: string
-}[]
+  id: string;
+  model: string;
+}[];
 
 export type VehicleSelectInputProps = {
-   years?: YearsArr,
-   makes?: MakesArr,
-   models?: ModelsArr
-   label: string,
-   id: string,
-   name: string,
-   defaultValue: string,
-   handleSelectChange?: (e: ChangeEvent) => void
-}
+  years?: YearsArr;
+  makes?: MakesArr;
+  models?: ModelsArr;
+  label: string;
+  id: string;
+  name: string;
+  defaultValue: string;
+  handleSelectChange?: (e: ChangeEvent) => void;
+};
 
 type ModelsArr = {
-    id: string,
-    model: string
-}[]
+  id: string;
+  model: string;
+}[];
 
 type YearsArr = {
-    id: string,
-    year: number
-}[]
+  id: string;
+  year: number;
+}[];
 
 type MakesArr = {
-    id: string,
-    make: string
-}[]
+  id: string;
+  make: string;
+}[];
 
 export type VehicleElement = {
-    id: string,
-    year: number,
-    make: string,
-    model: string
-}
+  id: string;
+  year: number;
+  make: string;
+  model: string;
+};
 
 export type QuoteContactProps = {
-    dispatchQuoteData: Dispatch<Action>,
-    handleActiveStep: (state: number) => void
-}
+  dispatchQuoteData: Dispatch<Action>;
+  handleActiveStep: (state: number) => void;
+};
 
 export type EmailInputProps = {
-    id: string,
-    label: string,
-    name: string,
-    placeholder: string,
-    email: string,
-    handleInputChange: (e: ChangeEvent) => void,
-    contactErrors: ContactErrorState
-}
+  id: string;
+  label: string;
+  name: string;
+  placeholder: string;
+  email: string;
+  handleInputChange: (e: ChangeEvent) => void;
+  contactErrors: ContactErrorState;
+};
 
 export type PhoneInputProps = {
-    id: string,
-    label: string,
-    name: string,
-    placeholder: string,
-    handleInputChange: (event: ChangeEvent) => void,
-    phone: string,
-    contactErrors: ContactErrorState
-}
+  id: string;
+  label: string;
+  name: string;
+  placeholder: string;
+  handleInputChange: (event: ChangeEvent) => void;
+  phone: string;
+  contactErrors: ContactErrorState;
+};
 
 export type PriorityInputProps = {
-    id: string,
-    label: string,
-    name: string,
-    handleInputChange: (event: ChangeEvent) => void,
-    priorityList: PriorityList,
-    priority: string
-}
+  id: string;
+  label: string;
+  name: string;
+  handleInputChange: (event: ChangeEvent) => void;
+  priorityList: PriorityList;
+  priority: string;
+};
 
 type PriorityList = {
-    id: string,
-    value: string
-}[]
+  id: string;
+  value: string;
+}[];
 
 export type ErrorState = {
-    originError: string,
-    deliveryError: string
-}
+  originError: string;
+  deliveryError: string;
+};
 
 export type ContactErrorState = {
-    emailError: string,
-    phoneError: string
-}
+  emailError: string;
+  phoneError: string;
+};

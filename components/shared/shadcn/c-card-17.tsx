@@ -1,15 +1,13 @@
-import { Card, CardContent } from "@/components/shared/shadcn/card"
-import { ShoppingBagIcon, ChevronRightIcon } from "lucide-react"
+import { Card, CardContent } from "@/components/shared/shadcn/card";
+import { ShoppingBagIcon, ChevronRightIcon } from "lucide-react";
 
 const item = {
   title: "Recent Orders Overview",
   description:
     "Track and review all recent purchases, updates, and status changes in one place.",
   link: "View Orders",
-  icon: (
-    <ShoppingBagIcon aria-hidden="true" />
-  ),
-}
+  icon: <ShoppingBagIcon aria-hidden="true" />,
+};
 
 export function Pattern() {
   return (
@@ -36,5 +34,5 @@ export function Pattern() {
         </a>
       </CardContent>
     </Card>
-  )
+  );
 }

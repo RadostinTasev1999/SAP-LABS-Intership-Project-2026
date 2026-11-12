@@ -1,50 +1,42 @@
-'use client'
+"use client";
 
-import { AnimatePresence } from 'motion/react'
+import { AnimatePresence } from "motion/react";
 
-import Header from './Header'
-import MobileDrawer from './MobileDrawer'
-import {NavWrapperProps} from '@/lib/definitions'
-import { useState } from 'react'
+import Header from "./Header";
+import MobileDrawer from "./MobileDrawer";
+import { NavWrapperProps } from "@/lib/definitions";
+import { useState } from "react";
 
-export default function NavWrapper({
-    appHeaderProps
-}: NavWrapperProps){
+export default function NavWrapper({ appHeaderProps }: NavWrapperProps) {
+  // mobile menu navigation
+  const [showMenu, setShowMenu] = useState(false);
 
-    // mobile menu navigation
-    const [showMenu, setShowMenu] = useState(false);
+  const onMobileOpen = () => {
+    console.log("Hamburger clicked!");
+    setShowMenu(true);
+  };
 
-    const onMobileOpen = () => {
-        console.log('Hamburger clicked!')
-        setShowMenu(true);
-    }
+  const onMobileClose = () => {
+    console.log("Close button clicked!");
+    setShowMenu(false);
+  };
 
-    const onMobileClose = () => {
-        console.log('Close button clicked!')
-        setShowMenu(false);
-    }
+  return (
+    <>
+      <Header
+        onMobileOpen={onMobileOpen}
+        navProps={appHeaderProps.desktopNav}
+        desktopCta={appHeaderProps.desktopCta}
+      />
 
-    return(
-        <>
-            <Header 
-                onMobileOpen={onMobileOpen}
-                navProps={appHeaderProps.desktopNav}
-                desktopCta={appHeaderProps.desktopCta}
-
-                />
-
-            <AnimatePresence initial={false}>
-                {
-                showMenu && (
-                    <MobileDrawer 
-                        onMobileClose={onMobileClose} 
-                        mobileDrawer={appHeaderProps.mobileDrawer}
-                        />
-                )
-            }
-            </AnimatePresence>
-            
-            
-        </>
-    )
+      <AnimatePresence initial={false}>
+        {showMenu && (
+          <MobileDrawer
+            onMobileClose={onMobileClose}
+            mobileDrawer={appHeaderProps.mobileDrawer}
+          />
+        )}
+      </AnimatePresence>
+    </>
+  );
 }
