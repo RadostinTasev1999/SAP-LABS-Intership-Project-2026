@@ -25,15 +25,15 @@ export default function VehicleSelectInput({
         onChange={handleSelectChange}
       >
         {label === "Year" &&
-          years &&
+          years && years.length !== 0 &&
           years.map((el) => <option key={el.id}>{el.year}</option>)}
 
         {label === "Make" &&
-          makes &&
+          makes && makes.length !== 0 &&
           makes.map((el) => <option key={el.id}>{el.make}</option>)}
 
         {label === "Model" &&
-          models &&
+          models && models.length !== 0 &&
           models.map((el) => <option key={el.id}>{el.model}</option>)}
       </select>
     </div>
