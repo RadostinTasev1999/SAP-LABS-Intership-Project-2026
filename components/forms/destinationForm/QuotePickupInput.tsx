@@ -50,7 +50,7 @@ export default function QuotePickupInput({
 
       {showResult && (
         <ul className="absolute top-full left-0 right-0 mt-1 bg-white rounded-md max-h-52 overflow-y-auto z-50 divide-y divide-slate-200">
-          {originResult &&
+          {originResult.length !== 0 &&
             originResult.map((el) => (
               <li
                 key={el.id}
