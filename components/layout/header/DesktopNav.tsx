@@ -8,7 +8,7 @@ export default function DesktopNav({ navProps }: AppHeaderProps) {
     <nav className="hidden lg:flex items-center" aria-label="Main navigation">
       <ul className="flex items-center gap-6 font-semibold text-sm">
         {/* Home */}
-        {navProps &&
+        {navProps && navProps.length !== 0 &&
           navProps.map((el) => {
             const dropDownSingle = el.dropDownSingle
               ? el.dropDownSingle
