@@ -9,7 +9,7 @@ import { styled } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 
-import { ChangeEvent, MouseEventHandler, useReducer, useState } from "react";
+import { ChangeEvent, useReducer, useState, useCallback } from "react";
 
 import { SelectedLocation } from "@/lib/definitions";
 
@@ -184,13 +184,10 @@ export default function QuoteDestinationForm({
     return isValid;
   };
 
-  const destinationComplete = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
+  const destinationComplete = useCallback(() => {
     // Validate inputs
     const inputValidation = validateDestinationInputs(origin, delivery);
-    console.log("Input validation value:", inputValidation);
-    console.log("Origin value:", origin);
+
     if (!inputValidation) {
       setIsDisabled(true);
       return;
@@ -200,17 +197,17 @@ export default function QuoteDestinationForm({
     handleActiveStep(2);
     // Hide Destination form
     dispatchQuoteState({
-      type: "HIDE_DESTINATION",
+      type: "hide_destination",
       field: "showDestinationForm",
       value: false,
     });
     // Show Vehicle form
     dispatchQuoteState({
-      type: "SHOW_VEHICLE",
+      type: "show_vehicle",
       field: "showVehicleForm",
       value: true,
     });
-  };
+  }, [origin, delivery]);
 
   const fetchData = (searchTerm: string) => {
     switch (searchTerm) {
