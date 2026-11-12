@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { DashRing } from "@/components/shared/shadcn/dash-ring";
+
 import ArrowRight from "@/components/shared/icons/ArrowRight";
 
 import EmailInput from "./EmailInput";
@@ -10,7 +13,7 @@ import { QuoteContactProps } from "@/lib/definitions";
 import { ContactErrorState } from "@/lib/definitions";
 import { ContactsAction } from "@/lib/definitions";
 import { ChangeEvent, useState, useEffect } from "react";
-import { useReducer } from "react";
+import { useReducer, useCallback } from "react";
 
 const API_URL = "http://localhost:3000/priorityList";
 
@@ -71,11 +74,16 @@ const phoneRegExp = /^\(\d{3}\) \d{3}-\d{4}$/;
 export default function QuoteContactForm({
   dispatchQuoteData,
   handleActiveStep,
+  renderOffer
 }: QuoteContactProps) {
+
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [priorityList, setPriorityList] = useState([]);
   const [priority, setPriority] = useState("As soon as possible");
   const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const [contactErrors, dispatchErrors] = useReducer(
     contactsReducer,
@@ -132,8 +140,7 @@ export default function QuoteContactForm({
     return isValid;
   };
 
-  const contactComplete = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const contactComplete = useCallback(() => {
     // Validate input data
     const validInputs = validateContactInputs(email, phone);
 
@@ -144,7 +151,7 @@ export default function QuoteContactForm({
     }
 
     // logic if validation passes:
-    console.log("Priority value is:", priority);
+
     dispatchQuoteData({
       type: "set_contactdata",
       email: email,
@@ -153,7 +160,16 @@ export default function QuoteContactForm({
     });
     // Mark Form as complete
     handleActiveStep(4);
-  };
+
+    // Show loading spinner
+    setLoading(true)
+    // navigate to QuoteOffer Page
+    setTimeout(() => {
+      router.push('/dashboard')
+      setLoading(false)
+    },3000)
+   
+  }, [email, phone, priority]);
 
   const handleInputChange = (e: ChangeEvent) => {
     const field = e.target.name;
@@ -264,7 +280,11 @@ export default function QuoteContactForm({
             disabled={isDisabled ? true : false}
           >
             Calculate Quote
-            <ArrowRight />
+            {
+              loading ? <DashRing className="size-6" /> : <ArrowRight />
+            }
+            
+          
           </button>
         </div>
       </div>
