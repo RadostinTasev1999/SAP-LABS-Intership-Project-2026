@@ -15,6 +15,7 @@ export default function AppHeader({
   onMobileOpen,
   navProps,
   desktopCta,
+  route
 }: AppHeaderProps) {
   const { scrollY } = useScroll(); // tracks scroll position
   // scrollY -> represents the vertical scroll position in pixels
@@ -52,19 +53,28 @@ export default function AppHeader({
           <HeaderLogo />
 
           {/* Center: Main Navigation with Dropdowns */}
-          <DesktopNav navProps={navProps} />
+          {
 
-          {/* Right Call to Action Button */}
-          <DesktopCta url={desktopCta?.url} text={desktopCta?.text} />
+            route === 'index' && (
+              <>
+              <DesktopNav navProps={navProps} />
+              
+              <DesktopCta url={desktopCta?.url} text={desktopCta?.text} />
 
-          {/* MOBILE VIEW */}
+              {/* Mobile view */}
+              <MobileHamburger onMobileOpen={onMobileOpen} />
 
-          {/* Mobile Hamburger Menu Button */}
-          <MobileHamburger onMobileOpen={onMobileOpen} />
+              <MobileLogo />
+              </>
+            )
+            
+          }
 
-          {/* Mobile Logo (Centered) */}
-          <MobileLogo />
-
+          {
+            route === 'dashboard' && (
+              <h1>Dashboard Header</h1>
+            )
+          }
           {/* Mobile Right Spacer (Balances flex alignment) */}
           <div className="block lg:hidden w-6"></div>
         </div>
