@@ -14,6 +14,7 @@ export type AppHeaderProps = {
   onMobileOpen?: () => void;
   navProps?: DesktopNav;
   desktopCta?: DesktopCta;
+  route?: string
 };
 
 export type NavListItemProps = {
@@ -37,6 +38,7 @@ export type MobileDrawerProps = {
 
 export type NavWrapperProps = {
   appHeaderProps: AppHeaderData;
+  route: string
 };
 
 type DesktopCta = {
@@ -127,6 +129,7 @@ export type MobileDetailItemProps = {
 export type AppHeroProps = {
   appHeroProps: AppHeroData;
   heroLayoutCardData: HeroLayoutCardData;
+  renderOffer: () => void
 };
 
 export type HeroLayoutCardType = {
@@ -235,7 +238,7 @@ export type QuoteDestinationProps = {
   transportType: TransportRadioProps;
   submitBtn: LabelProps;
   dispatchQuoteData: Dispatch<Action>;
-  dispatchQuoteState: Dispatch<Action>;
+  dispatchQuoteState: Dispatch<QuoteStateAction>;
   handleActiveStep: (state: number) => void;
 };
 
@@ -277,6 +280,12 @@ export type SelectedLocation = {
   county_fips_all: string[];
   lat: number;
   lng: number;
+};
+
+export type QuoteStateAction = {
+  type: string;
+  field: string;
+  value: boolean;
 };
 
 export type Action = {
@@ -396,6 +405,7 @@ export type HeroLayoutTopProps = {
   transportType: TransportRadioProps;
   submitBtn: BottomFormTypes;
   securityNote: BottomFormTypes;
+  renderOffer: () => void
 };
 
 type BtnTypes = {
@@ -604,6 +614,7 @@ export type HeroQuoteCardProps = {
   transportType: TransportRadioProps;
   submitBtn: LabelProps;
   securityNote: LabelProps;
+  renderOffer: () => void
 };
 
 export type QuoteDeliveryInputProps = {
@@ -744,6 +755,7 @@ export type VehicleElement = {
 export type QuoteContactProps = {
   dispatchQuoteData: Dispatch<Action>;
   handleActiveStep: (state: number) => void;
+  renderOffer: () => void
 };
 
 export type EmailInputProps = {
@@ -789,3 +801,13 @@ export type ContactErrorState = {
   emailError: string;
   phoneError: string;
 };
+
+export type StepperProps = {
+  activeStep: number,
+  onStepChange: (step: number) => void,
+  steps: StepsArr
+}
+
+type StepsArr = {
+  title: string,
+}[]
