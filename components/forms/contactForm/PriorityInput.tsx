@@ -24,7 +24,7 @@ export default function PriorityInput({
         className="border w-full rounded-[5px] border-gray-300 bg-gray-50 px-[14px] py-[11px] text-sm text-gray-800 outline-none transition-colors focus:border-blue-500"
         onChange={handleInputChange}
       >
-        {priorityList &&
+        {priorityList.length !== 0 &&
           priorityList.map((el) => (
             <PriorityItems key={el.id} value={el.value} />
           ))}
