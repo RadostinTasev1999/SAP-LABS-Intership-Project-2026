@@ -7,7 +7,7 @@ import MobileDrawer from "./MobileDrawer";
 import { NavWrapperProps } from "@/lib/definitions";
 import { useState } from "react";
 
-export default function NavWrapper({ appHeaderProps }: NavWrapperProps) {
+export default function NavWrapper({ appHeaderProps, route }: NavWrapperProps) {
   // mobile menu navigation
   const [showMenu, setShowMenu] = useState(false);
 
@@ -27,6 +27,7 @@ export default function NavWrapper({ appHeaderProps }: NavWrapperProps) {
         onMobileOpen={onMobileOpen}
         navProps={appHeaderProps.desktopNav}
         desktopCta={appHeaderProps.desktopCta}
+        route={route}
       />
 
       <AnimatePresence initial={false}>
