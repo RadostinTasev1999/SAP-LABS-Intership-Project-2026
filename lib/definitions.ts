@@ -755,7 +755,8 @@ export type VehicleElement = {
 export type QuoteContactProps = {
   dispatchQuoteData: Dispatch<Action>;
   handleActiveStep: (state: number) => void;
-  renderOffer: () => void
+  renderOffer: () => void;
+  handleQuoteSubmit: () => void
 };
 
 export type EmailInputProps = {
@@ -811,3 +812,92 @@ export type StepperProps = {
 type StepsArr = {
   title: string,
 }[]
+
+export type QuoteSideBarProps = {
+  handleEdit: () => void;
+  handleSave: () => void;
+  edit: boolean
+}
+
+export type QuoteValuesState = {
+    origin: string,
+    delivery: string,
+    transport: string,
+    year: string,
+    make: string,
+    model: string,
+    isDriving: boolean,
+    email: string,
+    priority: string,
+    phone: string
+}
+
+export type QuoteValuesAction = {
+  type: string,
+  origin: string,
+  delivery: string,
+  transport: string,
+  year: string,
+  make: string,
+  model: string,
+  isDriving: boolean,
+  email: string,
+  priority: string,
+  phone: string
+}
+
+export type QuoteDBValues = {
+  origin: string,
+  delivery: string,
+  transport: string,
+  year: string,
+  make: string,
+  model: string,
+  isDriving: boolean,
+  email: string,
+  priority: string,
+  phone: string
+}[]
+
+export type QuoteResultState = {
+  success: boolean,
+  message: string,
+  quote: Quote | null
+}
+
+type Quote = {
+  price: number,
+  distance: number,
+  estimatedDays: string,
+  from: QuoteOrigin,
+  to: QuoteDelivery,
+  vehicleType: string,
+  carries: string,
+  operational: boolean
+}
+
+type QuoteOrigin = {
+  zip: number,
+  city: string,
+  state: string
+}
+
+type QuoteDelivery = {
+  zip: number,
+  city: string,
+  state: string
+}
+
+export type QuoteResultAction = {
+  type: string,
+  success: boolean,
+  message?: string,
+  quote?: Quote
+}
+
+export type QuoteOfferCardProps = {
+    price?: number,
+    origin?: QuoteOrigin,
+    destination?: QuoteDelivery,
+    distance?: number
+}
