@@ -74,7 +74,8 @@ const phoneRegExp = /^\(\d{3}\) \d{3}-\d{4}$/;
 export default function QuoteContactForm({
   dispatchQuoteData,
   handleActiveStep,
-  renderOffer
+  renderOffer,
+  handleQuoteSubmit
 }: QuoteContactProps) {
 
   const router = useRouter();
@@ -163,11 +164,18 @@ export default function QuoteContactForm({
 
     // Show loading spinner
     setLoading(true)
-    // navigate to QuoteOffer Page
+
+    // Fetch API
     setTimeout(() => {
-      router.push('/dashboard')
+      handleQuoteSubmit()
       setLoading(false)
     },3000)
+    
+    // navigate to QuoteOffer Page
+    // setTimeout(() => {
+    //   router.push('/dashboard')
+    //   setLoading(false)
+    // },3000)
    
   }, [email, phone, priority]);
 
