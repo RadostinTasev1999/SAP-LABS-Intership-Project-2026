@@ -1,158 +1,156 @@
-import CheckBadge from "@/components/shared/icons/CheckBadge";
-import { CheckCircle } from "lucide-react";
+'use client'
+
+import QuoteOfferCard from './QuoteOfferCard'
+import QuoteSideBar from './QuoteSideBar'
+
+import { QuoteDBValues } from '@/lib/definitions'
+import { QuoteResultState } from '@/lib/definitions'
+import { QuoteResultAction } from '@/lib/definitions'
+
+import { useState,useEffect, useReducer } from 'react'
+
+const API_URL = 'http://localhost:3000/quoteData'
+
+const initialState = {
+    success: false,
+    message: '',
+    quote: {
+        price: 0,
+        distance: 0,
+        estimatedDays: '',
+        from: {
+            zip: 0,
+            city: '',
+            state: ''
+        },
+        to: {
+            zip:0,
+            city:'',
+            state: ''
+        },
+        vehicleType: '',
+        carries: '',
+        operational: true
+    }
+}
+// { type: 'set_error', success: result.message.success, message: result.message.message, quote: result.message.quote }
+// { type: 'set_result', success: result.success, quote: result.quote}
+const quoteReducer = (state: QuoteResultState, action: QuoteResultAction) => {
+
+    switch (action.type) {
+        case 'set_error':
+            return {
+                success: action.success,
+                message: action.message,
+                quote: action.quote
+            }
+
+        case 'set_result':
+            return {
+                ...state,
+                success: action.success,
+                quote: action.quote
+            }
+            
+    
+        default:
+            return {
+                ...state
+            }
+    }
+    
+}
 
 export default function QuoteOffer(){
 
+    const [edit, setEdit] = useState(false);
+    const [quoteResult, dispatchQuoteResult] = useReducer(quoteReducer, initialState)
+
+    const handleEdit = () => {
+        setEdit(true)
+    }
+
+    const handleSave = () => {
+        // update email state
+        // update phone number state
+
+        // update edit state
+    }
+
+    useEffect(() => {
+
+        // Fetch API
+        const fetchAPI = async() => {
+            // Get QuoteData
+            const response = await fetch(API_URL);
+            const result = await response.json();
+
+            //  console.log('Result in QUoteOffer effect funciton is:', result)
+
+            // Calculate quote
+            calculateQuote(result)
+
+        }
+        // Calculate Quote
+        const calculateQuote = async(quoteData: QuoteDBValues) => {
+
+            const vehicleOrigin = quoteData[0].origin
+            // Dallas, TX 75201
+            const originZip = Number(vehicleOrigin.split(" ")[2])
+            // console.log('Origin zip:', originZip)
+            const vehicleDestination = quoteData[0].delivery
+            // console.log('VehicleDestination is:', vehicleDestination)
+            // Hartford, CT 06103
+            const destinationZip = Number(vehicleDestination.split(" ")[2])
+            // console.log('Destination zip is:', destinationZip)
+            const API = 'https://carhauler247.com/api/public/v1'
+
+            const query = `${API}/quote?fromZip=${originZip}&toZip=${destinationZip}&vehicleType=sedan`
+            
+            const response = await fetch(query);
+            const result = await response.json();
+
+            // console.log('Result in calculateQuote function is:', result)
+            // Validate response:
+            if (!result.success) {
+                /*
+                    {
+                        "success": false,
+                        "message": "Invalid value 'CT 06103' for parameter 'fromZip'. See https://carhauler247.com/api-docs",
+                        "quote": null
+                    }
+                */
+            //    console.log('Result is:', result)
+               dispatchQuoteResult({ type: 'set_error', success: result.success, message: result.message, quote: result.quote })
+                throw new Error(result.message.message)
+            } else{
+                // console.log('Result on success is:', result)
+
+                dispatchQuoteResult({ type: 'set_result', success: result.success, quote: result.quote})
+            }
+        }
+
+        fetchAPI();
+        
+
+
+    },[])
+
     return(
-        <div className="w-full min-h-screen grid grid-cols-2 bg-[url(/LoginBackgroundImage.jpg)] bg-cover bg-center">
+        <div className="w-full min-h-screen grid grid-cols-1 gap-8 sm:grid-cols-4 sm:gap-8 bg-[url(/LoginBackgroundImage.jpg)] bg-cover bg-center">
             {/* Quote Card */}
-            <div className="max-w-lg mb-[20px] mt-[110px] ml-[14px] rounded-2xl backdrop-blur-xs border border-slate-300 bg-white/70 p-7 sm:px-4 sm:py-[22px]">
-                {/* Header */}
-                <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[1px]">
-                    Your Quote
-                </div>
-
-                {/* Route information */}
-                <div className="mb-5 flex flex-wrap items-center gap-3 rounded-lg px-5 py-4 text-[13px] sm:px-4 sm:py-3.5">
-                    <span className="font-semibold">📍 Beverly Hills, CA 90210</span>
-
-                    <span className="text-xl font-bold">
-                        →
-                    </span>
-
-                    <span className="font-semibold">📍 Atlanta, GA 30303</span>
-
-                    <span className="font-semibold text-xs">
-                        ~299 mi
-                    </span>
-                </div>
-
-                {/* Inoperable vehicle checkbox */}
-                <label htmlFor="" className="mb-[14px] flex cursor-pointer items-start gap-2.5 rounded-lg border-[1.5px] px-3.5 py-3 ">
-                    <input type="checkbox" className="mt-0.5" />
-
-                    <div>
-                        <span className="block text-[13px] font-semibold">
-                            This vehicle does not run or drive
-                        </span>
-                        <span className="mt-[3px] block text-[11px] ">
-                            Carriers will use a winch or flatbed for loading. Toggling will refresh pricing.
-                        </span>
-                    </div>
-                </label>
-            {/* Price */}
-                <div className="mb-4">
-                    <span className="text-xl font-bold">Price</span>
-                </div>
-
-            {/* Price cards */}
-            <div className="flex w-full justify-center">
-                {/* Reccomended price card */}
-
-                <div className="w-full max-w-md overflow-hidden border-t border-slate-400 ">
-                    <div className="p-3">
-                        {/* Price heading */}
-                        <div className="mb-5">
-                            <div className="price-title flex items-center justify-between gap-3">
-                                <span className="text-lg font-bold text-slate-800">
-                                    Full Service Price
-                                </span>
-                                
-                            </div>
-                        </div>
-                        {/* Price amout */}
-                        <div className="mb-6">
-                            {/* Current price */}
-                            <div id="price">
-                                <div id="best-price" className="text-3xl font-extrabold tracking-tight text-slate-900">
-                                    <b className="mr-1 text-3xl font-semibold">$</b>835
-                                </div>
-                            </div>
-
-                        </div>
-
-                        {/* Card benefits */}
-                        <div className="space-y-4">
-                            {/* Benefit 1 */}
-                            <div className="flex items-center gap-3">
-                                <div className="flex h-6 w-6 shrink-0 items-center justify-center">
-                                    <CheckCircle />
-                                </div>
-                                <div>
-                                    <span className="text-sm font-medium text-slate-700">
-                                        Proper Due Diligence
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Benefit 2 */}
-                            <div className="flex items-center gap-3">
-                                <div className="flex h-6 w-6 shrink-0 items-center justify-center">
-                                    <CheckCircle />
-                                </div>
-                                <div>
-                                    <span className="text-sm font-medium text-slate-700">
-                                        Door to Door Car Pickup & Delivery
-                                    </span>
-                                </div>
-                            </div>
-                            {/* Benefit 3 */}
-                            <div className="flex items-center gap-3">
-                                <div className="flex h-6 w-6 shrink-0 items-center justify-center">
-                                    <CheckCircle />
-                                </div>
-                                <div>
-                                    <span className="text-sm font-medium text-slate-700">
-                                        10+ Year Experience
-                                    </span>
-                                </div>
-                            </div>
-                            {/* Benefit 4 */}
-                            <div className="flex items-center gap-3">
-                                <div className="flex h-6 w-6 shrink-0 items-center justify-center">
-                                    <CheckCircle />
-                                </div>
-                                <div>
-                                    <span className="text-sm font-medium text-slate-700">
-                                        Dedicated Dispatch and Customer Support Team from Booking to Delivery
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        {/* Additional Description */}
-                        <div className="mb-4 mt-4 border-t border-slate-400 pt-4">
-                            <div>
-                                <span className="text-sm leading-6 text-slate-700">
-                                        Enjoy the peace of mind that comes with a professional team,
-                                        around-the-clock support, and expert oversight of your vehicle
-                                        from pick up to delivery.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            {/* Continue to booking button */}
-            <button
-                type="button"
-                className="mt-2 w-full rounded-[5px] bg-green-600 border border-slate-300 rounded-xl px-3.5 py-2.5 text-base text-white hover:bg-green-500"
-                >
-                    Continue to booking
-            </button>
-            {/* Edit Quote Button */}
-            <button
-                type="button"
-                className="mt-2 w-full rounded-[5px] border border-slate-300 rounded-xl bg-white/80 px-3.5 py-2.5 text-base hover:bg-gray-50"
-                >
-                    ← Edit Quote
-            </button>
-            
-            
-            </div>
-            {/* Summary of Quote SideBar */}
-            <div>Summary</div>
+            <QuoteOfferCard 
+                price={quoteResult.quote?.price}
+                origin={quoteResult.quote?.from}
+                destination={quoteResult.quote?.to}
+                distance={quoteResult.quote?.distance}
+            />
+            {/* Quote SideBar */}
+            <QuoteSideBar 
+                handleEdit={handleEdit}
+                handleSave={handleSave}
+                edit={edit}
+                />
         </div>
     )
 }
