@@ -2,6 +2,7 @@
 
 import { MouseEvent, useEffect } from "react";
 import { DashRing } from "@/components/shared/shadcn/dash-ring";
+import { useRouter } from "next/navigation";
 
 import QuoteVehicleForm from "../../forms/vehicleForm/QuoteVehicleForm";
 import HeroQuoteHeading from "./HeroQuoteHeading";
@@ -168,6 +169,9 @@ export default function HeroQuoteCard({
   securityNote,
   renderOffer
 }: HeroQuoteCardProps) {
+
+  const router = useRouter()
+
   const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState);
   const [quoteState, dispatchQuoteState] = useReducer(
     stateReducer,
@@ -175,7 +179,12 @@ export default function HeroQuoteCard({
   );
   const [activeStep, setActiveStep] = useState(1);
 
-  // const [destinationState, dispatchDestination] = useReducer(destinationReducer, initialDestination)
+  const [quoteSubmit, setQuoteSubmit] = useState(false);
+
+  const handleQuoteSubmit = () => {
+    setQuoteSubmit(true)
+  }
+
 
   const handleActiveStep = (state: number) => {
     setActiveStep(state);
@@ -269,8 +278,56 @@ export default function HeroQuoteCard({
   }, []);
 
   useEffect(() => {
-    console.log("Quote data is:", quoteData);
-  }, [quoteData]);
+    
+    if (!quoteSubmit) {
+      return;
+    }
+    // Fetch API
+    const {
+      origin,
+      delivery,
+      transport,
+      year,
+      make,
+      model,
+      isDriving,
+      email,
+      priority,
+      phone,
+    } = quoteData
+
+    const API_URL = "http://localhost:3000/quoteData"
+
+    const fetchData = async() => {
+      const response = await fetch(API_URL,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          origin,
+          delivery,
+          transport,
+          year,
+          make,
+          model,
+          isDriving,
+          email,
+          priority,
+          phone,
+        })
+      })
+
+      const result = await response.json();
+      
+      // navigate to /dashboard page
+      router.push('/dashboard')
+      
+    }
+
+    fetchData()
+
+  }, [quoteSubmit]);
 
   return (
     <div className="w-full p-6 sm:p-9">
@@ -304,6 +361,7 @@ export default function HeroQuoteCard({
             dispatchQuoteData={dispatchQuoteData}
             handleActiveStep={handleActiveStep}
             renderOffer={renderOffer}
+            handleQuoteSubmit={handleQuoteSubmit}
           />
         )}
 
