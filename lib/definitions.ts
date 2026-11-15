@@ -12,9 +12,7 @@ export type IconProps = {
 
 export type AppHeaderProps = {
   onMobileOpen?: () => void;
-  navProps?: DesktopNav;
-  desktopCta?: DesktopCta;
-  route?: string
+  navProps?: DesktopNav
 };
 
 export type NavListItemProps = {
@@ -33,7 +31,6 @@ export type DesktopCtaProps = {
 
 export type MobileDrawerProps = {
   onMobileClose: () => void;
-  mobileDrawer: MobileDrawer;
 };
 
 export type NavWrapperProps = {
