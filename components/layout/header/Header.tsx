@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { HeaderContext } from "@/lib/context/HeaderContext";
 
 import { AppHeaderProps } from "@/lib/definitions";
 
@@ -13,10 +14,10 @@ import MobileLogo from "./MobileLogo";
 
 export default function AppHeader({
   onMobileOpen,
-  navProps,
-  desktopCta,
-  route
 }: AppHeaderProps) {
+
+  const { router } = useContext(HeaderContext)
+
   const { scrollY } = useScroll(); // tracks scroll position
   // scrollY -> represents the vertical scroll position in pixels
 
@@ -55,11 +56,11 @@ export default function AppHeader({
           {/* Center: Main Navigation with Dropdowns */}
           {
 
-            route === 'index' && (
+            router.route === 'index' && (
               <>
-              <DesktopNav navProps={navProps} />
+              <DesktopNav />
               
-              <DesktopCta url={desktopCta?.url} text={desktopCta?.text} />
+              <DesktopCta />
 
               {/* Mobile view */}
               <MobileHamburger onMobileOpen={onMobileOpen} />
@@ -71,7 +72,7 @@ export default function AppHeader({
           }
 
           {
-            route === 'dashboard' && (
+            router.route === 'dashboard' && (
               <h1>Dashboard Header</h1>
             )
           }
