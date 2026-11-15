@@ -171,7 +171,7 @@ export default function HeroQuoteCard({
 }: HeroQuoteCardProps) {
 
   const router = useRouter()
-
+// ! TODO: implement global state management for quoteData state
   const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState);
   const [quoteState, dispatchQuoteState] = useReducer(
     stateReducer,
@@ -299,6 +299,7 @@ export default function HeroQuoteCard({
     const API_URL = "http://localhost:3000/quoteData"
 
     const fetchData = async() => {
+      
       const response = await fetch(API_URL,{
         method: 'POST',
         headers: {
