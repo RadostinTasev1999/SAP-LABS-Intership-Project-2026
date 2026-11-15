@@ -1,8 +1,7 @@
 "use client";
 
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
-import { useState, useContext } from "react";
-import { HeaderContext } from "@/lib/context/HeaderContext";
+import { useState, useEffect } from "react";
 
 import { AppHeaderProps } from "@/lib/definitions";
 
@@ -11,12 +10,14 @@ import DesktopNav from "./DesktopNav";
 import DesktopCta from "./DesktopCta";
 import MobileHamburger from "./MobileHamburger";
 import MobileLogo from "./MobileLogo";
+import { usePathname  } from "next/navigation";
 
 export default function AppHeader({
   onMobileOpen,
 }: AppHeaderProps) {
+  
 
-  const { router } = useContext(HeaderContext)
+  const pathname = usePathname();
 
   const { scrollY } = useScroll(); // tracks scroll position
   // scrollY -> represents the vertical scroll position in pixels
@@ -32,6 +33,10 @@ export default function AppHeader({
       setHidden(false);
     }
   });
+
+  useEffect(() => {
+    console.log('Pathname is:', pathname) 
+  },[])
 
   return (
     <motion.header
@@ -56,7 +61,7 @@ export default function AppHeader({
           {/* Center: Main Navigation with Dropdowns */}
           {
 
-            router.route === 'index' && (
+            pathname === '/' && (
               <>
               <DesktopNav />
               
@@ -72,8 +77,13 @@ export default function AppHeader({
           }
 
           {
-            router.route === 'dashboard' && (
+           pathname === '/dashboard' && (
               <h1>Dashboard Header</h1>
+            )
+          }
+          {
+           pathname === '/checkout' && (
+              <h1>Checkout Header</h1>
             )
           }
           {/* Mobile Right Spacer (Balances flex alignment) */}
