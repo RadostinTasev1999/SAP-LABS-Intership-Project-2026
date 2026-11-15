@@ -896,5 +896,6 @@ export type QuoteOfferCardProps = {
     price?: number,
     origin?: QuoteOrigin,
     destination?: QuoteDelivery,
-    distance?: number
+    distance?: number,
+    handleConfirm: () => void
 }
