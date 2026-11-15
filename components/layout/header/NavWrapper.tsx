@@ -1,14 +1,18 @@
 "use client";
 
+import { useHeaderContext } from "@/lib/context/HeaderContext";
+import { HeaderContext } from "@/lib/context/HeaderContext";
 import { AnimatePresence } from "motion/react";
 
 import Header from "./Header";
 import MobileDrawer from "./MobileDrawer";
-import { NavWrapperProps } from "@/lib/definitions";
+
 import { useState } from "react";
 
-export default function NavWrapper({ appHeaderProps, route }: NavWrapperProps) {
-  // mobile menu navigation
+export default function NavWrapper() {
+  
+  const appHeaderProps = useHeaderContext()
+
   const [showMenu, setShowMenu] = useState(false);
 
   const onMobileOpen = () => {
@@ -22,22 +26,18 @@ export default function NavWrapper({ appHeaderProps, route }: NavWrapperProps) {
   };
 
   return (
-    <>
+    <HeaderContext.Provider value={appHeaderProps}>
       <Header
         onMobileOpen={onMobileOpen}
-        navProps={appHeaderProps.desktopNav}
-        desktopCta={appHeaderProps.desktopCta}
-        route={route}
       />
 
       <AnimatePresence initial={false}>
         {showMenu && (
           <MobileDrawer
             onMobileClose={onMobileClose}
-            mobileDrawer={appHeaderProps.mobileDrawer}
           />
         )}
       </AnimatePresence>
-    </>
+    </HeaderContext.Provider>
   );
 }
