@@ -6,7 +6,8 @@ export default function QuoteOfferCard({
     price,
     origin,
     destination,
-    distance
+    distance,
+    handleConfirm
 }: QuoteOfferCardProps){
 
     
@@ -140,6 +141,7 @@ export default function QuoteOfferCard({
             <button
                 type="button"
                 className="mt-2 w-full border-b border-slate-400 font-semibold text-green-600 sm:bg-green-600 sm:border sm:border-slate-300 sm:rounded-xl px-3.5 py-2.5 text-base sm:text-white hover:bg-green-500"
+                onClick={handleConfirm}
                 >
                     Continue to booking
             </button>
