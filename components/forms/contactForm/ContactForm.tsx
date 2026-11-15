@@ -152,7 +152,7 @@ export default function QuoteContactForm({
     }
 
     // logic if validation passes:
-
+    // TODO: manage QuoteData state globally
     dispatchQuoteData({
       type: "set_contactdata",
       email: email,
