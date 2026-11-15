@@ -11,6 +11,7 @@ export default function QuoteSideBar({
     handleSave,
     edit
 }: QuoteSideBarProps){
+    
 
     return(
         <aside className="w-full min-w-xs lg:w-[360px] sm:col-span-2 mx-auto my-auto sm:my-[100px]">
