@@ -1,14 +1,18 @@
 import Link from "next/link";
-import { DesktopCtaProps } from "@/lib/definitions";
+import { useContext } from "react";
+import { HeaderContext } from "@/lib/context/HeaderContext";
 
-export default function DesktopCta({ url, text }: DesktopCtaProps) {
+export default function DesktopCta() {
+  
+  const { desktopCta } = useContext(HeaderContext)
+
   return (
     <div className="hidden lg:block">
       <Link
-        href={url || "#"}
+        href={desktopCta.url || "#"}
         className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-6 py-3 rounded-full shadow-sm"
       >
-        {text}
+        {desktopCta.text}
       </Link>
     </div>
   );
