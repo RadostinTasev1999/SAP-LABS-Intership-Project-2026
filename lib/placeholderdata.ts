@@ -220,10 +220,7 @@ export const appHeaderProps = {
       url: "/",
       text: "Request a Quote",
     },
-  ],
-  router: {
-    route: 'index'
-  }
+  ]
 };
 
 export const appHeroProps = {
