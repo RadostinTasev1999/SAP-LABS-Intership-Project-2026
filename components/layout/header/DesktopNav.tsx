@@ -1,15 +1,22 @@
+"use client"
 
 import NavListItem from "./NavListItem";
 
-import { AppHeaderProps } from "@/lib/definitions";
+import { useContext } from "react";
+import { HeaderContext } from "@/lib/context/HeaderContext";
 
-export default function DesktopNav({ navProps }: AppHeaderProps) {
+
+export default function DesktopNav() {
+
+  const { desktopNav } = useContext(HeaderContext);
+
+
   return (
     <nav className="hidden lg:flex items-center" aria-label="Main navigation">
       <ul className="flex items-center gap-6 font-semibold text-sm">
         {/* Home */}
-        {navProps && navProps.length !== 0 &&
-          navProps.map((el) => {
+        {desktopNav.length !== 0 &&
+          desktopNav.map((el) => {
             const dropDownSingle = el.dropDownSingle
               ? el.dropDownSingle
               : undefined;
