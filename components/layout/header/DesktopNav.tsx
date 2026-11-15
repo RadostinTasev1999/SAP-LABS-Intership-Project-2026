@@ -1,4 +1,4 @@
-import { Underline } from "lucide-react";
+
 import NavListItem from "./NavListItem";
 
 import { AppHeaderProps } from "@/lib/definitions";
