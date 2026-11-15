@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import QuoteOfferCard from './QuoteOfferCard'
 import QuoteSideBar from './QuoteSideBar'
 
@@ -63,14 +64,23 @@ const quoteReducer = (state: QuoteResultState, action: QuoteResultAction) => {
 
 export default function QuoteOffer(){
 
+    const router = useRouter();
+
     const [edit, setEdit] = useState(false);
     const [quoteResult, dispatchQuoteResult] = useReducer(quoteReducer, initialState)
 
+    const handleConfirm = () => {
+        // POST quotedata to DB (Summary of Quote data / Quote Price)
+        // navigate to checkout page
+        router.push('/checkout')
+    }
     const handleEdit = () => {
         setEdit(true)
     }
 
+    
     const handleSave = () => {
+        // ! TODO
         // update email state
         // update phone number state
 
@@ -144,6 +154,7 @@ export default function QuoteOffer(){
                 origin={quoteResult.quote?.from}
                 destination={quoteResult.quote?.to}
                 distance={quoteResult.quote?.distance}
+                handleConfirm={handleConfirm}
             />
             {/* Quote SideBar */}
             <QuoteSideBar 
