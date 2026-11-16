@@ -1,4 +1,10 @@
-export default function LockIcon() {
+type IconProps = {
+  className: string
+}
+
+export default function LockIcon({
+  className
+}: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,6 +13,7 @@ export default function LockIcon() {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
+      className={className}
     >
       <g
         fill="none"
