@@ -12,8 +12,10 @@ import {
   StepperTrigger
 } from '@/components/shared/shadcn/stepper'
 
+import { CheckoutContext } from '@/components/providers/CheckoutProvider'
+import { useContext } from 'react'
+
 import { CheckIcon, LoaderCircleIcon } from 'lucide-react'
-import { useState } from 'react'
 
 const steps = [
     {
@@ -35,11 +37,13 @@ const steps = [
 
 export default function CheckoutProgress(){
 
-    // const [step, setStep] = useState(1);
+    const { step, handleStepChange } = useContext(CheckoutContext);
+
 
     return (
         <Stepper
-            defaultValue={2}
+            value={step}
+            onValueChange={handleStepChange}
             indicators={{
                 completed: (
                     <CheckIcon className="size-3.5 text-green-600" />
