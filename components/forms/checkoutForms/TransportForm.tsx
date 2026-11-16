@@ -2,10 +2,14 @@
 
 import ArrowRight from "@/components/shared/icons/ArrowRight"
 import { useState } from "react"
+import { useContext } from "react"
+import { CheckoutContext } from '@/components/providers/CheckoutProvider'
 
 
 
 export default function TransportForm() {
+
+    const { handleNextStep, dispatchCheckoutState } = useContext(CheckoutContext);
 
     const [radioState, setRadioState] = useState('individual')
 
@@ -13,6 +17,16 @@ export default function TransportForm() {
 
         console.log(`Radio button ${e.target.value} has been clicked!`)
         setRadioState(e.target.value);
+    }
+
+    const handleTransportSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+        // update step
+        handleNextStep()
+
+        // hide tranport form
+        dispatchCheckoutState({ type: 'hide_transport', field: 'showTransport', value: false});
+        // show vehiclepickup form
+        dispatchCheckoutState({ type: 'show_vehiclepickup', field: 'showVehiclePickup', value: true});
     }
     
     
@@ -127,7 +141,7 @@ export default function TransportForm() {
             <button
                 type="button"
                 className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:bg-blue-800"
-                
+                onClick={handleTransportSubmit}
             >
                 Pickup info
                 <ArrowRight />
