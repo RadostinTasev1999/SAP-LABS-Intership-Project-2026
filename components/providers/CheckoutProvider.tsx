@@ -6,7 +6,7 @@ import { Dispatch } from "react";
 type Action = {
     type: string,
     field: string,
-    value: boolean
+    value: boolean | string
 }
 
 const initialCheckoutState = {
@@ -22,7 +22,9 @@ type ContextProps = {
     handleStepChange: (value: number) => void,
     handleNextStep: () => void,
     dispatchCheckoutState: Dispatch<Action>,
-    checkoutState: initialCheckoutState
+    checkoutState: initialCheckoutState,
+    dispatchPickupError: Dispatch<Action>,
+    pickupError: PickupErrors
 }
 
 type initialCheckoutState = {
@@ -31,6 +33,20 @@ type initialCheckoutState = {
     showVehicleDelivery: boolean,
     showBookshipment: boolean,
     showThankYou: boolean
+}
+
+const initialPickupErrors = {
+    companyError: '',
+    nameError: '',
+    emailError: '',
+    phoneError: ''
+}
+
+type PickupErrors = {
+    companyError: string,
+    nameError: string,
+    emailError: string,
+    phoneError: string
 }
 
 
@@ -87,6 +103,76 @@ const checkoutReducer = (state: initialCheckoutState, action: Action ) => {
             }
     }
 }
+// { type: 'set_company_error', field: 'companyError', value: 'Please enter Company name'}
+// { type: 'clear_company_error', field: 'companyError', value: ''}
+// { type:'set_name_error', field: 'nameError', value: 'Please enter full name'}
+// { type: 'clear_name_error', field: 'nameError', value: ''}
+// { type: 'set_name_error', field: 'nameError', value: 'Please enter valid full name' }
+// { type: 'set_email_error', field: 'emailError', value: 'Please enter email'}
+// { type: 'clear_email_error', field: 'emailError', value: ''}
+// { type: 'set_email_error', field: 'emailError', value: 'Please enter valid email'}
+// { type: 'set_phone_error', field: 'phoneError', value: 'Please enter phone'}
+// { type: 'clear_phone_error', field: 'phoneError', value: ''}
+// { type: 'set_phone_error', field: 'phoneError', value: 'Please enter valid phone'}
+const pickupReducer = (state: PickupErrors, action: Action) => {
+
+    switch (action.type) {
+        case 'set_company_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'clear_company_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'set_name_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'clear_name_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'set_email_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'clear_email_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'set_phone_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'clear_phone_error':
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+            
+    
+        default:
+            break;
+    }
+    return {
+        ...state
+    }
+}
 
 export const CheckoutContext = createContext<ContextProps>();
 
@@ -95,6 +181,9 @@ export function CheckoutProvider({ children }: React.PropsWithChildren){
     const [step, setStep] = useState(1);
 
     const [checkoutState, dispatchCheckoutState] = useReducer(checkoutReducer, initialCheckoutState)
+
+    const [pickupError, dispatchPickupError] = useReducer(pickupReducer, initialPickupErrors)
+
 
     const handleStepChange = (value: number) => {
         console.log('Value in handleStepChange is:', value)
@@ -106,10 +195,8 @@ export function CheckoutProvider({ children }: React.PropsWithChildren){
     }
 
 
-
-
     return (
-        <CheckoutContext.Provider value={{ step, handleStepChange, handleNextStep, dispatchCheckoutState, checkoutState }}>
+        <CheckoutContext.Provider value={{ step, handleStepChange, handleNextStep, dispatchCheckoutState, checkoutState, dispatchPickupError, pickupError }}>
                 {children}
         </CheckoutContext.Provider>
     )
