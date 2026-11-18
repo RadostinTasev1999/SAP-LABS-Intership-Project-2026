@@ -52,9 +52,22 @@ type PickupErrors = {
 
 // { type: 'hide_transport', field: 'showTransport', value: false}
 // { type: 'show_vehiclepickup', field: 'showVehiclePickup', value: true}
+// { type: 'hide_vehiclepickup', field: 'showVehiclePickup', value: false}
+// { type: 'show_transport', field: 'showTransport', value: true}
+// { type: 'hide_delivery', field: 'showVehicleDelivery', value: false}
+// { type: 'show_vehiclepickup', field: 'showVehiclePickup', value: true}
+// { type: 'hide_bookshipment', field: 'showBookshipment', value: false}
 const checkoutReducer = (state: initialCheckoutState, action: Action ) => {
 
     switch (action.type) {
+
+        case 'show_transport':
+
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
         case 'hide_transport':
 
             return {
@@ -91,6 +104,13 @@ const checkoutReducer = (state: initialCheckoutState, action: Action ) => {
             }
 
         case 'show_bookshipment':
+
+            return {
+                ...state,
+                [action.field]: action.value
+            }
+
+        case 'hide_bookshipment':
 
             return {
                 ...state,
@@ -174,6 +194,37 @@ const pickupReducer = (state: PickupErrors, action: Action) => {
     }
 }
 
+const initalVehiclePickupErrors = {
+    streetAddressError: '',
+    addressDetailsError: '',
+    accompanyingNameError: '',
+    accompanyingPhoneError: ''
+}
+
+type VehiclePickupErrorState = {
+    streetAddressError: string,
+    addressDetailsError: string,
+    accompanyingNameError: string,
+    accompanyingPhoneError: string
+}
+
+const vehiclePickupReducer = (state: VehiclePickupErrorState, action: Action) => {
+
+    switch (action.type) {
+        case 'value':
+            return {
+                ...state
+            }
+            
+    
+        default:
+            return {
+                ...state
+            }
+    }
+
+}
+
 export const CheckoutContext = createContext<ContextProps>();
 
 export function CheckoutProvider({ children }: React.PropsWithChildren){
@@ -184,10 +235,127 @@ export function CheckoutProvider({ children }: React.PropsWithChildren){
 
     const [pickupError, dispatchPickupError] = useReducer(pickupReducer, initialPickupErrors)
 
+    const [vehiclePickupError, setVehiclePickupError] = useReducer(vehiclePickupReducer, initalVehiclePickupErrors)
+
 
     const handleStepChange = (value: number) => {
-        console.log('Value in handleStepChange is:', value)
-        setStep(value)
+        
+        // Get active step:
+        const activeStep = step
+        console.log('Active step is:', step)
+        // Get triggered step
+        const triggeredStep = value
+        console.log('Triggered step is:', value)
+
+        switch (triggeredStep) {
+            case 1:
+                // Transport form
+                if (activeStep === triggeredStep) {
+                    break;
+                }
+                if (activeStep < triggeredStep) {
+                    break;
+                } else if (activeStep > triggeredStep) {
+                    // hide form corresponding to activeStep
+                    hideCheckoutForm(activeStep)
+                    // show form corresponding to triggered step
+                    showCheckoutForm(triggeredStep)
+                    // update stepper's active step
+                    setStep(triggeredStep)
+                }
+                
+                break;
+            case 2:
+                // Pickup form
+                if (triggeredStep === activeStep) {
+                    break;
+                }
+                if (triggeredStep > activeStep) {
+                    break;
+                } else if (activeStep > triggeredStep) {
+                    // hide form corresponding to active step
+                    hideCheckoutForm(activeStep)
+                    // show form corresponding to triggered step
+                    showCheckoutForm(triggeredStep)
+                    // update stepper active step
+                    setStep(triggeredStep)
+                }
+                break;
+
+            case 3:
+                // Delivery form
+                if (triggeredStep === activeStep) {
+                    break;
+                }
+                if (triggeredStep > activeStep) {
+                    break;
+                } else if (triggeredStep < activeStep) {
+                    // hide form corresponding to active step
+                    hideCheckoutForm(activeStep)
+                    // show form corresponding to triggered step
+                    showCheckoutForm(triggeredStep)
+                    // update stepper active step to triggered step
+                    setStep(triggeredStep)
+                }
+
+                break;
+        
+            default:
+                break;
+        }
+
+        // setStep(value)
+    }
+
+    const hideCheckoutForm = (activeStep: number) => {
+
+        switch (activeStep) {
+            case 1:
+                
+                break;
+
+            case 2:
+                // Pickup form
+                dispatchCheckoutState({ type: 'hide_vehiclepickup', field: 'showVehiclePickup', value: false})
+                break;
+
+            case 3:
+                // Delivery form
+                dispatchCheckoutState({ type: 'hide_delivery', field: 'showVehicleDelivery', value: false})
+
+                break;
+
+            case 4:
+                // Bookshipment
+                dispatchCheckoutState({ type: 'hide_bookshipment', field: 'showBookshipment', value: false})
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+    const showCheckoutForm = (triggeredStep: number) => {
+
+        switch (triggeredStep) {
+            case 1:
+                // Transport form
+                dispatchCheckoutState({ type: 'show_transport', field: 'showTransport', value: true})
+                break;
+
+            case 2:
+                // Pickup form
+                dispatchCheckoutState({ type: 'show_vehiclepickup', field: 'showVehiclePickup', value: true})
+                break;
+
+            case 3:
+                // Delivery form
+                dispatchCheckoutState({ type: 'show_delivery', field: 'showVehicleDelivery', value: true})
+                break;
+        
+            default:
+                break;
+        }
     }
 
     const handleNextStep = () => {
