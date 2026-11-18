@@ -9,7 +9,7 @@ import EmailInput from "./EmailInput";
 import PhoneInput from "./PhoneInput";
 import PriorityInput from "./PriorityInput";
 
-import { QuoteContactProps } from "@/lib/definitions";
+import { ActionType, QuoteContactProps } from "@/lib/definitions";
 import { ContactErrorState } from "@/lib/definitions";
 import { ContactsAction } from "@/lib/definitions";
 import { ChangeEvent, useState, useEffect } from "react";
@@ -24,47 +24,58 @@ const initialErrors = {
 // {type: 'INVALID_EMAIL', field: 'emailError', value: 'Please enter valid email'}
 // { type: 'INVALID_PHONE', field: 'phoneError', value: 'Please enter valid phone'}
 const contactsReducer = (state: ContactErrorState, action: ContactsAction) => {
-  switch (action.type) {
-    case "EMPTY_EMAIL":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
+  const reducer: Record<ActionType, ContactErrorState> = {
+    EMPTY_EMAIL: { ...state},
+    EMPTY_PHONE: {...state},
+    RESET_EMAIL: {...state},
+    "new-key": {...state}
+  }
+  reducer[action.type]
 
-    case "EMPTY_PHONE":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
+  // switch (action.type) {
+  //   case "EMPTY_EMAIL":
+      // return {
+      //   ...state,
+      //   [action.field]: action.value,
+      // };
 
-    case "RESET_EMAIL":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
+  //   case "EMPTY_PHONE":
+  //     return {
+  //       ...state,
+  //       [action.field]: action.value,
+  //     };
 
-    case "RESET_PHONE":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
+    // case "RESET_EMAIL":
+    //   return {
+    //     ...state,
+    //     [action.field]: action.value,
+    //   };
 
-    case "INVALID_EMAIL":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
 
-    case "INVALID_PHONE":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
+    //   case ""
 
-    default:
-      return {
-        ...state,
-      };
+    // case "RESET_PHONE":
+    //   return {
+    //     ...state,
+    //     [action.field]: action.value,
+    //   };
+
+    // case "INVALID_EMAIL":
+    //   return {
+    //     ...state,
+    //     [action.field]: action.value,
+    //   };
+
+    // case "INVALID_PHONE":
+    //   return {
+    //     ...state,
+    //     [action.field]: action.value,
+    //   };
+
+    // default:
+    //   return {
+    //     ...state,
+    //   };
   }
 };
 

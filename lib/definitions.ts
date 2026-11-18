@@ -300,8 +300,14 @@ export type DestinationAction = {
   value: string;
 };
 
+const EMPTY_MAIL = "EMPTY_EMAIL"
+const EMPTY_PHONE = "EMPTY_PHONE"
+const RESET_EMAIL = "RESET_EMAIL"
+
+export type ActionType = typeof EMPTY_MAIL | typeof EMPTY_PHONE | typeof RESET_EMAIL | "new-key"
+
 export type ContactsAction = {
-  type: string;
+  type: ActionType;
   field: string;
   value: string;
 };
