@@ -899,3 +899,113 @@ export type QuoteOfferCardProps = {
     distance?: number,
     handleConfirm: () => void
 }
+
+
+
+const RADIO_STATE = ""
+const NAME = ""
+const EMAIL = ""
+const PHONE = ""
+const COMPANY = ""
+
+export type CheckOutTransportValue = typeof RADIO_STATE | typeof NAME | typeof EMAIL | typeof PHONE | typeof COMPANY
+
+// { radioState, name, email, phone, company }
+type CheckoutTransportValue = {
+  radioState: string
+  name: string
+  email: string
+  phone: string
+  company: string
+}
+
+export type InitialCheckoutDataProp = {
+    transportForm: TransportForm,
+    vehiclePickupForm: VehiclePickupForm,
+    vehicleDeliveryForm: VehicleDeliveryForm,
+    bookShipmentForm: BookShipmentForm
+
+}
+
+
+
+
+type TransportForm = {
+        clientType: string,
+        companyName: string,
+        fullName: string,
+        emailAddress: string,
+        phoneNumber: string
+}
+
+type VehiclePickupForm = {
+        streetAddress: string,
+        addressDetails:string,
+        addressType: string,
+        contactPerson: string,
+        accompanyingName?: string,
+        accompanyingPhone?: string
+}
+
+type VehicleDeliveryForm = {
+        streetAddress: string,
+        addressDetails:string,
+        addressType: string,
+        contactPerson: string
+}
+
+type BookShipmentForm = {
+        cardNumber: string,
+        fullNameCard: string,
+        expDate: string,
+        securityCode: string
+}
+
+const SHOW_TRANSPORT = 'SHOW_TRANSPORT'
+const HIDE_TRANSPORT = 'HIDE_TRANSPORT'
+const SHOW_VEHICLEPICKUP = 'SHOW_VEHICLEPICKUP'
+const HIDE_VEHICLEPICKUP = 'HIDE_VEHICLEPICKUP'
+const SHOW_DELIVERY = 'SHOW_DELIVERY'
+const HIDE_DELIVERY = 'HIDE_DELIVERY'
+const SHOW_BOOKSHIPMENT = 'SHOW_BOOKSHIPMENT'
+const HIDE_BOOKSHIPMENT = 'HIDE_BOOKSHIPMENT'
+
+export type ActionType = typeof SHOW_TRANSPORT | typeof HIDE_TRANSPORT | typeof SHOW_VEHICLEPICKUP | typeof HIDE_VEHICLEPICKUP | typeof SHOW_DELIVERY | typeof HIDE_DELIVERY | typeof SHOW_BOOKSHIPMENT | typeof HIDE_BOOKSHIPMENT
+
+export type CheckoutReducerAction = {
+  type: ActionType,
+  field: string,
+  value: string | boolean
+}
+// Set Errors
+const SET_STREET_ERROR = 'SET_STREET_ERROR'
+const SET_ADDRESS_DETAIL_ERROR = 'SET_ADDRESS_DETAIL_ERROR'
+const SET_ACCOMPANYING_NAME_ERROR = 'SET_ACCOMPANYING_NAME_ERROR'
+const SET_ACCOMPANYING_PHONE_ERROR = 'SET_ACCOMPANYING_PHONE_ERROR'
+
+// Clear Errors
+const CLEAR_STREET_ERROR = 'CLEAR_STREET_ERROR'
+const CLEAR_ADDRESS_DETAIL_ERROR = 'CLEAR_ADDRESS_DETAIL_ERROR'
+const CLEAR_ACCOMPANYING_NAME_ERROR = 'CLEAR_ACCOMPANYING_NAME_ERROR'
+const CLEAR_ACCOMPANYING_PHONE_ERROR = 'CLEAR_ACCOMPANYING_PHONE_ERROR'
+
+export type PickupErrorActionType = typeof SET_STREET_ERROR | typeof SET_ADDRESS_DETAIL_ERROR | typeof SET_ACCOMPANYING_NAME_ERROR | typeof SET_ACCOMPANYING_PHONE_ERROR | typeof CLEAR_STREET_ERROR | typeof CLEAR_ADDRESS_DETAIL_ERROR | typeof CLEAR_ACCOMPANYING_NAME_ERROR | typeof CLEAR_ACCOMPANYING_PHONE_ERROR
+
+export type VehiclePickupErrorAction = {
+  type: PickupErrorActionType,
+  field: string,
+  value: string
+}
+
+const SET_TRANSPORT_DATA = 'SET_TRANSPORT_DATA';
+const SET_PICKUP_DATA = 'SET_PICKUP_DATA';
+
+export type CheckoutDataActionType = typeof SET_TRANSPORT_DATA | typeof SET_PICKUP_DATA
+
+export type CheckoutDataAction = {
+  type: CheckoutDataActionType,
+  field: string,
+  value: CheckoutTypeValues
+}
+
+export type CheckoutTypeValues = TransportForm | VehiclePickupForm | VehicleDeliveryForm | BookShipmentForm
