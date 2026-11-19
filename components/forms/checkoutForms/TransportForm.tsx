@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from "react"
 import { useContext } from "react"
 import { CheckoutContext } from '@/components/providers/CheckoutProvider'
 import { useEffect } from "react"
+import { CheckoutReducerAction } from '@/lib/definitions'
 
 
 const API_URL = 'http://localhost:3000/transportData';
@@ -16,7 +17,7 @@ const phoneRegExp = /^\(\d{3}\) \d{3}-\d{4}$/;
 
 export default function TransportForm() {
 
-    const { handleNextStep, dispatchCheckoutState, dispatchPickupError,  pickupError} = useContext(CheckoutContext);
+    const { handleNextStep, dispatchCheckoutState, dispatchPickupError,  pickupError, dispatchCheckoutData, checkoutData } = useContext(CheckoutContext);
 
     // inputs state variables
     const [radioState, setRadioState] = useState('individual');
@@ -24,11 +25,11 @@ export default function TransportForm() {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [company, setCompany] = useState('');
-    const [pickupComplete, setPickupcomplete] = useState(false)
+    // const [pickupComplete, setPickupcomplete] = useState(false)
     const [isDisabled, setIsDisabled] = useState(false);
 
 
-    const validatePickupinfo = (company:string, name:string, email:string, phone:string) => {
+    const validateTransportInfo = (company:string, name:string, email:string, phone:string) => {
 
         let isValid = true;
         
@@ -89,10 +90,11 @@ export default function TransportForm() {
         setRadioState(e.target.value);
     }
 
-    const handleTransportSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    const handleTransportSubmit = (e: SubmitEvent<HTMLFormElement>) => {
 
+        e.preventDefault();
         // Validate inputs:
-        const validation = validatePickupinfo(company, name, email, phone)
+        const validation = validateTransportInfo(company, name, email, phone)
 
         if (!validation) {
 
@@ -102,10 +104,42 @@ export default function TransportForm() {
         }
         // Logic if validation passes
 
-        // fetch API
-        setPickupcomplete(true)
+        // Save form data in global state
+        saveTransportFormData(radioState, name, email, phone, company)
+        // hide transport form
+        hideForm({ type: 'HIDE_TRANSPORT', field: 'showTransport', value: false })
+        // show Pickup Form
+        showForm({ type: 'SHOW_VEHICLEPICKUP', field: 'showVehiclePickup', value: true})
+        // Mark step as complete
 
         
+    }
+
+    const saveTransportFormData = (radioState: string, name: string, email: string, phone: string, company: string) => {
+
+        const value = { 
+            clientType: radioState,
+            fullName: name,
+            emailAddress: email,
+            phoneNumber: phone,
+            companyName: company
+         }
+
+        dispatchCheckoutData({ type: 'SET_TRANSPORT_DATA', field: 'transportForm', value: value})
+        
+    }
+
+    const hideForm = (action: CheckoutReducerAction) => {
+
+        // { type: 'HIDE_TRANSPORT', field: 'showTransport', value: false }
+        dispatchCheckoutState(action)
+
+    }
+
+    const showForm = (action: CheckoutReducerAction) => {
+
+        // { type: 'SHOW_VEHICLEPICKUP', field: 'showVehiclePickup', value: true}
+        dispatchCheckoutState(action)
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -156,48 +190,8 @@ export default function TransportForm() {
     }
 
     useEffect(() => {
-        if (!pickupComplete) {
-            return;
-        }
-
-        // FETCH API
-        const fetchAPI = async() => {
-
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type':'application/json'
-                },
-                body: JSON.stringify({
-                    company,
-                    name,
-                    email,
-                    phone
-                })
-            })
-
-            const result = await response.json()
-
-            console.log('Result is:', result)
-        }
-
-        const updateUI = () => {
-          // update stepper
-          handleNextStep()
-
-        // hide tranport form
-          dispatchCheckoutState({ type: 'hide_transport', field: 'showTransport', value: false});
-        // show vehiclepickup form
-          dispatchCheckoutState({ type: 'show_vehiclepickup', field: 'showVehiclePickup', value: true});
-        }
-
-        fetchAPI();
-        updateUI();
-
-
-
-
-    },[pickupComplete])
+        console.log('CheckoutData is:', checkoutData)
+    },[checkoutData])
     
     
     return(
@@ -212,7 +206,7 @@ export default function TransportForm() {
             </p>
 
         </div>
-        <form>
+        <form onSubmit={handleTransportSubmit}>
             <div className="flex flex-col gap-3">
                 {/* Client type radio inputs */}
                 <fieldset>
@@ -337,9 +331,8 @@ export default function TransportForm() {
                 </div>
             </div>
             <button
-                type="button"
+                type="submit"
                 className={`mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:bg-blue-800 ${isDisabled ? 'bg-slate-400 hover:bg-slate-300': ''}`}
-                onClick={handleTransportSubmit}
                 disabled={isDisabled}
             >
                 Pickup info
