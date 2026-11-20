@@ -930,6 +930,8 @@ export type InitialCheckoutDataProp = {
 
 
 
+
+
 type TransportForm = {
         clientType: string,
         companyName: string,
@@ -952,14 +954,27 @@ type VehicleDeliveryForm = {
         addressDetails:string,
         addressType: string,
         contactPerson: string
+        accompanyingName?: string,
+        accompanyingPhone?: string
 }
 
 type BookShipmentForm = {
         cardNumber: string,
         fullNameCard: string,
         expDate: string,
-        securityCode: string
+        securityCode: string,
+        billingAddress: BillingAddress | string
 }
+
+type BillingAddress = {
+    street: string,
+    apartment: string,
+    city: string,
+    state: string,
+    zipCode: string
+}
+
+
 
 const SHOW_TRANSPORT = 'SHOW_TRANSPORT'
 const HIDE_TRANSPORT = 'HIDE_TRANSPORT'
@@ -999,8 +1014,10 @@ export type VehiclePickupErrorAction = {
 
 const SET_TRANSPORT_DATA = 'SET_TRANSPORT_DATA';
 const SET_PICKUP_DATA = 'SET_PICKUP_DATA';
+const SET_DELIVERY_DATA = 'SET_DELIVERY_DATA'
+const SET_BOOKING_DATA = 'SET_BOOKING_DATA'
 
-export type CheckoutDataActionType = typeof SET_TRANSPORT_DATA | typeof SET_PICKUP_DATA
+export type CheckoutDataActionType = typeof SET_TRANSPORT_DATA | typeof SET_PICKUP_DATA | typeof SET_DELIVERY_DATA | typeof SET_BOOKING_DATA
 
 export type CheckoutDataAction = {
   type: CheckoutDataActionType,
@@ -1009,3 +1026,19 @@ export type CheckoutDataAction = {
 }
 
 export type CheckoutTypeValues = TransportForm | VehiclePickupForm | VehicleDeliveryForm | BookShipmentForm
+
+
+export type DeliveryErrorActionType = typeof SET_STREET_ERROR | typeof SET_ADDRESS_DETAIL_ERROR | typeof SET_ACCOMPANYING_NAME_ERROR | typeof SET_ACCOMPANYING_PHONE_ERROR | typeof CLEAR_STREET_ERROR | typeof  CLEAR_ADDRESS_DETAIL_ERROR | typeof CLEAR_ACCOMPANYING_NAME_ERROR | typeof CLEAR_ACCOMPANYING_PHONE_ERROR
+
+type VehicleDeliveryErrorState = {
+    streetAddressError: string,
+    addressDetailsError: string,
+    accompanyingNameError: string,
+    accompanyingPhoneError: string
+}
+
+export type VehicleDeliveryErrorAction = {
+  type: DeliveryErrorActionType,
+  field: string,
+  value: string
+}
