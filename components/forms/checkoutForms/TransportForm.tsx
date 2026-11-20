@@ -106,8 +106,11 @@ export default function TransportForm() {
 
         // Save form data in global state
         saveTransportFormData(radioState, name, email, phone, company)
+
         // hide transport form
         hideForm({ type: 'HIDE_TRANSPORT', field: 'showTransport', value: false })
+        // update step
+        handleNextStep()
         // show Pickup Form
         showForm({ type: 'SHOW_VEHICLEPICKUP', field: 'showVehiclePickup', value: true})
         // Mark step as complete
