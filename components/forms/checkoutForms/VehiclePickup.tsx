@@ -51,21 +51,23 @@ export default function VehiclePickup(){
         }
 
         // validate accompaying person full name
-        if (!accompanyingName) {
-            setFieldError({ type: 'SET_ACCOMPANYING_NAME_ERROR', field: 'accompanyingNameError', value: 'Please enter Accompanying-person Name'})
-            isValid = false
-        } else if (!pickup_contact_regexp.test(accompanyingName)) {
-            setFieldError({ type: 'SET_ACCOMPANYING_NAME_ERROR', field: 'accompanyingNameError', value: 'Please enter valid Accompanying-person Name'})
-            isValid = false
-        }
+        if (radioContact === secondContact) {
+            if (!accompanyingName) {
+                setFieldError({ type: 'SET_ACCOMPANYING_NAME_ERROR', field: 'accompanyingNameError', value: 'Please enter Accompanying-person Name' })
+                isValid = false
+            } else if (!pickup_contact_regexp.test(accompanyingName)) {
+                setFieldError({ type: 'SET_ACCOMPANYING_NAME_ERROR', field: 'accompanyingNameError', value: 'Please enter valid Accompanying-person Name' })
+                isValid = false
+            }
 
-        // validate accompaying person phone number
-        if (!accompanyingPhone) {
-           setFieldError({ type: 'SET_ACCOMPANYING_PHONE_ERROR', field: 'accompanyingPhoneError', value: 'Please enter Accompanying-person Phone'}) 
-            isValid = false
-        } else if (!pickup_contact_phone_regexp.test(accompanyingPhone)) {
-            setFieldError({ type:'SET_ACCOMPANYING_PHONE_ERROR', field: 'accompanyingPhoneError', value: 'Please enter valid Accompanying-person Phone'})
-            isValid = false
+            // validate accompaying person phone number
+            if (!accompanyingPhone) {
+                setFieldError({ type: 'SET_ACCOMPANYING_PHONE_ERROR', field: 'accompanyingPhoneError', value: 'Please enter Accompanying-person Phone' })
+                isValid = false
+            } else if (!pickup_contact_phone_regexp.test(accompanyingPhone)) {
+                setFieldError({ type: 'SET_ACCOMPANYING_PHONE_ERROR', field: 'accompanyingPhoneError', value: 'Please enter valid Accompanying-person Phone' })
+                isValid = false
+            }
         }
 
         return isValid
@@ -83,15 +85,6 @@ export default function VehiclePickup(){
 
         e.preventDefault()
 
-        // const pickupData = {
-        //     streetAddress: street,
-        //     addressDetails: addressDetails,
-        //     addressType: radioAddress,
-        //     contactPerson: radioContact,
-        //     accompanyingName: accompanyingName,
-        //     accompanyingPhone: accompanyingPhone
-        // }
-
         // Validate input data
         const validation = validateInputs(street,addressDetails, accompanyingName, accompanyingPhone)
         
@@ -101,13 +94,14 @@ export default function VehiclePickup(){
             return;
         }
         // Logic if validation passes:
+
         // Update global state
-        
         saveVehiclePickupData(street, addressDetails, radioAddress, radioContact, accompanyingName, accompanyingPhone)
-        // update step
-         handleNextStep()
+         
         //  hide pickup-form
         hideCheckoutForm({ type: 'HIDE_VEHICLEPICKUP', field: 'showVehiclePickup', value: false})
+        // update step
+        handleNextStep()
         // show delivery form
         showCheckoutForm({ type: 'SHOW_DELIVERY', field: 'showVehicleDelivery', value: true})
     }
