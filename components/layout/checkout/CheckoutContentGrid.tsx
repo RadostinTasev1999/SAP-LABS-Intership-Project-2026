@@ -4,6 +4,8 @@ import BookingSummary from "./BookingSummary"
 import { CheckoutContext } from "@/components/providers/CheckoutProvider"
 import DeliveryForm from "@/components/forms/checkoutForms/DeliveryForm"
 import BookshipmentForm from "@/components/forms/checkoutForms/BookshipmentForm"
+import ThankYouPage from "@/components/shared/other/ThankYouPage"
+
 
 import { useContext } from "react"
 
@@ -34,6 +36,11 @@ export default function CheckoutContent(){
                 {
                     checkoutState.showBookshipment && (
                         <BookshipmentForm />
+                    )
+                }
+                {
+                    checkoutState.showThankYou && (
+                        <ThankYouPage />
                     )
                 }
             </div>
