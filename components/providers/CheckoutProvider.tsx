@@ -2,7 +2,7 @@
 
 import { createContext, useState, useReducer } from "react";
 import { Dispatch } from "react";
-import { InitialCheckoutDataProp } from '@/lib/definitions'
+import { DeliveryErrorActionType, InitialCheckoutDataProp } from '@/lib/definitions'
 import { CheckoutDataAction } from '@/lib/definitions'
 import { CheckoutReducerAction } from '@/lib/definitions'
 import { ActionType } from '@/lib/definitions'
@@ -10,6 +10,7 @@ import { VehiclePickupErrorAction } from '@/lib/definitions'
 import { PickupErrorActionType } from '@/lib/definitions'
 import { CheckoutDataActionType } from '@/lib/definitions'
 import { CheckoutTypeValues } from '@/lib/definitions'
+import { VehicleDeliveryErrorAction } from  '@/lib/definitions'
 
 type Action = {
     type: string,
@@ -36,7 +37,9 @@ type ContextProps = {
     dispatchCheckoutData: Dispatch<CheckoutDataAction>,
     checkoutData: InitialCheckoutDataProp,
     dispatchVehiclePickupError: Dispatch<VehiclePickupErrorAction>,
-    vehiclePickupError: VehiclePickupErrorState
+    vehiclePickupError: VehiclePickupErrorState,
+    dispatchVehicleDeliveryError: Dispatch<VehicleDeliveryErrorAction>,
+    vehicleDeliveryError: VehicleDeliveryErrorState
 }
 
 type initialCheckoutState = {
@@ -62,13 +65,8 @@ type PickupErrors = {
 }
 
 
-// { type: 'HIDE_TRANSPORT', field: 'showTransport', value: false }
-// { type: 'SHOW_VEHICLEPICKUP', field: 'showVehiclePickup', value: true}
-// { type: 'SHOW_VEHICLEPICKUP', field: 'showVehiclePickup', value: true}
-
-// { type: 'SHOW_VEHICLEPICKUP', field: 'showVehiclePickup', value: true}
-// { type: 'HIDE_VEHICLEPICKUP', field: 'showVehiclePickup', value: false}
-// { type: 'SHOW_DELIVERY', field: 'showVehicleDelivery', value: true}
+// { type: 'HIDE_DELIVERY', field: 'showVehicleDelivery', value: false}
+// { type: 'SHOW_BOOKSHIPMENT', field: 'showBookshipment', value: true}
 const checkoutReducer = (state: initialCheckoutState, action: CheckoutReducerAction ) => {
     // Record<Keys, Type>
     const reducer: Record<ActionType, initialCheckoutState> = {
@@ -77,8 +75,8 @@ const checkoutReducer = (state: initialCheckoutState, action: CheckoutReducerAct
         SHOW_VEHICLEPICKUP: {...state, [action.field]: action.value},
         HIDE_VEHICLEPICKUP: {...state, [action.field]: action.value},
         SHOW_DELIVERY: {...state, [action.field]: action.value},
-        HIDE_DELIVERY: {...state},
-        SHOW_BOOKSHIPMENT: {...state},
+        HIDE_DELIVERY: {...state, [action.field]: action.value},
+        SHOW_BOOKSHIPMENT: {...state, [action.field]: action.value},
         HIDE_BOOKSHIPMENT: {...state}
     }
 
@@ -187,17 +185,59 @@ const initialCheckoutData = {
         cardNumber: '',
         fullNameCard: '',
         expDate: '',
-        securityCode: ''
+        securityCode: '',
+        billingAddress: {
+            street: '',
+            apartment: '',
+            city: '',
+            state: '',
+            zipCode: ''
+        }
+
+
     }
     
 }
-// { type: 'SET_ACCOMPANYING_PHONE_ERROR', field: 'accompanyingPhoneError', value: 'Please enter Accompanying-person Phone'}
 
-// { type:'SET_ACCOMPANYING_PHONE_ERROR', field: 'accompanyingPhoneError', value: 'Please enter valid Accompanying-person Phone'}
-// { type: 'CLEAR_ACCOMPANYING_PHONE_ERROR', field: 'accompanyingPhoneError', value: ''}
-const vehiclePickupReducer = (state: VehiclePickupErrorState, action: VehiclePickupErrorAction) => {
+const initialDeliveryErrors = {
+    streetAddressError: '',
+    addressDetailsError: '',
+    accompanyingNameError: '',
+    accompanyingPhoneError: ''
+}
+
+type VehicleDeliveryErrorState = {
+    streetAddressError: string,
+    addressDetailsError: string,
+    accompanyingNameError: string,
+    accompanyingPhoneError: string
+}
+
 // { type: 'SET_STREET_ERROR', field: 'streetAddressError', value: 'Please enter Street Address'}
 // { type: 'CLEAR_STREET_ERROR', field: 'streetAddressError', value: ''}
+// { type: 'CLEAR_ACCOMPANYING_NAME_ERROR', field: 'accompanyingNameError', value: ''}
+// { type: 'SET_STREET_ERROR', field: 'streetAddressError', value: 'Please enter valid Street Address'}
+// { type: 'SET_ACCOMPANYING_NAME_ERROR', field: 'accompanyingNameError', value: 'Please enter accompanying person name'}
+const vehicleDeliveryReducer = (state: VehicleDeliveryErrorState, action: VehicleDeliveryErrorAction) => {
+
+    const reducer: Record<DeliveryErrorActionType, VehicleDeliveryErrorState> = {
+        SET_STREET_ERROR: {...state, [action.field]: action.value},
+        SET_ADDRESS_DETAIL_ERROR: {...state, [action.field]: action.value},
+        SET_ACCOMPANYING_NAME_ERROR: {...state, [action.field]: action.value},
+        SET_ACCOMPANYING_PHONE_ERROR: {...state, [action.field]: action.value},
+        CLEAR_STREET_ERROR: {...state, [action.field]: action.value},
+        CLEAR_ADDRESS_DETAIL_ERROR: {...state, [action.field]: action.value},
+        CLEAR_ACCOMPANYING_NAME_ERROR: {...state, [action.field]: action.value},
+        CLEAR_ACCOMPANYING_PHONE_ERROR: {...state, [action.field]: action.value}
+    }
+
+    const new_state = reducer[action.type];
+
+    return new_state
+}
+
+const vehiclePickupReducer = (state: VehiclePickupErrorState, action: VehiclePickupErrorAction) => {
+
     const reducer:Record<PickupErrorActionType, VehiclePickupErrorState> = {
         SET_STREET_ERROR: {...state, [action.field]: action.value},
         SET_ADDRESS_DETAIL_ERROR: {...state, [action.field]: action.value},
@@ -215,13 +255,15 @@ const vehiclePickupReducer = (state: VehiclePickupErrorState, action: VehiclePic
     
 }
 
-// { type:'SET_PICKUP_DATA', field: 'vehiclePickupForm', value: value}
-// { type: 'SET_TRANSPORT_DATA', field: 'transportForm', value: value}
+
+// { type: 'SET_BOOKING_DATA', field: 'bookShipmentForm', value: bookingData}
 const checkoutDataReducer = (state: InitialCheckoutDataProp, action: CheckoutDataAction ) => {
 
     const reducer: Record<CheckoutDataActionType, InitialCheckoutDataProp> = {
         SET_TRANSPORT_DATA: {...state, [action.field]: action.value},
-        SET_PICKUP_DATA: {...state, [action.field]: action.value}
+        SET_PICKUP_DATA: {...state, [action.field]: action.value},
+        SET_DELIVERY_DATA: {...state, [action.field]: action.value},
+        SET_BOOKING_DATA: {...state, [action.field]: action.value}
     }
 
     const new_state = reducer[action.type]
@@ -241,6 +283,7 @@ export function CheckoutProvider({ children }: React.PropsWithChildren){
 
     const [vehiclePickupError, dispatchVehiclePickupError] = useReducer(vehiclePickupReducer, initalVehiclePickupErrors)
 
+    const [vehicleDeliveryError, dispatchVehicleDeliveryError] = useReducer(vehicleDeliveryReducer, initialDeliveryErrors)
     // Global state for CheckoutData
     const [checkoutData, dispatchCheckoutData] = useReducer(checkoutDataReducer, initialCheckoutData);
 
@@ -371,7 +414,7 @@ export function CheckoutProvider({ children }: React.PropsWithChildren){
 
 
     return (
-        <CheckoutContext.Provider value={{ step, handleStepChange, handleNextStep, dispatchCheckoutState, checkoutState, dispatchPickupError, pickupError, dispatchCheckoutData, checkoutData, dispatchVehiclePickupError, vehiclePickupError }}>
+        <CheckoutContext.Provider value={{ step, handleStepChange, handleNextStep, dispatchCheckoutState, checkoutState, dispatchPickupError, pickupError, dispatchCheckoutData, checkoutData, dispatchVehiclePickupError, vehiclePickupError, dispatchVehicleDeliveryError, vehicleDeliveryError }}>
                 {children}
         </CheckoutContext.Provider>
     )
