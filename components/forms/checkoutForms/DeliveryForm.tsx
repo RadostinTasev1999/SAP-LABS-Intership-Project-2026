@@ -14,26 +14,25 @@ export default function DeliveryForm(){
 
     const { handleNextStep, dispatchCheckoutState, dispatchVehicleDeliveryError, vehicleDeliveryError, dispatchCheckoutData, checkoutData } = useContext(CheckoutContext)
 
-    const [streetAddress, setStreetAddress] = useState('');
-    const [addressDetails, setAddressDetails] = useState('');
-    const [radioAddress, setRadioAddress] = useState('residential');
+    const [streetAddress, setStreetAddress] = useState(checkoutData.vehicleDeliveryForm.streetAddress);
+    const [addressDetails, setAddressDetails] = useState(checkoutData.vehicleDeliveryForm.addressDetails);
+    const [radioAddress, setRadioAddress] = useState(checkoutData.vehicleDeliveryForm.addressType);
     // first radio input state
-    const [radioOneAddress, setRadioOneAddress] = useState('residential');
+    const radioOneAddress = 'residential'
     // second radio input state
-    const [radioTwoAddress, setRadioTwoAddress] = useState('business')
+    const radioTwoAddress = 'business'
 
-    const [radioContact, setRadioContact] = useState('contact_me');
+    const [radioContact, setRadioContact] = useState(checkoutData.vehicleDeliveryForm.contactPerson);
     // first radio input state
-    const [radioOneContact, setRadioOneContact] = useState('contact_me');
+    const radioOneContact = 'contact_me'
     // second radio input state
-    const [radioTwoContact, setRadioTwoContact] = useState('accompanying_person');
-
+    const radioTwoContact = 'accompanying_person'
     // accompanying_person inputs state
-    const [accompanyingName, setAccompanyingName] = useState('');
-    const [accompanyingPhone, setAccompanyingPhone] = useState('');
+    const [accompanyingName, setAccompanyingName] = useState(checkoutData.vehicleDeliveryForm.accompanyingName);
+    const [accompanyingPhone, setAccompanyingPhone] = useState(checkoutData.vehicleDeliveryForm.accompanyingPhone);
 
     // show / hide accompanying_person inputs state
-    const [showAccompanyingInputs, setShowAccompanyingInputs] = useState(false)
+    const [showAccompanyingInputs, setShowAccompanyingInputs] = useState(checkoutData.vehicleDeliveryForm.showAccompanyingInputs)
 
     // submit button enabled / disabled state
     const [isValid, setIsValid] = useState(true)
@@ -109,16 +108,16 @@ export default function DeliveryForm(){
         */
     //    ! ----------------------------------------
         // Update Global State
-        saveVehicleDeliveryData(streetAddress,addressDetails,radioAddress, radioContact, accompanyingName, accompanyingPhone)
+          saveVehicleDeliveryData(streetAddress,addressDetails,radioAddress, radioContact, accompanyingName, accompanyingPhone, showAccompanyingInputs)
 
         // hide Delivery form
-        hideCheckoutForm({ type: 'HIDE_DELIVERY', field: 'showVehicleDelivery', value: false})
+           hideCheckoutForm({ type: 'HIDE_DELIVERY', field: 'showVehicleDelivery', value: false})
 
         // Update step
-        handleNextStep()
+           handleNextStep()
 
         // show BookShipment form
-        showCheckoutForm({ type: 'SHOW_BOOKSHIPMENT', field: 'showBookshipment', value: true})
+           showCheckoutForm({ type: 'SHOW_BOOKSHIPMENT', field: 'showBookshipment', value: true})
         // dispatchCheckoutState({ type: 'show_bookshipment', field: 'showBookshipment', value: true })
     }
 
@@ -134,7 +133,7 @@ export default function DeliveryForm(){
         dispatchCheckoutState(action)
     }
 
-    const saveVehicleDeliveryData = (streetAddress: string ,addressDetails: string ,radioAddress: string , radioContact: string , accompanyingName: string , accompanyingPhone: string ) => {
+    const saveVehicleDeliveryData = (streetAddress: string ,addressDetails: string ,radioAddress: string , radioContact: string , accompanyingName: string , accompanyingPhone: string, showAccompanyingInputs: boolean ) => {
         
         const value = {
             streetAddress: streetAddress,
@@ -142,7 +141,8 @@ export default function DeliveryForm(){
             addressType: radioAddress,
             contactPerson: radioContact,
             accompanyingName: accompanyingName,
-            accompanyingPhone: accompanyingPhone
+            accompanyingPhone: accompanyingPhone,
+            showAccompanyingInputs: showAccompanyingInputs
         }
 
         dispatchCheckoutData({ type: 'SET_DELIVERY_DATA', field: 'vehicleDeliveryForm', value: value})
@@ -163,6 +163,11 @@ export default function DeliveryForm(){
                 clearFieldErrors({ type: 'CLEAR_STREET_ERROR', field: 'streetAddressError', value: ''})
                 // enable submit button
                 setIsValid(true)
+                break;
+
+            case 'delivery-details':
+                // update input state
+                setAddressDetails(e.target.value)
                 break;
 
             case 'pickup_contact_name':
@@ -287,6 +292,8 @@ export default function DeliveryForm(){
                                 id="delivery-address"
                                 name="delivery-details"
                                 placeholder="Apt, Suite, etc. (optional)"
+                                value={addressDetails}
+                                onChange={handleInputChange}
                                 className="w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                             />
 
