@@ -954,8 +954,10 @@ type VehicleDeliveryForm = {
         addressDetails:string,
         addressType: string,
         contactPerson: string
-        accompanyingName?: string,
-        accompanyingPhone?: string
+        accompanyingName: string,
+        accompanyingPhone: string,
+        showAccompanyingInputs: boolean
+
 }
 
 type BookShipmentForm = {
@@ -1041,4 +1043,47 @@ export type VehicleDeliveryErrorAction = {
   type: DeliveryErrorActionType,
   field: string,
   value: string
+}
+
+export type QuoteDataState = {
+    destinationForm: DestinationForm
+    vehicleDetails: VehicleDetails
+    contactDetails: ContactDetails
+}
+
+type DestinationForm = {
+        pickupLocation: string,
+        deliveryLocation: string,
+        transportType: string
+}
+type VehicleDetails = {
+        year: string,
+        make: string,
+        model: string
+}
+type ContactDetails = {
+        email: string,
+        pickupDate: string,
+        phone: string
+}
+
+const SET_PICKUPLOCATION = 'SET_PICKUPLOCATION'
+const SET_DELIVERYLOCATION = 'SET_DELIVERYLOCATION'
+const SET_TRANSPORTTYPE = 'SET_TRANSPORTTYPE'
+
+const SET_VEHICLEYEAR = 'SET_VEHICLEYEAR'
+const SET_VEHICLEMAKE = 'SET_VEHICLEMAKE'
+const SET_VEHICLEMODEL = 'SET_VEHICLEMODEL'
+const SET_CONTACTEMAIL = 'SET_CONTACTEMAIL'
+const SET_PICKUPDATE = 'SET_PICKUPDATE'
+const SET_PICKUPPHONE = 'SET_PICKUPPHONE'
+
+const SET_DESTINATION = 'SET_DESTINATION'
+
+export type QuoteActionType = typeof SET_DESTINATION
+
+export type QuoteDataAction = {
+  type: QuoteActionType,
+  field: string,
+  value: DestinationForm | VehicleDetails | ContactDetails
 }
