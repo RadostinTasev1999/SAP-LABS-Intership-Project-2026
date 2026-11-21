@@ -39,7 +39,10 @@ type ContextProps = {
     dispatchVehiclePickupError: Dispatch<VehiclePickupErrorAction>,
     vehiclePickupError: VehiclePickupErrorState,
     dispatchVehicleDeliveryError: Dispatch<VehicleDeliveryErrorAction>,
-    vehicleDeliveryError: VehicleDeliveryErrorState
+    vehicleDeliveryError: VehicleDeliveryErrorState,
+    hideBookingForm: (action: CheckoutReducerAction) => void,
+    showVehicleDeliveryForm:(action: CheckoutReducerAction) => void,
+    revertStep: () => void
 }
 
 type initialCheckoutState = {
@@ -67,6 +70,8 @@ type PickupErrors = {
 
 // { type: 'HIDE_DELIVERY', field: 'showVehicleDelivery', value: false}
 // { type: 'SHOW_BOOKSHIPMENT', field: 'showBookshipment', value: true}
+// { type:'HIDE_BOOKSHIPMENT', field: 'showBookshipment', value: false}
+// { type: 'SHOW_DELIVERY', field: 'showVehicleDelivery', value: true}
 const checkoutReducer = (state: initialCheckoutState, action: CheckoutReducerAction ) => {
     // Record<Keys, Type>
     const reducer: Record<ActionType, initialCheckoutState> = {
@@ -77,7 +82,7 @@ const checkoutReducer = (state: initialCheckoutState, action: CheckoutReducerAct
         SHOW_DELIVERY: {...state, [action.field]: action.value},
         HIDE_DELIVERY: {...state, [action.field]: action.value},
         SHOW_BOOKSHIPMENT: {...state, [action.field]: action.value},
-        HIDE_BOOKSHIPMENT: {...state}
+        HIDE_BOOKSHIPMENT: {...state, [action.field]: action.value}
     }
 
     const new_state = reducer[action.type]
@@ -178,8 +183,11 @@ const initialCheckoutData = {
     vehicleDeliveryForm: {
         streetAddress: '',
         addressDetails:'',
-        addressType: '',
-        contactPerson: ''
+        addressType: 'residential',
+        contactPerson: 'contact_me',
+        accompanyingName: '',
+        accompanyingPhone:'',
+        showAccompanyingInputs: false
     },
     bookShipmentForm: {
         cardNumber: '',
@@ -257,6 +265,7 @@ const vehiclePickupReducer = (state: VehiclePickupErrorState, action: VehiclePic
 
 
 // { type: 'SET_BOOKING_DATA', field: 'bookShipmentForm', value: bookingData}
+// { type: 'SET_DELIVERY_DATA', field: 'vehicleDeliveryForm', value: value}
 const checkoutDataReducer = (state: InitialCheckoutDataProp, action: CheckoutDataAction ) => {
 
     const reducer: Record<CheckoutDataActionType, InitialCheckoutDataProp> = {
@@ -408,13 +417,28 @@ export function CheckoutProvider({ children }: React.PropsWithChildren){
         }
     }
 
+    const revertStep = () => {
+        setStep(step => step - 1);
+    }
+
     const handleNextStep = () => {
         setStep( step => step + 1 );
     }
 
+    // { type:'HIDE_BOOKSHIPMENT', field: 'showBookshipment', value: false}
+    const hideBookingForm = (action: CheckoutReducerAction) => {
+
+        dispatchCheckoutState(action)
+    }
+
+    // { type: 'SHOW_DELIVERY', field: 'showVehicleDelivery', value: true}
+    const showVehicleDeliveryForm = (action: CheckoutReducerAction) => {
+        
+        dispatchCheckoutState(action)
+    }
 
     return (
-        <CheckoutContext.Provider value={{ step, handleStepChange, handleNextStep, dispatchCheckoutState, checkoutState, dispatchPickupError, pickupError, dispatchCheckoutData, checkoutData, dispatchVehiclePickupError, vehiclePickupError, dispatchVehicleDeliveryError, vehicleDeliveryError }}>
+        <CheckoutContext.Provider value={{ step, handleStepChange, handleNextStep, dispatchCheckoutState, checkoutState, dispatchPickupError, pickupError, dispatchCheckoutData, checkoutData, dispatchVehiclePickupError, vehiclePickupError, dispatchVehicleDeliveryError, vehicleDeliveryError, hideBookingForm, showVehicleDeliveryForm, revertStep }}>
                 {children}
         </CheckoutContext.Provider>
     )
