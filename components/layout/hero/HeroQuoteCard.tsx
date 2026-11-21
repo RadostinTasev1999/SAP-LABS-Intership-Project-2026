@@ -1,6 +1,7 @@
 "use client";
 
 import { MouseEvent, useEffect } from "react";
+import { QuoteProvider } from "@/components/providers/QuoteProvider";
 import { DashRing } from "@/components/shared/shadcn/dash-ring";
 import { useRouter } from "next/navigation";
 
@@ -331,6 +332,7 @@ export default function HeroQuoteCard({
   }, [quoteSubmit]);
 
   return (
+  <QuoteProvider>
     <div className="w-full p-6 sm:p-9">
       <Suspense fallback={<DashRing className="size-10 mx-auto my-4" />}>
         {quoteState.showDestinationForm && (
@@ -378,5 +380,6 @@ export default function HeroQuoteCard({
                 securityNote={securityNote}
             /> */}
     </div>
+  </QuoteProvider>
   );
 }
