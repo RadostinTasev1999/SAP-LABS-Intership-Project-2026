@@ -4,6 +4,9 @@ import { ErrorState } from "@/lib/definitions";
 import QuotePickupInput from "./QuotePickupInput";
 import QuoteDeliveryInput from "./QuoteDeliveryInput";
 import { DestinationAction } from "@/lib/definitions";
+import { useContext, useEffect } from "react";
+import { QuoteContext } from '@/components/providers/QuoteProvider'
+import { QuoteDataAction } from "@/lib/definitions";
 
 import { styled } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
@@ -115,6 +118,9 @@ export default function QuoteDestinationForm({
   dispatchQuoteState,
   handleActiveStep,
 }: QuoteDestinationProps) {
+
+  const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext)
+
   const [origin, setOrigin] = useState("");
   const [delivery, setDelivery] = useState("");
   const [originResult, setOriginResult] = useState([]);
@@ -184,6 +190,13 @@ export default function QuoteDestinationForm({
     return isValid;
   };
 
+  // { type: 'SET_DESTINATION', field: 'destinationForm', value: data}
+
+  const saveDestinationData = (action: QuoteDataAction) => {
+
+    dispatchQuoteDataState(action)
+  }
+  
   const destinationComplete = useCallback(() => {
     // Validate inputs
     const inputValidation = validateDestinationInputs(origin, delivery);
@@ -193,21 +206,31 @@ export default function QuoteDestinationForm({
       return;
     }
     // safeParse -> validates unknown data against a schema, without throwing an exception when validation fails
+    // ! Logic if validation passes
+    // Save data in global state
+    const data = {
+        pickupLocation: origin,
+        deliveryLocation: delivery,
+        transportType: transport
+    }
+    saveDestinationData({ type: 'SET_DESTINATION', field: 'destinationForm', value: data})
     // Mark Destination Stepper as complete
-    handleActiveStep(2);
+    // handleActiveStep(2);
     // Hide Destination form
-    dispatchQuoteState({
-      type: "hide_destination",
-      field: "showDestinationForm",
-      value: false,
-    });
+    // dispatchQuoteState({
+    //   type: "hide_destination",
+    //   field: "showDestinationForm",
+    //   value: false,
+    // });
     // Show Vehicle form
-    dispatchQuoteState({
-      type: "show_vehicle",
-      field: "showVehicleForm",
-      value: true,
-    });
-  }, [origin, delivery]);
+  //   dispatchQuoteState({
+  //     type: "show_vehicle",
+  //     field: "showVehicleForm",
+  //     value: true,
+  //   });
+  // }, [origin, delivery]);
+
+  })
 
   const fetchData = (searchTerm: string) => {
     switch (searchTerm) {
@@ -325,13 +348,22 @@ export default function QuoteDestinationForm({
   };
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+    console.log(`Radio button ${e.target.name} has changed`)
     setTransport(e.target.value);
+
     dispatchQuoteData({
       type: "SET_TRANSPORT",
       field: "transport",
       value: e.target.value,
     });
   };
+
+  useEffect(() => {
+
+    console.log(`Quote Data State has changed!: ${quoteDataState}`)
+
+  },[quoteDataState])
 
   return (
     <div className="mt-6">
