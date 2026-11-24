@@ -7,6 +7,7 @@ import { DestinationAction } from "@/lib/definitions";
 import { useContext, useEffect } from "react";
 import { QuoteContext } from '@/components/providers/QuoteProvider'
 import { QuoteDataAction } from "@/lib/definitions";
+import { QuoteStateAction } from "@/lib/definitions";
 
 import { styled } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
@@ -40,28 +41,13 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const API_URL = "http://localhost:3000/zips";
-// {type: 'SET_ORIGIN', field: field, value: `${data.city}, ${data.state} ${data.zip}`}
-// {type: 'SET_DELIVERY', field: field, value: `${data.city}, ${data.state} ${data.zip}`}
-// {type: 'SET_TRANSPORT', field: 'transport', value: e.target.value}
+
 
 const initialErrors = {
   originError: "",
   deliveryError: "",
 };
-// { type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Valid Origin'}
-// {type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Pickup location'}
-// {type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Pickup location'}
 
-// {type: 'ORIGIN_ERROR', field: 'origin', value: 'Please Select Pickup location'}
-
-// { type: 'DELIVERY_ERROR', field: 'deliveryError', value: 'Please Select Delivery location'}
-
-// { type: 'RESET_ORIGIN', field: 'originError', value: ''}
-// { type: 'RESET_DELIVERY', field: 'deliveryError', value: ''}
-// {type: 'INVALID_ORIGIN', field: 'originError', value: 'Please Select Valid Origin' }
-// { type: 'INVALID_DELIVERY', field: 'deliveryError', value: 'Please Select Valid Delivery Location'}
-
-// { type: 'INVALID_DELIVERY', field: 'deliveryError', value: 'Please Select Valid Delivery Location'}
 const errorReducer = (state: ErrorState, action: DestinationAction) => {
   switch (action.type) {
     case "ORIGIN_ERROR":
@@ -114,7 +100,6 @@ export default function QuoteDestinationForm({
   deliveryZip,
   transportType,
   submitBtn,
-  dispatchQuoteData,
   dispatchQuoteState,
   handleActiveStep,
 }: QuoteDestinationProps) {
@@ -127,7 +112,7 @@ export default function QuoteDestinationForm({
   const [deliveryResult, setDeliveryResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
 
-  const [deliverySearch, showDeliverySearch] = useState(false);
+  const [deliverySearch, setDeliverySearch] = useState(false);
   const [transport, setTransport] = useState("open");
   const [isDisabled, setIsDisabled] = useState(false);
 
@@ -193,8 +178,18 @@ export default function QuoteDestinationForm({
   // { type: 'SET_DESTINATION', field: 'destinationForm', value: data}
 
   const saveDestinationData = (action: QuoteDataAction) => {
-
+    // { type: 'SET_DESTINATION', field: 'destinationForm', value: data}
     dispatchQuoteDataState(action)
+  }
+  
+  const hideQuoteForm = (action: QuoteStateAction) => {
+
+    dispatchQuoteState(action)
+  }
+
+  const showQuoteForm = (action: QuoteStateAction) => {
+
+    dispatchQuoteState(action);
   }
   
   const destinationComplete = useCallback(() => {
@@ -215,22 +210,14 @@ export default function QuoteDestinationForm({
     }
     saveDestinationData({ type: 'SET_DESTINATION', field: 'destinationForm', value: data})
     // Mark Destination Stepper as complete
-    // handleActiveStep(2);
+     handleActiveStep(2);
     // Hide Destination form
-    // dispatchQuoteState({
-    //   type: "hide_destination",
-    //   field: "showDestinationForm",
-    //   value: false,
-    // });
+      hideQuoteForm({ type: 'hide_destination', field: 'showDestinationForm', value: false })
     // Show Vehicle form
-  //   dispatchQuoteState({
-  //     type: "show_vehicle",
-  //     field: "showVehicleForm",
-  //     value: true,
-  //   });
-  // }, [origin, delivery]);
+      showQuoteForm({ type: 'show_vehicle', field: 'showVehicleForm', value: true })
+  },[origin, delivery, transport])
 
-  })
+  
 
   const fetchData = (searchTerm: string) => {
     switch (searchTerm) {
@@ -271,12 +258,6 @@ export default function QuoteDestinationForm({
 
   const handleSelectOrigin = (data: SelectedLocation, field: string) => {
     console.log(`${data.city}, ${data.state} ${data.zip}`);
-    // Update QuoteData state
-    dispatchQuoteData({
-      type: "SET_ORIGIN",
-      field: field,
-      value: `${data.city}, ${data.state} ${data.zip}`,
-    });
     // hide select list
     setShowResult(false);
     // update origin field state
@@ -305,7 +286,7 @@ export default function QuoteDestinationForm({
     if (field === "origin") {
       setShowResult(false);
     } else if (field === "delivery") {
-      showDeliverySearch(false);
+      setDeliverySearch(false);
     }
   };
 
@@ -319,22 +300,17 @@ export default function QuoteDestinationForm({
       value: "",
     });
     // show search list
-    showDeliverySearch(true);
+    setDeliverySearch(true);
     // enable submit button
     setIsDisabled(false);
   };
 
   const handleSelectDelivery = (data: SelectedLocation, field: string) => {
-    // update QuoteData state
-    dispatchQuoteData({
-      type: "SET_DELIVERY",
-      field: field,
-      value: `${data.city}, ${data.state} ${data.zip}`,
-    });
+    
     // update delivery input state
     setDelivery(`${data.city}, ${data.state} ${data.zip}`);
     // hide delivery result list
-    showDeliverySearch(false);
+    setDeliverySearch(false);
     if (isDisabled) {
       // reset deliveryError state
       dispatchErrors({
@@ -349,19 +325,29 @@ export default function QuoteDestinationForm({
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
 
-    console.log(`Radio button ${e.target.name} has changed`)
-    setTransport(e.target.value);
+    console.log(`Input ${e.target.name} with value ${e.target.value} has been clicked!`)
+    // setTransport(e.target.value);
+    setTransport(e.target.value)
 
-    dispatchQuoteData({
-      type: "SET_TRANSPORT",
-      field: "transport",
-      value: e.target.value,
-    });
   };
 
   useEffect(() => {
 
-    console.log(`Quote Data State has changed!: ${quoteDataState}`)
+    const fetchData = async() => {
+
+      const API_URL = 'http://localhost:3000/quoteData'
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(quoteDataState)
+      })
+    }
+    
+    // fetchData()
+
 
   },[quoteDataState])
 
