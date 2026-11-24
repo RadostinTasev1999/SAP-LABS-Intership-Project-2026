@@ -1,132 +1,173 @@
 "use client";
+import {QuoteDataAction} from '@/lib/definitions'
 
 import ArrowRight from "@/components/shared/icons/ArrowRight";
 
 import VehicleSelectInput from "./VehicleSelectInput";
 
-import { VehicleState } from "@/lib/definitions";
-import { VehicleElement } from "@/lib/definitions";
-
 import { QuoteVehicleProps } from "@/lib/definitions";
 
-import { Action } from "@/lib/definitions";
+import { useContext } from "react";
+import {QuoteContext} from '@/components/providers/QuoteProvider'
 
 import {
   ChangeEvent,
-  MouseEventHandler,
   useEffect,
-  useReducer,
   useState,
 } from "react";
-import { label } from "motion/react-client";
 
-const API_URL = "http://localhost:3000/vehicles";
-// {type: 'SET_INITIAL', field: {id: "id", year: "year", make: 'make', model: 'model'}, value: el}
+import { useFetchMakes } from "@/features/hooks/useFetchMakes";
+import { useFetchYears } from "@/features/hooks/useFetchYears";
+import { useFetchModels } from "@/features/hooks/useFetchModels";
 
-// { type: 'SET_INITIAL', field: { id: 'id', year: 'year', make: 'make', model: 'model'}, value: result}
-// const vehicleReducer = (state: VehicleState, action: Action) => {
 
-//     switch (action.type) {
-
-//         case "SET_INITIAL":
-
-//             return {
-
-//             };
-
-//         default:
-//             return {
-//                 ...state
-//             };
-//     }
-// }
-
-// const initialState = [
-//     {
-//         id: "",
-//         year: "",
-//         make: "",
-//         model: ""
-//     }
-// ]
+const BASE_API = 'https://vpic.nhtsa.dot.gov/api';
+const MAKE_URL = 'http://localhost:3000/vehicleMake'
+const YEAR_URL = 'http://localhost:3000/vehicleYears'
 
 export default function QuoteVehicleForm({
-  vehicleComplete,
-  dispatchQuoteData,
+  hideQuoteForm,
+  showQuoteForm,
   handleActiveStep,
 }: QuoteVehicleProps) {
-  // const [vehicleData, dispatchVehicleData] = useReducer(vehicleReducer, initialState )
-  const [vehicleData, setVehicleData] = useState<VehicleState>([]);
-  const [years, setYears] = useState([]);
-  const [make, setMake] = useState([]);
-  const [model, setModel] = useState([]);
 
-  const handleSelectChange = (e: ChangeEvent) => {
+  const { handleVehicleErrors, dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext)
+
+  // submit button state
+  const [isDisabled, setIsDisabled] = useState(false)
+
+  // const [years, setYears] = useState([]);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [selectedMake, setSelectedMake] = useState<string | null>(null);
+  const [selectedModel, setSelectedModel] = useState<string | null>(null);
+  // vehicle makes
+  const makes = useFetchMakes(MAKE_URL)
+  // vehicle years
+  const years = useFetchYears(YEAR_URL)
+
+  // vehicle model
+  const models = useFetchModels(BASE_API, selectedYear, selectedMake)
+  /*
+      {
+        data: [],
+        loading: true,
+        errors: { message: '' }
+    }
+  */
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    
     const field = e.target.name;
 
-    console.log("Field is:", field);
-
+    console.log('Field is:', field)
+    
     switch (field) {
-      case "selectedYear":
-        dispatchQuoteData({
-          type: "SET_YEAR",
-          field: "year",
-          value: e.target.value,
-        });
-        break;
-      case "selectedMake":
-        dispatchQuoteData({
-          type: "SET_MAKE",
-          field: "make",
-          value: e.target.value,
-        });
-        break;
-      case "selectedModel":
-        dispatchQuoteData({
-          type: "SET_MODEL",
-          field: "model",
-          value: e.target.value,
-        });
+      case 'selectedYear':
+        // set selected year
+        setSelectedYear(Number(e.target.value));
+        // clear input errors
+        handleVehicleErrors('vehicleYearError', '')
+        // enable submit button
+        setIsDisabled(false)
         break;
 
+      case 'selectedMake':
+        // set selected make
+        setSelectedMake(e.target.value)
+        // clear field errors
+        handleVehicleErrors('vehicleMakeError', '')
+        // enable submit button
+        setIsDisabled(false)
+        break;
+
+      case 'selectedModel':
+        // set selected model
+        setSelectedModel(e.target.value);
+        // clear field errors
+        handleVehicleErrors('vehicleModelError', '')
+        // enable submit button
+        setIsDisabled(false)
+        break;
+    
       default:
         break;
     }
+    
   };
 
+  const inputValidation = (selectedYear: number | null, selectedMake: string | null, selectedModel: string | null) => {
+
+    let isValid = true;
+
+    // validate selectedYear
+    if (!selectedYear) {
+      // set input errors
+      handleVehicleErrors('vehicleYearError', 'Please select Year')
+      // disable button
+      isValid = false;
+    }
+    // validate selected make
+    if (!selectedMake) {
+      // set field errors
+      handleVehicleErrors('vehicleMakeError', 'Please select Make')
+      // disable submit button
+      isValid = false
+    }
+
+    if (!selectedModel) {
+      // set field errors
+      handleVehicleErrors('vehicleModelError', 'Please select Model')
+      // disable submit button
+      isValid = false
+    }
+
+    /*
+      handleVehicleErrors - calls setVehicleErrors  in QuoteProvider.tsx 
+                            which creates a new error-state object
+                            and schedules a provider update.
+                            The provider then creates a new value object
+                            ,so components consuming QuoteCOntext including QUoteVehicleForm
+                            will re-render
+    */
+
+    return isValid
+
+  }
+
+const vehicleComplete = (e: MouseEvent<HTMLButtonElement>) => {
+
+  // validate inputs
+  const validation = inputValidation(selectedYear, selectedMake, selectedModel)
+
+  if (!validation) {
+    // disable submit button
+    setIsDisabled(true)
+    return;
+  }
+  // If validation passes, update global state
+  const data = {
+    year: selectedYear,
+    make: selectedMake,
+    model: selectedModel
+  }
+  saveVehicleData({ type: 'SET_VEHICLEDATA', field: 'vehicleDetails', value: data})
+  // Hide Vehicle form
+  hideQuoteForm({ type: 'hide_vehicle', field: 'showVehicleForm', value: false})
+  // Update stepper
+  handleActiveStep(3)
+  // Show Contact form
+  showQuoteForm({type: 'show_contact', field: 'showContactForm', value: true })
+}
+
+const saveVehicleData = (action: QuoteDataAction) => {
+
+  dispatchQuoteDataState(action)
+}
+  
   useEffect(() => {
-    const loadData = async () => {
-      const response = await fetch(API_URL);
-      const result = await response.json();
 
-      setVehicleData(result);
-      // filter by year
-      const years = result.map((el: VehicleElement) => ({
-        id: el.id,
-        year: el.year,
-      }));
-      console.log("Years are:", years);
-      // update years state
-      setYears(years);
-      // filter by makes
-      const makes = result.map((el: VehicleElement) => ({
-        id: el.id,
-        make: el.make,
-      }));
-      // update makes state
-      setMake(makes);
-
-      // filter by model
-      const models = result.map((el: VehicleElement) => ({
-        id: el.id,
-        model: el.model,
-      }));
-      // update model state
-      setModel(models);
-    };
-
-    loadData();
-  }, []);
+    console.log('New state is:', quoteDataState)
+  },[quoteDataState])
 
   return (
     <div className="mb-4 p-[18px]">
@@ -148,7 +189,7 @@ export default function QuoteVehicleForm({
 
         {/* Col 2 Make */}
         <VehicleSelectInput
-          makes={make}
+          makes={makes}
           label="Make"
           id="make"
           name="selectedMake"
@@ -158,19 +199,21 @@ export default function QuoteVehicleForm({
 
         {/* Col 3 Model */}
         <VehicleSelectInput
-          models={model}
+          models={models}
           label="Model"
           id="model"
           name="selectedModel"
           defaultValue="Select Model"
           handleSelectChange={handleSelectChange}
+          // handleSelectClick={handleSelectClick}
         />
 
         {/* button */}
         <div className="flex items-center">
           <button
             onClick={vehicleComplete}
-            className="inline-flex w-full items-center justify-center rounded-md bg-slate-900 px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-slate-800"
+            className={`inline-flex w-full items-center justify-center rounded-md px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5  ${isDisabled ? 'bg-slate-300 hover:bg-slate-400' : 'bg-slate-900 hover:bg-slate-800'}`}
+            disabled={isDisabled}
           >
             Enter Contact
             <ArrowRight />
