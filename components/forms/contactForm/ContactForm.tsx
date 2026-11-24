@@ -1,7 +1,9 @@
 "use client";
 
+import { useFetchPriorityList } from "@/features/hooks/useFetchPriorityList";
 import { useRouter } from "next/navigation";
 import { DashRing } from "@/components/shared/shadcn/dash-ring";
+import { Alert } from "@mui/material";
 
 import ArrowRight from "@/components/shared/icons/ArrowRight";
 
@@ -14,174 +16,36 @@ import { ContactErrorState } from "@/lib/definitions";
 import { ContactsAction } from "@/lib/definitions";
 import { ChangeEvent, useState, useEffect } from "react";
 import { useReducer, useCallback } from "react";
+import { useContext } from "react";
+import { QuoteContext } from "@/components/providers/QuoteProvider";
+import { QuoteDataAction } from '@/lib/definitions'
+import { useSubmitQuote } from "@/features/hooks/useSubmitQuote";
 
 const API_URL = "http://localhost:3000/priorityList";
-
-const initialErrors = {
-  emailError: "",
-  phoneError: "",
-};
-// {type: 'INVALID_EMAIL', field: 'emailError', value: 'Please enter valid email'}
-// { type: 'INVALID_PHONE', field: 'phoneError', value: 'Please enter valid phone'}
-const contactsReducer = (state: ContactErrorState, action: ContactsAction) => {
-  switch (action.type) {
-    case "EMPTY_EMAIL":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "EMPTY_PHONE":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "RESET_EMAIL":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "RESET_PHONE":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "INVALID_EMAIL":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "INVALID_PHONE":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    default:
-      return {
-        ...state,
-      };
-  }
-};
-
-const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phoneRegExp = /^\(\d{3}\) \d{3}-\d{4}$/;
+const POST_URL = "http://localhost:3000/quoteData"
 
 export default function QuoteContactForm({
-  dispatchQuoteData,
   handleActiveStep,
-  renderOffer,
-  handleQuoteSubmit
+  renderOffer
 }: QuoteContactProps) {
+
+
+  const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext)
 
   const router = useRouter();
 
   const [email, setEmail] = useState("");
-  const [priorityList, setPriorityList] = useState([]);
   const [priority, setPriority] = useState("As soon as possible");
+  const { priorityList } = useFetchPriorityList(API_URL)
   const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState(false)
+  
 
-  const [contactErrors, dispatchErrors] = useReducer(
-    contactsReducer,
-    initialErrors,
-  );
+  const { contactComplete, isDisabled, setIsDisabled, clearInputErrors, contactErrors, loading } = useSubmitQuote(email,phone, priority,POST_URL)
 
-  const [isDisabled, setIsDisabled] = useState(false);
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 
-  const validateContactInputs = (email: string, phone: string) => {
-    let isValid = true;
-
-    // verify if inputs are empty
-    if (!email) {
-      // update emailError state
-      dispatchErrors({
-        type: "EMPTY_EMAIL",
-        field: "emailError",
-        value: "Please enter email",
-      });
-      isValid = false;
-    }
-    if (!phone) {
-      // update phoneError state
-      dispatchErrors({
-        type: "EMPTY_PHONE",
-        field: "phoneError",
-        value: "Please enter phone",
-      });
-      isValid = false;
-    }
-    // test email input against regex
-    if (!emailRegExp.test(email)) {
-      // show error message
-      dispatchErrors({
-        type: "INVALID_EMAIL",
-        field: "emailError",
-        value: "Please enter valid email",
-      });
-      // disable submit button
-      isValid = false;
-    }
-    // test phone input against regex
-    if (!phoneRegExp.test(phone)) {
-      // display error message
-      dispatchErrors({
-        type: "INVALID_PHONE",
-        field: "phoneError",
-        value: "Please enter valid phone",
-      });
-      // disable submit button
-      isValid = false;
-    }
-
-    return isValid;
-  };
-
-  const contactComplete = useCallback(() => {
-    // Validate input data
-    const validInputs = validateContactInputs(email, phone);
-
-    // disable button if validation fails
-    if (!validInputs) {
-      setIsDisabled(true);
-      return;
-    }
-
-    // logic if validation passes:
-    // TODO: manage QuoteData state globally
-    dispatchQuoteData({
-      type: "set_contactdata",
-      email: email,
-      priority: priority,
-      phone: phone,
-    });
-    // Mark Form as complete
-    handleActiveStep(4);
-
-    // Show loading spinner
-    setLoading(true)
-
-    // Fetch API
-    setTimeout(() => {
-      handleQuoteSubmit()
-      setLoading(false)
-    },3000)
-    
-    // navigate to QuoteOffer Page
-    // setTimeout(() => {
-    //   router.push('/dashboard')
-    //   setLoading(false)
-    // },3000)
-   
-  }, [email, phone, priority]);
-
-  const handleInputChange = (e: ChangeEvent) => {
     const field = e.target.name;
-
+    console.log('Field is:', field)
     switch (field) {
       case "email":
         // update email input state
@@ -193,11 +57,10 @@ export default function QuoteContactForm({
         }
         if (contactErrors.emailError) {
           // clear error message
-          dispatchErrors({
-            type: "RESET_EMAIL",
-            field: "emailError",
-            value: "",
-          });
+          clearInputErrors({ type: 'RESET_EMAIL', field: 'emailError', value: '' })
+        }
+        if (contactErrors.submitError) {
+          clearInputErrors({ type: 'RESET_SUBMIT', field: 'submitError', value: ''})
         }
 
         break;
@@ -213,15 +76,15 @@ export default function QuoteContactForm({
         }
         if (contactErrors.phoneError) {
           // clear error message
-          dispatchErrors({
-            type: "RESET_PHONE",
-            field: "phoneError",
-            value: "",
-          });
+          clearInputErrors({ type: 'RESET_PHONE', field: 'phoneError', value: '' })
+        }
+        if (contactErrors.submitError) {
+          clearInputErrors({ type: 'RESET_SUBMIT', field: 'submitError', value: ''})
         }
         break;
 
       case "priority":
+        // update priority state
         setPriority(e.target.value);
         break;
 
@@ -229,17 +92,10 @@ export default function QuoteContactForm({
         break;
     }
   };
-
+    
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(API_URL);
-      const result = await response.json();
-
-      setPriorityList(result);
-    };
-
-    fetchData();
-  }, []);
+    console.log('Quote data state is:', quoteDataState)
+  },[quoteDataState])
 
   return (
     <div className="mb-4 p-[18px]">
@@ -257,7 +113,7 @@ export default function QuoteContactForm({
           placeholder="johndoe@company.com"
           email={email}
           handleInputChange={handleInputChange}
-          contactErrors={contactErrors}
+           contactErrors={contactErrors}
         />
         {/* Col 2 Select list */}
         <PriorityInput
@@ -282,20 +138,29 @@ export default function QuoteContactForm({
 
         {/* button */}
         <div className="flex items-center">
-          <button
-            onClick={contactComplete}
-            className={`inline-flex w-full items-center justify-center rounded-md bg-green-600 px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-green-500 ${isDisabled ? "bg-slate-400 hover:bg-slate-600" : ""}`}
-            disabled={isDisabled ? true : false}
-          >
-            Calculate Quote
-            {
-              loading ? <DashRing className="size-6" /> : <ArrowRight />
-            }
-            
-          
-          </button>
+          {
+            contactErrors.submitError
+              ?
+              <Alert severity="error">{contactErrors.submitError}</Alert>
+              :
+              <button
+                onClick={contactComplete}
+                className={`inline-flex w-full items-center justify-center rounded-md bg-green-600 px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-green-500 ${isDisabled ? "bg-slate-400 hover:bg-slate-600" : ""}`}
+                disabled={isDisabled}
+              >
+                Calculate Quote
+                {
+                  loading ? <DashRing className="size-6" /> : <ArrowRight />
+                }
+
+
+
+              </button>
+          }
         </div>
+
       </div>
+     
     </div>
   );
 }
