@@ -9,8 +9,8 @@ import { QuoteResultState } from '@/lib/definitions'
 import { QuoteResultAction } from '@/lib/definitions'
 
 import { useState,useEffect, useReducer } from 'react'
-
-const API_URL = 'http://localhost:3000/quoteData'
+import { useCalculateQuote } from '@/features/hooks/useCalculateQuote'
+import { useContext } from 'react'
 
 const initialState = {
     success: false,
@@ -62,12 +62,16 @@ const quoteReducer = (state: QuoteResultState, action: QuoteResultAction) => {
     
 }
 
+const API_URL = 'https://carhauler247.com/api/public/v1'
+
+
 export default function QuoteOffer(){
 
     const router = useRouter();
+    // const { origin, destination, price } = useCalculateQuote(API_URL)
 
     const [edit, setEdit] = useState(false);
-    const [quoteResult, dispatchQuoteResult] = useReducer(quoteReducer, initialState)
+    // const [quoteResult, dispatchQuoteResult] = useReducer(quoteReducer, initialState)
 
     const handleConfirm = () => {
         // POST quotedata to DB (Summary of Quote data / Quote Price)
@@ -87,75 +91,70 @@ export default function QuoteOffer(){
         // update edit state
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        // Fetch API
-        const fetchAPI = async() => {
-            // Get QuoteData
-            const response = await fetch(API_URL);
-            const result = await response.json();
+    //     // Fetch API
+    //     const fetchAPI = async() => {
+    //         // Get QuoteData
+    //         const response = await fetch(API_URL);
+    //         const result = await response.json();
 
-            //  console.log('Result in QUoteOffer effect funciton is:', result)
+    //         //  console.log('Result in QUoteOffer effect funciton is:', result)
 
-            // Calculate quote
-            calculateQuote(result)
+    //         // Calculate quote
+    //         calculateQuote(result)
 
-        }
-        // Calculate Quote
-        const calculateQuote = async(quoteData: QuoteDBValues) => {
+    //     }
+    //     // Calculate Quote
+    //     const calculateQuote = async(quoteData: QuoteDBValues) => {
 
-            const vehicleOrigin = quoteData[0].origin
-            // Dallas, TX 75201
-            const originZip = Number(vehicleOrigin.split(" ")[2])
-            // console.log('Origin zip:', originZip)
-            const vehicleDestination = quoteData[0].delivery
-            // console.log('VehicleDestination is:', vehicleDestination)
-            // Hartford, CT 06103
-            const destinationZip = Number(vehicleDestination.split(" ")[2])
-            // console.log('Destination zip is:', destinationZip)
-            const API = 'https://carhauler247.com/api/public/v1'
+    //         const vehicleOrigin = quoteData[0].origin
+    //         // Dallas, TX 75201
+    //         const originZip = Number(vehicleOrigin.split(" ")[2])
+    //         // console.log('Origin zip:', originZip)
+    //         const vehicleDestination = quoteData[0].delivery
+    //         // console.log('VehicleDestination is:', vehicleDestination)
+    //         // Hartford, CT 06103
+    //         const destinationZip = Number(vehicleDestination.split(" ")[2])
+    //         // console.log('Destination zip is:', destinationZip)
+    //         const API = 'https://carhauler247.com/api/public/v1'
 
-            const query = `${API}/quote?fromZip=${originZip}&toZip=${destinationZip}&vehicleType=sedan`
+    //         const query = `${API}/quote?fromZip=${originZip}&toZip=${destinationZip}&vehicleType=sedan`
             
-            const response = await fetch(query);
-            const result = await response.json();
+    //         const response = await fetch(query);
+    //         const result = await response.json();
 
-            // console.log('Result in calculateQuote function is:', result)
-            // Validate response:
-            if (!result.success) {
-                /*
-                    {
-                        "success": false,
-                        "message": "Invalid value 'CT 06103' for parameter 'fromZip'. See https://carhauler247.com/api-docs",
-                        "quote": null
-                    }
-                */
-            //    console.log('Result is:', result)
-               dispatchQuoteResult({ type: 'set_error', success: result.success, message: result.message, quote: result.quote })
-                throw new Error(result.message.message)
-            } else{
-                // console.log('Result on success is:', result)
+    //         // console.log('Result in calculateQuote function is:', result)
+    //         // Validate response:
+    //         if (!result.success) {
+    //             /*
+    //                 {
+    //                     "success": false,
+    //                     "message": "Invalid value 'CT 06103' for parameter 'fromZip'. See https://carhauler247.com/api-docs",
+    //                     "quote": null
+    //                 }
+    //             */
+    //         //    console.log('Result is:', result)
+    //            dispatchQuoteResult({ type: 'set_error', success: result.success, message: result.message, quote: result.quote })
+    //             throw new Error(result.message.message)
+    //         } else{
+    //             // console.log('Result on success is:', result)
 
-                dispatchQuoteResult({ type: 'set_result', success: result.success, quote: result.quote})
-            }
-        }
+    //             dispatchQuoteResult({ type: 'set_result', success: result.success, quote: result.quote})
+    //         }
+    //     }
 
-        fetchAPI();
+    //     fetchAPI();
         
+    //     //! TODO: Custom class / custom hook / exported function / use with React Suspense
 
+    // },[])
 
-    },[])
 
     return(
         <div className="w-full min-h-screen grid grid-cols-1 gap-8 sm:grid-cols-4 sm:gap-8 bg-[url(/LoginBackgroundImage.jpg)] bg-cover bg-center">
             {/* Quote Card */}
-            <QuoteOfferCard 
-                price={quoteResult.quote?.price}
-                origin={quoteResult.quote?.from}
-                destination={quoteResult.quote?.to}
-                distance={quoteResult.quote?.distance}
-                handleConfirm={handleConfirm}
-            />
+            
             {/* Quote SideBar */}
             <QuoteSideBar 
                 handleEdit={handleEdit}
