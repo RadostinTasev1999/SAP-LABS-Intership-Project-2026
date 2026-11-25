@@ -1,8 +1,7 @@
 "use client";
 
-import { MouseEvent, useEffect } from "react";
+import React from "react";
 import { QuoteProvider } from "@/components/providers/QuoteProvider";
-import { DashRing } from "@/components/shared/shadcn/dash-ring";
 import { useRouter } from "next/navigation";
 
 import QuoteVehicleForm from "../../forms/vehicleForm/QuoteVehicleForm";
@@ -14,10 +13,9 @@ import StepperComponent from '@/components/shared/stepper/Stepper'
 
 import { QuoteFormState } from "@/lib/definitions";
 
-import { useReducer, useState, useCallback,Suspense } from "react";
+import { useReducer, useState, useCallback } from "react";
 
 import { HeroQuoteCardProps } from "@/lib/definitions";
-import { DestinationFormState } from "@/lib/definitions";
 import { QuoteStateAction } from "@/lib/definitions";
 
 const initialState = {
@@ -39,10 +37,8 @@ const quoteInitialState = {
   showContactForm: false,
 };
 
-// { type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true }
-/*
-  {type: 'hide_contact', field: 'showContactForm', value: false }
-*/
+// { type: 'hide_vehicle', field: 'showVehicleForm', value: false}
+// {type: 'show_contact', field: 'showContactForm', value: true }
 const stateReducer = (state: QuoteFormState, action: QuoteStateAction) => {
   switch (action.type) {
     case "show_destination":
@@ -83,9 +79,7 @@ const stateReducer = (state: QuoteFormState, action: QuoteStateAction) => {
   }
 };
 
-// { type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true }
 
-// { type: 'set_contactdata', email: email, priority: priority, phone: phone}
 const quoteReducer = (state: DestinationFormState, action: Action) => {
   switch (action.type) {
     case "SET_ORIGIN":
@@ -173,19 +167,11 @@ export default function HeroQuoteCard({
 
   const router = useRouter()
 // ! TODO: implement global state management for quoteData state
-  const [quoteData, dispatchQuoteData] = useReducer(quoteReducer, initialState);
   const [quoteState, dispatchQuoteState] = useReducer(
     stateReducer,
     quoteInitialState,
   );
   const [activeStep, setActiveStep] = useState(1);
-
-  const [quoteSubmit, setQuoteSubmit] = useState(false);
-
-  const handleQuoteSubmit = () => {
-    setQuoteSubmit(true)
-  }
-
 
   const handleActiveStep = (state: number) => {
     setActiveStep(state);
@@ -258,85 +244,27 @@ export default function HeroQuoteCard({
     }
   };
 
-  // onClick handler for vehicle quote form
 
-  const vehicleComplete = useCallback(() => {
-    // Mark Vehicle form as completed
-    handleActiveStep(3);
-    // Hide Vehicle inputs
-    dispatchQuoteState({
-      type: "hide_vehicle",
-      field: "showVehicleForm",
-      value: false,
-    });
+  // handler for hiding vehicle form
+  const hideQuoteForm = (action: QuoteStateAction) => {
 
-    // Show Contact inputs
-    dispatchQuoteState({
-      type: "show_contact",
-      field: "showContactForm",
-      value: true,
-    });
-  }, []);
+    dispatchQuoteState(action)
+  }
 
-  useEffect(() => {
-    
-    if (!quoteSubmit) {
-      return;
-    }
-    // Fetch API
-    const {
-      origin,
-      delivery,
-      transport,
-      year,
-      make,
-      model,
-      isDriving,
-      email,
-      priority,
-      phone,
-    } = quoteData
+  // handler for 
+  const showQuoteForm = (action: QuoteStateAction) => {
 
-    const API_URL = "http://localhost:3000/quoteData"
+    dispatchQuoteState(action)
+  }
 
-    const fetchData = async() => {
-      
-      const response = await fetch(API_URL,{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          origin,
-          delivery,
-          transport,
-          year,
-          make,
-          model,
-          isDriving,
-          email,
-          priority,
-          phone,
-        })
-      })
 
-      const result = await response.json();
-      
-      // navigate to /dashboard page
-      router.push('/dashboard')
-      
-    }
-
-    fetchData()
-
-  }, [quoteSubmit]);
+  
 
   return (
-  <QuoteProvider>
-    <div className="w-full p-6 sm:p-9">
-      <Suspense fallback={<DashRing className="size-10 mx-auto my-4" />}>
+    <QuoteProvider>
+      <div className="w-full p-6 sm:p-9">
         {quoteState.showDestinationForm && (
-          <>
+          <React.Fragment>
             <HeroQuoteHeading quoteHeading={quoteHeading} />
 
             <HeroQuoteParagraph quoteParagraph={quoteParagraph} />
@@ -346,40 +274,36 @@ export default function HeroQuoteCard({
               deliveryZip={deliveryZip}
               transportType={transportType}
               submitBtn={submitBtn}
-              dispatchQuoteData={dispatchQuoteData}
               dispatchQuoteState={dispatchQuoteState}
               handleActiveStep={handleActiveStep}
             />
-          </>
+          </React.Fragment>
         )}
         {quoteState.showVehicleForm && (
           <QuoteVehicleForm
-            vehicleComplete={vehicleComplete}
-            dispatchQuoteData={dispatchQuoteData}
             handleActiveStep={handleActiveStep}
+            hideQuoteForm={hideQuoteForm}
+            showQuoteForm={showQuoteForm}
           />
         )}
         {quoteState.showContactForm && (
           <QuoteContactForm
-            dispatchQuoteData={dispatchQuoteData}
             handleActiveStep={handleActiveStep}
             renderOffer={renderOffer}
-            handleQuoteSubmit={handleQuoteSubmit}
           />
         )}
 
         {/* Stepper */}
         <StepperComponent
-            activeStep={activeStep}
-            onStepChange={onStepChange}
-            steps={steps}
-            />
-      </Suspense>
-      {/* Security note */}
-      {/* <HeroSecNote
+          activeStep={activeStep}
+          onStepChange={onStepChange}
+          steps={steps}
+        />
+        {/* Security note */}
+        {/* <HeroSecNote
                 securityNote={securityNote}
             /> */}
-    </div>
-  </QuoteProvider>
+      </div>
+    </QuoteProvider>
   );
 }
