@@ -234,7 +234,6 @@ export type QuoteDestinationProps = {
   deliveryZip: InputProps;
   transportType: TransportRadioProps;
   submitBtn: LabelProps;
-  dispatchQuoteData: Dispatch<Action>;
   dispatchQuoteState: Dispatch<QuoteStateAction>;
   handleActiveStep: (state: number) => void;
 };
@@ -649,8 +648,8 @@ export type QuoteFormState = {
 };
 
 export type QuoteVehicleProps = {
-  vehicleComplete: MouseEventHandler<HTMLButtonElement>;
-  dispatchQuoteData: Dispatch<Action>;
+  hideQuoteForm: (action: QuoteStateAction) => void;
+  showQuoteForm: (action: QuoteStateAction) => void;
   handleActiveStep: (state: number) => void;
 };
 
@@ -717,30 +716,38 @@ type Model = {
 }[];
 
 export type VehicleSelectInputProps = {
-  years?: YearsArr;
-  makes?: MakesArr;
-  models?: ModelsArr;
+  years: VehicleYears
+  makes: VehicleMakes;
+  models?: VehicleModels;
   label: string;
   id: string;
   name: string;
   defaultValue: string;
   handleSelectChange?: (e: ChangeEvent) => void;
+  handleSelectClick?: (e: MouseEvent<HTMLSelectElement>) => void
 };
 
-type ModelsArr = {
-  id: string;
-  model: string;
-}[];
+type VehicleModels = {
+  data: string[],
+  loading: boolean,
+  errors: VehicleDataError
+}
 
-type YearsArr = {
-  id: string;
-  year: number;
-}[];
+type VehicleYears = {
+  data: number[],
+  loading: boolean,
+  error: VehicleDataError
+}
 
-type MakesArr = {
-  id: string;
-  make: string;
-}[];
+type VehicleMakes = {
+  data: string[],
+  loading: boolean,
+  error: VehicleDataError
+}
+
+type VehicleDataError = {
+  message: string
+}
 
 export type VehicleElement = {
   id: string;
@@ -750,10 +757,8 @@ export type VehicleElement = {
 };
 
 export type QuoteContactProps = {
-  dispatchQuoteData: Dispatch<Action>;
   handleActiveStep: (state: number) => void;
   renderOffer: () => void;
-  handleQuoteSubmit: () => void
 };
 
 export type EmailInputProps = {
@@ -786,9 +791,18 @@ export type PriorityInputProps = {
 };
 
 type PriorityList = {
-  id: string;
-  value: string;
-}[];
+  data: PriorityListData,
+  error: PriorityListError
+}
+
+type PriorityListData = {
+  id: string,
+  value: string
+}[]
+
+type PriorityListError = {
+  message: string
+}
 
 export type ErrorState = {
   originError: string;
@@ -798,6 +812,7 @@ export type ErrorState = {
 export type ContactErrorState = {
   emailError: string;
   phoneError: string;
+  submitError: string
 };
 
 export type StepperProps = {
@@ -1057,9 +1072,9 @@ type DestinationForm = {
         transportType: string
 }
 type VehicleDetails = {
-        year: string,
-        make: string,
-        model: string
+        year: number | null,
+        make: string | null,
+        model: string | null
 }
 type ContactDetails = {
         email: string,
@@ -1079,8 +1094,10 @@ const SET_PICKUPDATE = 'SET_PICKUPDATE'
 const SET_PICKUPPHONE = 'SET_PICKUPPHONE'
 
 const SET_DESTINATION = 'SET_DESTINATION'
+const SET_VEHICLEDATA = 'SET_VEHICLEDATA'
+const SET_CONTACTDATA = 'SET_CONTACTDATA'
 
-export type QuoteActionType = typeof SET_DESTINATION
+export type QuoteActionType = typeof SET_DESTINATION | typeof SET_VEHICLEDATA | typeof SET_CONTACTDATA
 
 export type QuoteDataAction = {
   type: QuoteActionType,
