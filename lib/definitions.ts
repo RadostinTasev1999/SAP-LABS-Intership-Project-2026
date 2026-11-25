@@ -827,7 +827,6 @@ type StepsArr = {
 
 export type QuoteSideBarProps = {
   handleEdit: () => void;
-  handleSave: () => void;
   edit: boolean
 }
 
