@@ -1,46 +1,38 @@
 import { CheckCircle } from "lucide-react"
-import { QuoteOfferCardProps } from '@/lib/definitions'
 import ApproximateEqualsIcon from '@/components/shared/icons/ApproximateEquals'
+import { useQuoteOffer } from "@/features/hooks/useQuoteOffer"
 
-export default function QuoteOfferCard({
-    price,
-    origin,
-    destination,
-    distance,
-    handleConfirm
-}: QuoteOfferCardProps){
+const DB_URL = 'http://localhost:3000/quoteData'
+export default function QuoteOfferCard(){
 
+    const { destinationState } = useQuoteOffer(DB_URL)
     
 
     return (
-        <div className="min-w-xs sm:col-span-2 sm:mx-auto my-[100px] sm:rounded-2xl backdrop-blur-xs sm:border sm:border-slate-300 bg-slate-300/80 p-7 sm:px-4 sm:py-[22px]">
-                {/* Header */}
-                <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[1px]">
-                    Your Quote
-                </div>
+        <div className="min-w-xs sm:col-span-2 sm:mx-auto my-[100px] sm:rounded-2xl backdrop-blur-xs sm:border sm:border-slate-300 bg-blue-100/80 p-7 sm:px-4 sm:py-[22px]">
+            {/* Header */}
+            <div className="mb-[14px] text-[11px] font-bold uppercase tracking-[1px]">
+                Your Quote
+            </div>
 
-                {/* Route information */}
-                <div className="flex flex-wrap items-center gap-3 rounded-lg px-5 py-4 text-[13px] sm:px-4 sm:py-3.5">
-                    <span className="font-semibold">📍 {`${origin?.city}, ${origin?.state} ${origin?.zip}`}</span>
+            {/* Route information */}
+            <div className="flex flex-wrap items-center gap-3 rounded-lg px-5 py-4 text-[13px] sm:px-4 sm:py-3.5">
+                <span className="font-semibold">📍{destinationState.pickupLocation}</span>
+                    
+                <span className="text-xl font-bold">
+                    →
+                </span>
 
-                    <span className="text-xl font-bold">
-                        →
-                    </span>
+                <span className="font-semibold">📍{destinationState.deliveryLocation}</span>
 
-                    <span className="font-semibold">📍 {`${destination?.city}, ${destination?.state} ${destination?.zip}`}</span>
+                <span className="inline-flex items-center gap-1 font-semibold text-xs">
+                    <ApproximateEqualsIcon />
+                    2 000
+                    Miles
+                </span>
+            </div>
 
-                    <span className="inline-flex items-center gap-1 font-semibold text-xs">
-                        <ApproximateEqualsIcon />
-                        {
-                            distance && (
-                                distance
-                            )
-                        } 
-                        Miles
-                    </span>
-                </div>
-
-                {/* Inoperable vehicle checkbox */}
+            {/* Inoperable vehicle checkbox */}
             {/* Price */}
 
             {/* Price cards */}
@@ -55,7 +47,7 @@ export default function QuoteOfferCard({
                                 <span className="text-lg font-bold text-slate-800">
                                     Full Service Price
                                 </span>
-                                
+
                             </div>
                         </div>
                         {/* Price amout */}
@@ -64,11 +56,7 @@ export default function QuoteOfferCard({
                             <div id="price">
                                 <div id="best-price" className="text-3xl font-extrabold tracking-tight text-slate-900">
                                     <b className="mr-1 text-3xl font-semibold">$</b>
-                                    {
-                                        price && (
-                                            price
-                                        )
-                                    }
+                                    999
                                 </div>
                             </div>
 
@@ -127,33 +115,32 @@ export default function QuoteOfferCard({
                         <div className="mb-4 mt-4 border-t border-slate-400 pt-4">
                             <div>
                                 <span className="text-sm leading-6 text-slate-700">
-                                        Enjoy the peace of mind that comes with a professional team,
-                                        around-the-clock support, and expert oversight of your vehicle
-                                        from pick up to delivery.
+                                    Enjoy the peace of mind that comes with a professional team,
+                                    around-the-clock support, and expert oversight of your vehicle
+                                    from pick up to delivery.
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             {/* Continue to booking button */}
             <button
                 type="button"
                 className="mt-2 w-full border-b border-slate-400 font-semibold text-green-600 sm:bg-green-600 sm:border sm:border-slate-300 sm:rounded-xl px-3.5 py-2.5 text-base sm:text-white hover:bg-green-500"
-                onClick={handleConfirm}
-                >
-                    Continue to booking
+            >
+                Continue to booking
             </button>
             {/* Edit Quote Button */}
             <button
                 type="button"
                 className="mt-2 w-full border-b border-slate-400 font-semibold text-slate-800 sm:border sm:border-slate-300 sm:rounded-xl sm:bg-white/80 px-3.5 py-2.5 text-base hover:bg-gray-50"
-                >
-                    ← Edit Quote
+            >
+                ← Edit Quote
             </button>
-            
-            
-            </div>
+
+
+        </div>
     )
 }
