@@ -3,8 +3,7 @@ import { useContext } from "react";
 import { HeaderContext } from "@/lib/context/HeaderContext";
 
 export default function DesktopCta() {
-  
-  const { desktopCta } = useContext(HeaderContext)
+  const { desktopCta } = useContext(HeaderContext);
 
   return (
     <div className="hidden lg:block">

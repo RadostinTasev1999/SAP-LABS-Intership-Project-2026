@@ -1,6 +1,6 @@
 // -> The main feature index.ts then re-exports from each subdirectory
 // features/auth/index.ts
-export * from './components';
+export * from "./components";
 
 // Two places for shared code:
 /*

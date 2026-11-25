@@ -1,10 +1,8 @@
 type IconProps = {
-  className: string
-}
+  className: string;
+};
 
-export default function LockIcon({
-  className
-}: IconProps) {
+export default function LockIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,9 +1,8 @@
 import MobileDrawerListItem from "./MobileDrawerListItem";
 import { useContext } from "react";
-import {HeaderContext} from '@/lib/context/HeaderContext'
+import { HeaderContext } from "@/lib/context/HeaderContext";
 
 export default function MobileNavigation() {
-
   const { mobileDrawer } = useContext(HeaderContext);
   return (
     <nav className="flex-1 px-2 py-4">

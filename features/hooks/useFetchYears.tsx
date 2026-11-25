@@ -1,47 +1,41 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 // http://localhost:3000/vehicleYears
 export const useFetchYears = (url: string) => {
+  const [years, setYears] = useState({
+    data: [],
+    loading: true,
+    error: { message: "" },
+  });
 
-    const [years, setYears] = useState({
-        data: [],
-        loading: true,
-        error: { message: '' }
-    })
+  useEffect(() => {
+    const fetchYears = async (url: string) => {
+      try {
+        const response = await fetch(url);
+        const result = await response.json();
 
-    useEffect(() => {
+        // console.log('Years are:', result[0].years.reverse())
+        // const data = result[0].years.reverse();
 
-        const fetchYears = async(url: string) => {
+        const reversedYears = result[0].years.reverse();
+        console.log("Reversed years are:", reversedYears);
 
-            try {
-                const response = await fetch(url);
-                const result = await response.json();
+        setYears({
+          data: reversedYears,
+          loading: false,
+          error: { message: "" },
+        });
+      } catch (error) {
+        setYears({
+          data: [],
+          loading: false,
+          error: { message: "Error fetching vehicle years" },
+        });
+      }
+    };
 
-                // console.log('Years are:', result[0].years.reverse())
-                // const data = result[0].years.reverse();
-                
-                const reversedYears = result[0].years.reverse();
-                console.log('Reversed years are:', reversedYears);
+    fetchYears(url);
+  }, []);
 
-                setYears({
-                    data: reversedYears,
-                    loading: false,
-                    error: { message: '' }
-                })
-
-                
-            } catch (error) {
-                setYears({
-                    data: [],
-                    loading: false,
-                    error: { message: 'Error fetching vehicle years' }
-                })
-            }
-        }
-
-        fetchYears(url)
-    }, [])
-
-    return years
-
-}
+  return years;
+};

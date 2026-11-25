@@ -18,34 +18,39 @@ import { ChangeEvent, useState, useEffect } from "react";
 import { useReducer, useCallback } from "react";
 import { useContext } from "react";
 import { QuoteContext } from "@/components/providers/QuoteProvider";
-import { QuoteDataAction } from '@/lib/definitions'
+import { QuoteDataAction } from "@/lib/definitions";
 import { useSubmitQuote } from "@/features/hooks/useSubmitQuote";
 
 const API_URL = "http://localhost:3000/priorityList";
-const POST_URL = "http://localhost:3000/quoteData"
+const POST_URL = "http://localhost:3000/quoteData";
 
 export default function QuoteContactForm({
   handleActiveStep,
-  renderOffer
+  renderOffer,
 }: QuoteContactProps) {
-
-
-  const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext)
+  const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext);
 
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [priority, setPriority] = useState("As soon as possible");
-  const { priorityList } = useFetchPriorityList(API_URL)
+  const { priorityList } = useFetchPriorityList(API_URL);
   const [phone, setPhone] = useState("");
-  
 
-  const { contactComplete, isDisabled, setIsDisabled, clearInputErrors, contactErrors, loading } = useSubmitQuote(email,phone, priority,POST_URL)
+  const {
+    contactComplete,
+    isDisabled,
+    setIsDisabled,
+    clearInputErrors,
+    contactErrors,
+    loading,
+  } = useSubmitQuote(email, phone, priority, POST_URL);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const field = e.target.name;
-    console.log('Field is:', field)
+    console.log("Field is:", field);
     switch (field) {
       case "email":
         // update email input state
@@ -57,10 +62,18 @@ export default function QuoteContactForm({
         }
         if (contactErrors.emailError) {
           // clear error message
-          clearInputErrors({ type: 'RESET_EMAIL', field: 'emailError', value: '' })
+          clearInputErrors({
+            type: "RESET_EMAIL",
+            field: "emailError",
+            value: "",
+          });
         }
         if (contactErrors.submitError) {
-          clearInputErrors({ type: 'RESET_SUBMIT', field: 'submitError', value: ''})
+          clearInputErrors({
+            type: "RESET_SUBMIT",
+            field: "submitError",
+            value: "",
+          });
         }
 
         break;
@@ -76,10 +89,18 @@ export default function QuoteContactForm({
         }
         if (contactErrors.phoneError) {
           // clear error message
-          clearInputErrors({ type: 'RESET_PHONE', field: 'phoneError', value: '' })
+          clearInputErrors({
+            type: "RESET_PHONE",
+            field: "phoneError",
+            value: "",
+          });
         }
         if (contactErrors.submitError) {
-          clearInputErrors({ type: 'RESET_SUBMIT', field: 'submitError', value: ''})
+          clearInputErrors({
+            type: "RESET_SUBMIT",
+            field: "submitError",
+            value: "",
+          });
         }
         break;
 
@@ -92,10 +113,10 @@ export default function QuoteContactForm({
         break;
     }
   };
-    
+
   useEffect(() => {
-    console.log('Quote data state is:', quoteDataState)
-  },[quoteDataState])
+    console.log("Quote data state is:", quoteDataState);
+  }, [quoteDataState]);
 
   return (
     <div className="mb-4 p-[18px]">
@@ -113,7 +134,7 @@ export default function QuoteContactForm({
           placeholder="johndoe@company.com"
           email={email}
           handleInputChange={handleInputChange}
-           contactErrors={contactErrors}
+          contactErrors={contactErrors}
         />
         {/* Col 2 Select list */}
         <PriorityInput
@@ -138,29 +159,20 @@ export default function QuoteContactForm({
 
         {/* button */}
         <div className="flex items-center">
-          {
-            contactErrors.submitError
-              ?
-              <Alert severity="error">{contactErrors.submitError}</Alert>
-              :
-              <button
-                onClick={contactComplete}
-                className={`inline-flex w-full items-center justify-center rounded-md bg-green-600 px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-green-500 ${isDisabled ? "bg-slate-400 hover:bg-slate-600" : ""}`}
-                disabled={isDisabled}
-              >
-                Calculate Quote
-                {
-                  loading ? <DashRing className="size-6" /> : <ArrowRight />
-                }
-
-
-
-              </button>
-          }
+          {contactErrors.submitError ? (
+            <Alert severity="error">{contactErrors.submitError}</Alert>
+          ) : (
+            <button
+              onClick={contactComplete}
+              className={`inline-flex w-full items-center justify-center rounded-md bg-green-600 px-[14px] py-[11px] gap-2 mt-2.5 text-base font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-green-500 ${isDisabled ? "bg-slate-400 hover:bg-slate-600" : ""}`}
+              disabled={isDisabled}
+            >
+              Calculate Quote
+              {loading ? <DashRing className="size-6" /> : <ArrowRight />}
+            </button>
+          )}
         </div>
-
       </div>
-     
     </div>
   );
 }

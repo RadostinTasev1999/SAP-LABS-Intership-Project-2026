@@ -10,8 +10,7 @@ import MobileDrawer from "./MobileDrawer";
 import { useState } from "react";
 
 export default function NavWrapper() {
-  
-  const appHeaderProps = useHeaderContext()
+  const appHeaderProps = useHeaderContext();
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -27,16 +26,10 @@ export default function NavWrapper() {
 
   return (
     <HeaderContext.Provider value={appHeaderProps}>
-      <Header
-        onMobileOpen={onMobileOpen}
-      />
+      <Header onMobileOpen={onMobileOpen} />
 
       <AnimatePresence initial={false}>
-        {showMenu && (
-          <MobileDrawer
-            onMobileClose={onMobileClose}
-          />
-        )}
+        {showMenu && <MobileDrawer onMobileClose={onMobileClose} />}
       </AnimatePresence>
     </HeaderContext.Provider>
   );

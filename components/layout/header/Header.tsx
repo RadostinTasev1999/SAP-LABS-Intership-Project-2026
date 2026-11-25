@@ -10,13 +10,9 @@ import DesktopNav from "./DesktopNav";
 import DesktopCta from "./DesktopCta";
 import MobileHamburger from "./MobileHamburger";
 import MobileLogo from "./MobileLogo";
-import { usePathname  } from "next/navigation";
+import { usePathname } from "next/navigation";
 
-export default function AppHeader({
-  onMobileOpen,
-}: AppHeaderProps) {
-  
-
+export default function AppHeader({ onMobileOpen }: AppHeaderProps) {
   const pathname = usePathname();
 
   const { scrollY } = useScroll(); // tracks scroll position
@@ -35,8 +31,8 @@ export default function AppHeader({
   });
 
   useEffect(() => {
-    console.log('Pathname is:', pathname) 
-  },[])
+    console.log("Pathname is:", pathname);
+  }, []);
 
   return (
     <motion.header
@@ -59,33 +55,21 @@ export default function AppHeader({
           <HeaderLogo />
 
           {/* Center: Main Navigation with Dropdowns */}
-          {
-
-            pathname === '/' && (
-              <>
+          {pathname === "/" && (
+            <>
               <DesktopNav />
-              
+
               <DesktopCta />
 
               {/* Mobile view */}
               <MobileHamburger onMobileOpen={onMobileOpen} />
 
               <MobileLogo />
-              </>
-            )
-            
-          }
+            </>
+          )}
 
-          {
-           pathname === '/dashboard' && (
-              <h1>Dashboard Header</h1>
-            )
-          }
-          {
-           pathname === '/checkout' && (
-              <h1>Checkout Header</h1>
-            )
-          }
+          {pathname === "/dashboard" && <h1>Dashboard Header</h1>}
+          {pathname === "/checkout" && <h1>Checkout Header</h1>}
           {/* Mobile Right Spacer (Balances flex alignment) */}
           <div className="block lg:hidden w-6"></div>
         </div>

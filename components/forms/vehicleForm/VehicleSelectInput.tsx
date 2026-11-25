@@ -12,10 +12,9 @@ export default function VehicleSelectInput({
   name,
   defaultValue,
   handleSelectChange,
-  handleSelectClick
+  handleSelectClick,
 }: VehicleSelectInputProps) {
-
-  const { vehicleErrors } = useContext(QuoteContext)
+  const { vehicleErrors } = useContext(QuoteContext);
 
   return (
     <div className="mb-4">
@@ -32,56 +31,42 @@ export default function VehicleSelectInput({
         onChange={handleSelectChange}
       >
         {/* Years option list */}
-        {
-          label === "Year" && (
-            <option value="Select Year">Select Year</option>
-          )
-        }
-        {
-          label === "Year" && years.data.length !== 0 && (
-            years.data.map((year, index) => <option key={index}>{year}</option>)
-          )
-        }
+        {label === "Year" && <option value="Select Year">Select Year</option>}
+        {label === "Year" &&
+          years.data.length !== 0 &&
+          years.data.map((year, index) => <option key={index}>{year}</option>)}
         {/* Make Option list */}
 
-        {
-          label === "Make" && (
-            <option value="Select Make">Select Make</option>
-          )
-        }
+        {label === "Make" && <option value="Select Make">Select Make</option>}
         {label === "Make" &&
-          makes.data.length !== 0 && (
-            makes.data.map((make, index) => <option key={index}>{make}</option>)
-          )
-        }
+          makes.data.length !== 0 &&
+          makes.data.map((make, index) => <option key={index}>{make}</option>)}
         {/* Model Option list */}
-        {
-          label === "Model" && (
-            <option value="Select Model">Select Model</option>
-          )
-        }
-        {
-          label === "Model" && models?.data.length !== 0 && (
-            models?.data.map((model, index) => <option key={index}>{model}</option>)
-          )
-        }
+        {label === "Model" && (
+          <option value="Select Model">Select Model</option>
+        )}
+        {label === "Model" &&
+          models?.data.length !== 0 &&
+          models?.data.map((model, index) => (
+            <option key={index}>{model}</option>
+          ))}
       </select>
       {/* Error messages */}
-      {
-        label === "Year" && vehicleErrors.vehicleYearError && (
-          <p className="text-[#BF211E] text-xs font-semibold">{vehicleErrors.vehicleYearError}</p>
-        )
-      }
-      {
-        label === "Make" && vehicleErrors.vehicleMakeError && (
-          <p className="text-[#BF211E] text-xs font-semibold">{vehicleErrors.vehicleMakeError}</p>
-        )
-      }
-      {
-        label === "Model" && vehicleErrors.vehicleModelError && (
-          <p className="text-[#BF211E] text-xs font-semibold">{vehicleErrors.vehicleModelError}</p>
-        )
-      }
+      {label === "Year" && vehicleErrors.vehicleYearError && (
+        <p className="text-[#BF211E] text-xs font-semibold">
+          {vehicleErrors.vehicleYearError}
+        </p>
+      )}
+      {label === "Make" && vehicleErrors.vehicleMakeError && (
+        <p className="text-[#BF211E] text-xs font-semibold">
+          {vehicleErrors.vehicleMakeError}
+        </p>
+      )}
+      {label === "Model" && vehicleErrors.vehicleModelError && (
+        <p className="text-[#BF211E] text-xs font-semibold">
+          {vehicleErrors.vehicleModelError}
+        </p>
+      )}
     </div>
   );
 }

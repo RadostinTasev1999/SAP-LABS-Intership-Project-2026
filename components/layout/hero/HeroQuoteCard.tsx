@@ -9,7 +9,7 @@ import HeroQuoteHeading from "./HeroQuoteHeading";
 import HeroQuoteParagraph from "./HeroQuoteParagraph";
 import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationForm";
 import QuoteContactForm from "../../forms/contactForm/ContactForm";
-import StepperComponent from '@/components/shared/stepper/Stepper'
+import StepperComponent from "@/components/shared/stepper/Stepper";
 
 import { QuoteFormState } from "@/lib/definitions";
 
@@ -78,7 +78,6 @@ const stateReducer = (state: QuoteFormState, action: QuoteStateAction) => {
       };
   }
 };
-
 
 const quoteReducer = (state: DestinationFormState, action: Action) => {
   switch (action.type) {
@@ -162,11 +161,10 @@ export default function HeroQuoteCard({
   transportType,
   submitBtn,
   securityNote,
-  renderOffer
+  renderOffer,
 }: HeroQuoteCardProps) {
-
-  const router = useRouter()
-// ! TODO: implement global state management for quoteData state
+  const router = useRouter();
+  // ! TODO: implement global state management for quoteData state
   const [quoteState, dispatchQuoteState] = useReducer(
     stateReducer,
     quoteInitialState,
@@ -244,21 +242,15 @@ export default function HeroQuoteCard({
     }
   };
 
-
   // handler for hiding vehicle form
   const hideQuoteForm = (action: QuoteStateAction) => {
+    dispatchQuoteState(action);
+  };
 
-    dispatchQuoteState(action)
-  }
-
-  // handler for 
+  // handler for
   const showQuoteForm = (action: QuoteStateAction) => {
-
-    dispatchQuoteState(action)
-  }
-
-
-  
+    dispatchQuoteState(action);
+  };
 
   return (
     <QuoteProvider>
