@@ -3,22 +3,19 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 
 export const useCalculateQuote = (URL: string) => {
+  const { quoteDataState } = useContext(QuoteContext);
 
-    const { quoteDataState } = useContext(QuoteContext)
-    
-    const origin = quoteDataState.destinationForm.pickupLocation
-    const destination = quoteDataState.destinationForm.deliveryLocation
-    const [price, setPrice] = useState(null)
+  const origin = quoteDataState.destinationForm.pickupLocation;
+  const destination = quoteDataState.destinationForm.deliveryLocation;
+  const [price, setPrice] = useState(null);
 
-    useEffect(() => {
+  useEffect(() => {
+    // console.log(`Quote Data state is: ${quoteDataState.destinationForm.pickupLocation}`)
+  }, []);
 
-        // console.log(`Quote Data state is: ${quoteDataState.destinationForm.pickupLocation}`)
-    },[])
-
-    return {
-        origin,
-        destination,
-        price
-    }
-
-}
+  return {
+    origin,
+    destination,
+    price,
+  };
+};

@@ -1,13 +1,10 @@
 import * as motion from "motion/react-client";
 
-
 import { MobileDrawerProps } from "@/lib/definitions";
 import MobileDrawerClose from "./MobileDrawerClose";
 import MobileNavigation from "./MobileNavigation";
 
-export default function MobileDrawer({
-  onMobileClose,
-}: MobileDrawerProps) {
+export default function MobileDrawer({ onMobileClose }: MobileDrawerProps) {
   return (
     // Mobile Drawer Overlay / Container
     <motion.div
@@ -22,7 +19,7 @@ export default function MobileDrawer({
       <MobileDrawerClose onMobileClose={onMobileClose} />
 
       {/* Navigation Menu List */}
-      <MobileNavigation/>
+      <MobileNavigation />
     </motion.div>
   );
 }

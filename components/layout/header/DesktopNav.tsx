@@ -1,15 +1,12 @@
-"use client"
+"use client";
 
 import NavListItem from "./NavListItem";
 
 import { useContext } from "react";
 import { HeaderContext } from "@/lib/context/HeaderContext";
 
-
 export default function DesktopNav() {
-
   const { desktopNav } = useContext(HeaderContext);
-
 
   return (
     <nav className="hidden lg:flex items-center" aria-label="Main navigation">

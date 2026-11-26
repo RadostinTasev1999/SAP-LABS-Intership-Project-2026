@@ -9,6 +9,12 @@ import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationFo
 import QuoteVehicleForm from "../../forms/vehicleForm/QuoteVehicleForm";
 import HeroQuoteHeading from "./HeroQuoteHeading";
 import HeroQuoteParagraph from "./HeroQuoteParagraph";
+<<<<<<< HEAD
+=======
+import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationForm";
+import QuoteContactForm from "../../forms/contactForm/ContactForm";
+import StepperComponent from "@/components/shared/stepper/Stepper";
+>>>>>>> c778786295c896f9e9966f29d4980ca9525df263
 
 import { useState } from "react";
 
@@ -28,7 +34,6 @@ import { useQuoteState } from "@/features/hooks/useQuoteState";
 //   priority: "",
 //   phone: "",
 // };
-
 
 const quoteReducer = (state: DestinationFormState, action: Action) => {
   switch (action.type) {
@@ -191,21 +196,15 @@ export default function HeroQuoteCard({
     }
   };
 
-
   // handler for hiding vehicle form
   const hideQuoteForm = (action: QuoteStateAction) => {
+    dispatchQuoteState(action);
+  };
 
-    dispatchQuoteState(action)
-  }
-
-  // handler for 
+  // handler for
   const showQuoteForm = (action: QuoteStateAction) => {
-
-    dispatchQuoteState(action)
-  }
-
-
-  
+    dispatchQuoteState(action);
+  };
 
   return (
     <QuoteProvider>

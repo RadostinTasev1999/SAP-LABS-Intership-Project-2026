@@ -5,7 +5,7 @@ import QuotePickupInput from "./QuotePickupInput";
 import QuoteDeliveryInput from "./QuoteDeliveryInput";
 import { DestinationAction } from "@/lib/definitions";
 import { useContext, useEffect } from "react";
-import { QuoteContext } from '@/components/providers/QuoteProvider'
+import { QuoteContext } from "@/components/providers/QuoteProvider";
 import { QuoteDataAction } from "@/lib/definitions";
 import { QuoteStateAction } from "@/lib/definitions";
 import { useQuoteState } from "@/features/hooks/useQuoteState";
@@ -42,7 +42,6 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const API_URL = "http://localhost:3000/zips";
-
 
 const initialErrors = {
   originError: "",
@@ -105,8 +104,7 @@ export default function QuoteDestinationForm({
   hideQuoteForm,
   showQuoteForm
 }: QuoteDestinationProps) {
-
-  const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext)
+  const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext);
 
   const [origin, setOrigin] = useState("");
   const [delivery, setDelivery] = useState("");
@@ -204,7 +202,7 @@ export default function QuoteDestinationForm({
     // update global state
     saveDestinationData({ type: 'SET_DESTINATION', field: 'destinationForm', value: data})
     // Mark Destination Stepper as complete
-     handleActiveStep(2);
+    handleActiveStep(2);
     // Hide Destination form
       hideQuoteForm({type: 'HIDE_DESTINATION', field: 'showDestinationForm', value: false})
     // Show Vehicle form
@@ -300,7 +298,6 @@ export default function QuoteDestinationForm({
   };
 
   const handleSelectDelivery = (data: SelectedLocation, field: string) => {
-    
     // update delivery input state
     setDelivery(`${data.city}, ${data.state} ${data.zip}`);
     // hide delivery result list
@@ -318,32 +315,28 @@ export default function QuoteDestinationForm({
   };
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-
-    console.log(`Input ${e.target.name} with value ${e.target.value} has been clicked!`)
+    console.log(
+      `Input ${e.target.name} with value ${e.target.value} has been clicked!`,
+    );
     // setTransport(e.target.value);
-    setTransport(e.target.value)
-
+    setTransport(e.target.value);
   };
 
   useEffect(() => {
-
-    const fetchData = async() => {
-
-      const API_URL = 'http://localhost:3000/quoteData'
+    const fetchData = async () => {
+      const API_URL = "http://localhost:3000/quoteData";
 
       const response = await fetch(API_URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(quoteDataState)
-      })
-    }
-    
+        body: JSON.stringify(quoteDataState),
+      });
+    };
+
     // fetchData()
-
-
-  },[quoteDataState])
+  }, [quoteDataState]);
 
   return (
     <div className="mt-6">

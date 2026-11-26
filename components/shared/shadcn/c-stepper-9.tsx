@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Stepper,
@@ -10,22 +10,18 @@ import {
   StepperSeparator,
   StepperTitle,
   StepperTrigger,
-} from "@/components/reui/stepper"
-import { CheckIcon, LoaderCircleIcon } from "lucide-react"
+} from "@/components/reui/stepper";
+import { CheckIcon, LoaderCircleIcon } from "lucide-react";
 
-const steps = [{ title: "Account" }, { title: "Profile" }, { title: "Review" }]
+const steps = [{ title: "Account" }, { title: "Profile" }, { title: "Review" }];
 
 export function Pattern() {
   return (
     <Stepper
       defaultValue={2}
       indicators={{
-        completed: (
-          <CheckIcon className="size-3.5" />
-        ),
-        loading: (
-          <LoaderCircleIcon className="size-3.5 animate-spin" />
-        ),
+        completed: <CheckIcon className="size-3.5" />,
+        loading: <LoaderCircleIcon className="size-3.5 animate-spin" />,
       }}
       className="w-full max-w-md space-y-8"
     >
@@ -56,5 +52,5 @@ export function Pattern() {
         ))}
       </StepperPanel>
     </Stepper>
-  )
+  );
 }

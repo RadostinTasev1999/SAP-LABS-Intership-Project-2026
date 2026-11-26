@@ -12,7 +12,7 @@ export type IconProps = {
 
 export type AppHeaderProps = {
   onMobileOpen?: () => void;
-  navProps?: DesktopNav
+  navProps?: DesktopNav;
 };
 
 export type NavListItemProps = {
@@ -35,7 +35,7 @@ export type MobileDrawerProps = {
 
 export type NavWrapperProps = {
   appHeaderProps: AppHeaderData;
-  route: string
+  route: string;
 };
 
 type DesktopCta = {
@@ -126,7 +126,7 @@ export type MobileDetailItemProps = {
 export type AppHeroProps = {
   appHeroProps: AppHeroData;
   heroLayoutCardData: HeroLayoutCardData;
-  renderOffer: () => void
+  renderOffer: () => void;
 };
 
 export type HeroLayoutCardType = {
@@ -413,7 +413,7 @@ export type HeroLayoutTopProps = {
   transportType: TransportRadioProps;
   submitBtn: BottomFormTypes;
   securityNote: BottomFormTypes;
-  renderOffer: () => void
+  renderOffer: () => void;
 };
 
 type BtnTypes = {
@@ -622,7 +622,7 @@ export type HeroQuoteCardProps = {
   transportType: TransportRadioProps;
   submitBtn: LabelProps;
   securityNote: LabelProps;
-  renderOffer: () => void
+  renderOffer: () => void;
 };
 
 export type QuoteDeliveryInputProps = {
@@ -728,7 +728,7 @@ type Model = {
 }[];
 
 export type VehicleSelectInputProps = {
-  years: VehicleYears
+  years: VehicleYears;
   makes: VehicleMakes;
   models?: VehicleModels;
   label: string;
@@ -736,30 +736,30 @@ export type VehicleSelectInputProps = {
   name: string;
   defaultValue: string;
   handleSelectChange?: (e: ChangeEvent) => void;
-  handleSelectClick?: (e: MouseEvent<HTMLSelectElement>) => void
+  handleSelectClick?: (e: MouseEvent<HTMLSelectElement>) => void;
 };
 
 type VehicleModels = {
-  data: string[],
-  loading: boolean,
-  errors: VehicleDataError
-}
+  data: string[];
+  loading: boolean;
+  errors: VehicleDataError;
+};
 
 type VehicleYears = {
-  data: number[],
-  loading: boolean,
-  error: VehicleDataError
-}
+  data: number[];
+  loading: boolean;
+  error: VehicleDataError;
+};
 
 type VehicleMakes = {
-  data: string[],
-  loading: boolean,
-  error: VehicleDataError
-}
+  data: string[];
+  loading: boolean;
+  error: VehicleDataError;
+};
 
 type VehicleDataError = {
-  message: string
-}
+  message: string;
+};
 
 export type VehicleElement = {
   id: string;
@@ -803,18 +803,18 @@ export type PriorityInputProps = {
 };
 
 type PriorityList = {
-  data: PriorityListData,
-  error: PriorityListError
-}
+  data: PriorityListData;
+  error: PriorityListError;
+};
 
 type PriorityListData = {
-  id: string,
-  value: string
-}[]
+  id: string;
+  value: string;
+}[];
 
 type PriorityListError = {
-  message: string
-}
+  message: string;
+};
 
 export type ErrorState = {
   originError: string;
@@ -824,294 +824,317 @@ export type ErrorState = {
 export type ContactErrorState = {
   emailError: string;
   phoneError: string;
-  submitError: string
+  submitError: string;
 };
 
 export type StepperProps = {
-  activeStep: number,
-  onStepChange: (step: number) => void,
-  steps: StepsArr
-}
+  activeStep: number;
+  onStepChange: (step: number) => void;
+  steps: StepsArr;
+};
 
 type StepsArr = {
-  title: string,
-}[]
+  title: string;
+}[];
 
 export type QuoteSideBarProps = {
   handleEdit: () => void;
-  edit: boolean
-}
+  edit: boolean;
+};
 
 export type QuoteValuesState = {
-    origin: string,
-    delivery: string,
-    transport: string,
-    year: string,
-    make: string,
-    model: string,
-    isDriving: boolean,
-    email: string,
-    priority: string,
-    phone: string
-}
+  origin: string;
+  delivery: string;
+  transport: string;
+  year: string;
+  make: string;
+  model: string;
+  isDriving: boolean;
+  email: string;
+  priority: string;
+  phone: string;
+};
 
 export type QuoteValuesAction = {
-  type: string,
-  origin: string,
-  delivery: string,
-  transport: string,
-  year: string,
-  make: string,
-  model: string,
-  isDriving: boolean,
-  email: string,
-  priority: string,
-  phone: string
-}
+  type: string;
+  origin: string;
+  delivery: string;
+  transport: string;
+  year: string;
+  make: string;
+  model: string;
+  isDriving: boolean;
+  email: string;
+  priority: string;
+  phone: string;
+};
 
 export type QuoteDBValues = {
-  origin: string,
-  delivery: string,
-  transport: string,
-  year: string,
-  make: string,
-  model: string,
-  isDriving: boolean,
-  email: string,
-  priority: string,
-  phone: string
-}[]
+  origin: string;
+  delivery: string;
+  transport: string;
+  year: string;
+  make: string;
+  model: string;
+  isDriving: boolean;
+  email: string;
+  priority: string;
+  phone: string;
+}[];
 
 export type QuoteResultState = {
-  success: boolean,
-  message: string,
-  quote: Quote | null
-}
+  success: boolean;
+  message: string;
+  quote: Quote | null;
+};
 
 type Quote = {
-  price: number,
-  distance: number,
-  estimatedDays: string,
-  from: QuoteOrigin,
-  to: QuoteDelivery,
-  vehicleType: string,
-  carries: string,
-  operational: boolean
-}
+  price: number;
+  distance: number;
+  estimatedDays: string;
+  from: QuoteOrigin;
+  to: QuoteDelivery;
+  vehicleType: string;
+  carries: string;
+  operational: boolean;
+};
 
 type QuoteOrigin = {
-  zip: number,
-  city: string,
-  state: string
-}
+  zip: number;
+  city: string;
+  state: string;
+};
 
 type QuoteDelivery = {
-  zip: number,
-  city: string,
-  state: string
-}
+  zip: number;
+  city: string;
+  state: string;
+};
 
 export type QuoteResultAction = {
-  type: string,
-  success: boolean,
-  message?: string,
-  quote?: Quote
-}
+  type: string;
+  success: boolean;
+  message?: string;
+  quote?: Quote;
+};
 
 export type QuoteOfferCardProps = {
-    price?: number,
-    origin?: QuoteOrigin,
-    destination?: QuoteDelivery,
-    distance?: number,
-    handleConfirm: () => void
-}
+  price?: number;
+  origin?: QuoteOrigin;
+  destination?: QuoteDelivery;
+  distance?: number;
+  handleConfirm: () => void;
+};
 
+const RADIO_STATE = "";
+const NAME = "";
+const EMAIL = "";
+const PHONE = "";
+const COMPANY = "";
 
-
-const RADIO_STATE = ""
-const NAME = ""
-const EMAIL = ""
-const PHONE = ""
-const COMPANY = ""
-
-export type CheckOutTransportValue = typeof RADIO_STATE | typeof NAME | typeof EMAIL | typeof PHONE | typeof COMPANY
+export type CheckOutTransportValue =
+  | typeof RADIO_STATE
+  | typeof NAME
+  | typeof EMAIL
+  | typeof PHONE
+  | typeof COMPANY;
 
 // { radioState, name, email, phone, company }
 type CheckoutTransportValue = {
-  radioState: string
-  name: string
-  email: string
-  phone: string
-  company: string
-}
+  radioState: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+};
 
 export type InitialCheckoutDataProp = {
-    transportForm: TransportForm,
-    vehiclePickupForm: VehiclePickupForm,
-    vehicleDeliveryForm: VehicleDeliveryForm,
-    bookShipmentForm: BookShipmentForm
-
-}
-
-
-
-
-
+  transportForm: TransportForm;
+  vehiclePickupForm: VehiclePickupForm;
+  vehicleDeliveryForm: VehicleDeliveryForm;
+  bookShipmentForm: BookShipmentForm;
+};
 
 type TransportForm = {
-        clientType: string,
-        companyName: string,
-        fullName: string,
-        emailAddress: string,
-        phoneNumber: string
-}
+  clientType: string;
+  companyName: string;
+  fullName: string;
+  emailAddress: string;
+  phoneNumber: string;
+};
 
 type VehiclePickupForm = {
-        streetAddress: string,
-        addressDetails:string,
-        addressType: string,
-        contactPerson: string,
-        accompanyingName?: string,
-        accompanyingPhone?: string
-}
+  streetAddress: string;
+  addressDetails: string;
+  addressType: string;
+  contactPerson: string;
+  accompanyingName?: string;
+  accompanyingPhone?: string;
+};
 
 type VehicleDeliveryForm = {
-        streetAddress: string,
-        addressDetails:string,
-        addressType: string,
-        contactPerson: string
-        accompanyingName: string,
-        accompanyingPhone: string,
-        showAccompanyingInputs: boolean
-
-}
+  streetAddress: string;
+  addressDetails: string;
+  addressType: string;
+  contactPerson: string;
+  accompanyingName: string;
+  accompanyingPhone: string;
+  showAccompanyingInputs: boolean;
+};
 
 type BookShipmentForm = {
-        cardNumber: string,
-        fullNameCard: string,
-        expDate: string,
-        securityCode: string,
-        billingAddress: BillingAddress | string
-}
+  cardNumber: string;
+  fullNameCard: string;
+  expDate: string;
+  securityCode: string;
+  billingAddress: BillingAddress | string;
+};
 
 type BillingAddress = {
-    street: string,
-    apartment: string,
-    city: string,
-    state: string,
-    zipCode: string
-}
+  street: string;
+  apartment: string;
+  city: string;
+  state: string;
+  zipCode: string;
+};
 
+const SHOW_TRANSPORT = "SHOW_TRANSPORT";
+const HIDE_TRANSPORT = "HIDE_TRANSPORT";
+const SHOW_VEHICLEPICKUP = "SHOW_VEHICLEPICKUP";
+const HIDE_VEHICLEPICKUP = "HIDE_VEHICLEPICKUP";
+const SHOW_DELIVERY = "SHOW_DELIVERY";
+const HIDE_DELIVERY = "HIDE_DELIVERY";
+const SHOW_BOOKSHIPMENT = "SHOW_BOOKSHIPMENT";
+const HIDE_BOOKSHIPMENT = "HIDE_BOOKSHIPMENT";
 
-
-const SHOW_TRANSPORT = 'SHOW_TRANSPORT'
-const HIDE_TRANSPORT = 'HIDE_TRANSPORT'
-const SHOW_VEHICLEPICKUP = 'SHOW_VEHICLEPICKUP'
-const HIDE_VEHICLEPICKUP = 'HIDE_VEHICLEPICKUP'
-const SHOW_DELIVERY = 'SHOW_DELIVERY'
-const HIDE_DELIVERY = 'HIDE_DELIVERY'
-const SHOW_BOOKSHIPMENT = 'SHOW_BOOKSHIPMENT'
-const HIDE_BOOKSHIPMENT = 'HIDE_BOOKSHIPMENT'
-
-export type ActionType = typeof SHOW_TRANSPORT | typeof HIDE_TRANSPORT | typeof SHOW_VEHICLEPICKUP | typeof HIDE_VEHICLEPICKUP | typeof SHOW_DELIVERY | typeof HIDE_DELIVERY | typeof SHOW_BOOKSHIPMENT | typeof HIDE_BOOKSHIPMENT
+export type ActionType =
+  | typeof SHOW_TRANSPORT
+  | typeof HIDE_TRANSPORT
+  | typeof SHOW_VEHICLEPICKUP
+  | typeof HIDE_VEHICLEPICKUP
+  | typeof SHOW_DELIVERY
+  | typeof HIDE_DELIVERY
+  | typeof SHOW_BOOKSHIPMENT
+  | typeof HIDE_BOOKSHIPMENT;
 
 export type CheckoutReducerAction = {
-  type: ActionType,
-  field: string,
-  value: string | boolean
-}
+  type: ActionType;
+  field: string;
+  value: string | boolean;
+};
 // Set Errors
-const SET_STREET_ERROR = 'SET_STREET_ERROR'
-const SET_ADDRESS_DETAIL_ERROR = 'SET_ADDRESS_DETAIL_ERROR'
-const SET_ACCOMPANYING_NAME_ERROR = 'SET_ACCOMPANYING_NAME_ERROR'
-const SET_ACCOMPANYING_PHONE_ERROR = 'SET_ACCOMPANYING_PHONE_ERROR'
+const SET_STREET_ERROR = "SET_STREET_ERROR";
+const SET_ADDRESS_DETAIL_ERROR = "SET_ADDRESS_DETAIL_ERROR";
+const SET_ACCOMPANYING_NAME_ERROR = "SET_ACCOMPANYING_NAME_ERROR";
+const SET_ACCOMPANYING_PHONE_ERROR = "SET_ACCOMPANYING_PHONE_ERROR";
 
 // Clear Errors
-const CLEAR_STREET_ERROR = 'CLEAR_STREET_ERROR'
-const CLEAR_ADDRESS_DETAIL_ERROR = 'CLEAR_ADDRESS_DETAIL_ERROR'
-const CLEAR_ACCOMPANYING_NAME_ERROR = 'CLEAR_ACCOMPANYING_NAME_ERROR'
-const CLEAR_ACCOMPANYING_PHONE_ERROR = 'CLEAR_ACCOMPANYING_PHONE_ERROR'
+const CLEAR_STREET_ERROR = "CLEAR_STREET_ERROR";
+const CLEAR_ADDRESS_DETAIL_ERROR = "CLEAR_ADDRESS_DETAIL_ERROR";
+const CLEAR_ACCOMPANYING_NAME_ERROR = "CLEAR_ACCOMPANYING_NAME_ERROR";
+const CLEAR_ACCOMPANYING_PHONE_ERROR = "CLEAR_ACCOMPANYING_PHONE_ERROR";
 
-export type PickupErrorActionType = typeof SET_STREET_ERROR | typeof SET_ADDRESS_DETAIL_ERROR | typeof SET_ACCOMPANYING_NAME_ERROR | typeof SET_ACCOMPANYING_PHONE_ERROR | typeof CLEAR_STREET_ERROR | typeof CLEAR_ADDRESS_DETAIL_ERROR | typeof CLEAR_ACCOMPANYING_NAME_ERROR | typeof CLEAR_ACCOMPANYING_PHONE_ERROR
+export type PickupErrorActionType =
+  | typeof SET_STREET_ERROR
+  | typeof SET_ADDRESS_DETAIL_ERROR
+  | typeof SET_ACCOMPANYING_NAME_ERROR
+  | typeof SET_ACCOMPANYING_PHONE_ERROR
+  | typeof CLEAR_STREET_ERROR
+  | typeof CLEAR_ADDRESS_DETAIL_ERROR
+  | typeof CLEAR_ACCOMPANYING_NAME_ERROR
+  | typeof CLEAR_ACCOMPANYING_PHONE_ERROR;
 
 export type VehiclePickupErrorAction = {
-  type: PickupErrorActionType,
-  field: string,
-  value: string
-}
+  type: PickupErrorActionType;
+  field: string;
+  value: string;
+};
 
-const SET_TRANSPORT_DATA = 'SET_TRANSPORT_DATA';
-const SET_PICKUP_DATA = 'SET_PICKUP_DATA';
-const SET_DELIVERY_DATA = 'SET_DELIVERY_DATA'
-const SET_BOOKING_DATA = 'SET_BOOKING_DATA'
+const SET_TRANSPORT_DATA = "SET_TRANSPORT_DATA";
+const SET_PICKUP_DATA = "SET_PICKUP_DATA";
+const SET_DELIVERY_DATA = "SET_DELIVERY_DATA";
+const SET_BOOKING_DATA = "SET_BOOKING_DATA";
 
-export type CheckoutDataActionType = typeof SET_TRANSPORT_DATA | typeof SET_PICKUP_DATA | typeof SET_DELIVERY_DATA | typeof SET_BOOKING_DATA
+export type CheckoutDataActionType =
+  | typeof SET_TRANSPORT_DATA
+  | typeof SET_PICKUP_DATA
+  | typeof SET_DELIVERY_DATA
+  | typeof SET_BOOKING_DATA;
 
 export type CheckoutDataAction = {
-  type: CheckoutDataActionType,
-  field: string,
-  value: CheckoutTypeValues
-}
+  type: CheckoutDataActionType;
+  field: string;
+  value: CheckoutTypeValues;
+};
 
-export type CheckoutTypeValues = TransportForm | VehiclePickupForm | VehicleDeliveryForm | BookShipmentForm
+export type CheckoutTypeValues =
+  TransportForm | VehiclePickupForm | VehicleDeliveryForm | BookShipmentForm;
 
-
-export type DeliveryErrorActionType = typeof SET_STREET_ERROR | typeof SET_ADDRESS_DETAIL_ERROR | typeof SET_ACCOMPANYING_NAME_ERROR | typeof SET_ACCOMPANYING_PHONE_ERROR | typeof CLEAR_STREET_ERROR | typeof  CLEAR_ADDRESS_DETAIL_ERROR | typeof CLEAR_ACCOMPANYING_NAME_ERROR | typeof CLEAR_ACCOMPANYING_PHONE_ERROR
+export type DeliveryErrorActionType =
+  | typeof SET_STREET_ERROR
+  | typeof SET_ADDRESS_DETAIL_ERROR
+  | typeof SET_ACCOMPANYING_NAME_ERROR
+  | typeof SET_ACCOMPANYING_PHONE_ERROR
+  | typeof CLEAR_STREET_ERROR
+  | typeof CLEAR_ADDRESS_DETAIL_ERROR
+  | typeof CLEAR_ACCOMPANYING_NAME_ERROR
+  | typeof CLEAR_ACCOMPANYING_PHONE_ERROR;
 
 type VehicleDeliveryErrorState = {
-    streetAddressError: string,
-    addressDetailsError: string,
-    accompanyingNameError: string,
-    accompanyingPhoneError: string
-}
+  streetAddressError: string;
+  addressDetailsError: string;
+  accompanyingNameError: string;
+  accompanyingPhoneError: string;
+};
 
 export type VehicleDeliveryErrorAction = {
-  type: DeliveryErrorActionType,
-  field: string,
-  value: string
-}
+  type: DeliveryErrorActionType;
+  field: string;
+  value: string;
+};
 
 export type QuoteDataState = {
-    destinationForm: DestinationForm
-    vehicleDetails: VehicleDetails
-    contactDetails: ContactDetails
-}
+  destinationForm: DestinationForm;
+  vehicleDetails: VehicleDetails;
+  contactDetails: ContactDetails;
+};
 
 type DestinationForm = {
-        pickupLocation: string,
-        deliveryLocation: string,
-        transportType: string
-}
+  pickupLocation: string;
+  deliveryLocation: string;
+  transportType: string;
+};
 type VehicleDetails = {
-        year: number | null,
-        make: string | null,
-        model: string | null
-}
+  year: number | null;
+  make: string | null;
+  model: string | null;
+};
 type ContactDetails = {
-        email: string,
-        pickupDate: string,
-        phone: string
-}
+  email: string;
+  pickupDate: string;
+  phone: string;
+};
 
-const SET_PICKUPLOCATION = 'SET_PICKUPLOCATION'
-const SET_DELIVERYLOCATION = 'SET_DELIVERYLOCATION'
-const SET_TRANSPORTTYPE = 'SET_TRANSPORTTYPE'
+const SET_PICKUPLOCATION = "SET_PICKUPLOCATION";
+const SET_DELIVERYLOCATION = "SET_DELIVERYLOCATION";
+const SET_TRANSPORTTYPE = "SET_TRANSPORTTYPE";
 
-const SET_VEHICLEYEAR = 'SET_VEHICLEYEAR'
-const SET_VEHICLEMAKE = 'SET_VEHICLEMAKE'
-const SET_VEHICLEMODEL = 'SET_VEHICLEMODEL'
-const SET_CONTACTEMAIL = 'SET_CONTACTEMAIL'
-const SET_PICKUPDATE = 'SET_PICKUPDATE'
-const SET_PICKUPPHONE = 'SET_PICKUPPHONE'
+const SET_VEHICLEYEAR = "SET_VEHICLEYEAR";
+const SET_VEHICLEMAKE = "SET_VEHICLEMAKE";
+const SET_VEHICLEMODEL = "SET_VEHICLEMODEL";
+const SET_CONTACTEMAIL = "SET_CONTACTEMAIL";
+const SET_PICKUPDATE = "SET_PICKUPDATE";
+const SET_PICKUPPHONE = "SET_PICKUPPHONE";
 
-const SET_DESTINATION = 'SET_DESTINATION'
-const SET_VEHICLEDATA = 'SET_VEHICLEDATA'
-const SET_CONTACTDATA = 'SET_CONTACTDATA'
+const SET_DESTINATION = "SET_DESTINATION";
+const SET_VEHICLEDATA = "SET_VEHICLEDATA";
+const SET_CONTACTDATA = "SET_CONTACTDATA";
 
-export type QuoteActionType = typeof SET_DESTINATION | typeof SET_VEHICLEDATA | typeof SET_CONTACTDATA
+export type QuoteActionType =
+  typeof SET_DESTINATION | typeof SET_VEHICLEDATA | typeof SET_CONTACTDATA;
 
 export type QuoteDataAction = {
-  type: QuoteActionType,
-  field: string,
-  value: DestinationForm | VehicleDetails | ContactDetails
-}
+  type: QuoteActionType;
+  field: string;
+  value: DestinationForm | VehicleDetails | ContactDetails;
+};

@@ -9,9 +9,7 @@
       "type": "standard",
       "county_fips": "36061",
       "county_name": "New York County",
-      "county_fips_all": [
-        "36061"
-      ],
+      "county_fips_all": ["36061"],
       "lat": 40.750649,
       "lng": -73.997298
     },
@@ -24,9 +22,7 @@
       "type": "standard",
       "county_fips": "06037",
       "county_name": "Los Angeles County",
-      "county_fips_all": [
-        "06037"
-      ],
+      "county_fips_all": ["06037"],
       "lat": 34.103003,
       "lng": -118.410468
     },
@@ -39,9 +35,7 @@
       "type": "standard",
       "county_fips": "17031",
       "county_name": "Cook County",
-      "county_fips_all": [
-        "17031"
-      ],
+      "county_fips_all": ["17031"],
       "lat": 41.885672,
       "lng": -87.621255
     },
@@ -54,9 +48,7 @@
       "type": "standard",
       "county_fips": "48113",
       "county_name": "Dallas County",
-      "county_fips_all": [
-        "48113"
-      ],
+      "county_fips_all": ["48113"],
       "lat": 32.787684,
       "lng": -96.799042
     },
@@ -69,9 +61,7 @@
       "type": "standard",
       "county_fips": "12086",
       "county_name": "Miami-Dade County",
-      "county_fips_all": [
-        "12086"
-      ],
+      "county_fips_all": ["12086"],
       "lat": 25.77427,
       "lng": -80.19366
     },
@@ -84,9 +74,7 @@
       "type": "standard",
       "county_fips": "53033",
       "county_name": "King County",
-      "county_fips_all": [
-        "53033"
-      ],
+      "county_fips_all": ["53033"],
       "lat": 47.61144,
       "lng": -122.33516
     },
@@ -99,9 +87,7 @@
       "type": "standard",
       "county_fips": "25025",
       "county_name": "Suffolk County",
-      "county_fips_all": [
-        "25025"
-      ],
+      "county_fips_all": ["25025"],
       "lat": 42.35882,
       "lng": -71.06359
     },
@@ -114,9 +100,7 @@
       "type": "standard",
       "county_fips": "13121",
       "county_name": "Fulton County",
-      "county_fips_all": [
-        "13121"
-      ],
+      "county_fips_all": ["13121"],
       "lat": 33.75416,
       "lng": -84.38798
     },
@@ -129,9 +113,7 @@
       "type": "standard",
       "county_fips": "08031",
       "county_name": "Denver County",
-      "county_fips_all": [
-        "08031"
-      ],
+      "county_fips_all": ["08031"],
       "lat": 39.75389,
       "lng": -104.99651
     },
@@ -144,9 +126,7 @@
       "type": "standard",
       "county_fips": "32003",
       "county_name": "Clark County",
-      "county_fips_all": [
-        "32003"
-      ],
+      "county_fips_all": ["32003"],
       "lat": 36.17887,
       "lng": -115.13764
     },
@@ -159,9 +139,7 @@
       "type": "standard",
       "county_fips": "01073",
       "county_name": "Jefferson County",
-      "county_fips_all": [
-        "01073"
-      ],
+      "county_fips_all": ["01073"],
       "lat": 33.5207,
       "lng": -86.8025
     },
@@ -174,9 +152,7 @@
       "type": "standard",
       "county_fips": "02020",
       "county_name": "Anchorage Municipality",
-      "county_fips_all": [
-        "02020"
-      ],
+      "county_fips_all": ["02020"],
       "lat": 61.2181,
       "lng": -149.9003
     },
@@ -189,9 +165,7 @@
       "type": "standard",
       "county_fips": "04013",
       "county_name": "Maricopa County",
-      "county_fips_all": [
-        "04013"
-      ],
+      "county_fips_all": ["04013"],
       "lat": 33.4484,
       "lng": -112.074
     },
@@ -204,9 +178,7 @@
       "type": "standard",
       "county_fips": "05119",
       "county_name": "Pulaski County",
-      "county_fips_all": [
-        "05119"
-      ],
+      "county_fips_all": ["05119"],
       "lat": 34.7465,
       "lng": -92.2896
     },
@@ -219,9 +191,7 @@
       "type": "standard",
       "county_fips": "09003",
       "county_name": "Hartford County",
-      "county_fips_all": [
-        "09003"
-      ],
+      "county_fips_all": ["09003"],
       "lat": 41.7658,
       "lng": -72.6734
     },
@@ -234,9 +204,7 @@
       "type": "standard",
       "county_fips": "10003",
       "county_name": "New Castle County",
-      "county_fips_all": [
-        "10003"
-      ],
+      "county_fips_all": ["10003"],
       "lat": 39.7447,
       "lng": -75.5484
     },
@@ -249,9 +217,7 @@
       "type": "standard",
       "county_fips": "15003",
       "county_name": "Honolulu County",
-      "county_fips_all": [
-        "15003"
-      ],
+      "county_fips_all": ["15003"],
       "lat": 21.3069,
       "lng": -157.8583
     },
@@ -264,9 +230,7 @@
       "type": "standard",
       "county_fips": "16001",
       "county_name": "Ada County",
-      "county_fips_all": [
-        "16001"
-      ],
+      "county_fips_all": ["16001"],
       "lat": 43.615,
       "lng": -116.2023
     },
@@ -279,9 +243,7 @@
       "type": "standard",
       "county_fips": "18097",
       "county_name": "Marion County",
-      "county_fips_all": [
-        "18097"
-      ],
+      "county_fips_all": ["18097"],
       "lat": 39.7684,
       "lng": -86.1581
     },
@@ -294,9 +256,7 @@
       "type": "standard",
       "county_fips": "19153",
       "county_name": "Polk County",
-      "county_fips_all": [
-        "19153"
-      ],
+      "county_fips_all": ["19153"],
       "lat": 41.5868,
       "lng": -93.625
     },
@@ -309,9 +269,7 @@
       "type": "standard",
       "county_fips": "20173",
       "county_name": "Sedgwick County",
-      "county_fips_all": [
-        "20173"
-      ],
+      "county_fips_all": ["20173"],
       "lat": 37.6872,
       "lng": -97.3301
     },
@@ -324,9 +282,7 @@
       "type": "standard",
       "county_fips": "21111",
       "county_name": "Jefferson County",
-      "county_fips_all": [
-        "21111"
-      ],
+      "county_fips_all": ["21111"],
       "lat": 38.2527,
       "lng": -85.7585
     },
@@ -339,9 +295,7 @@
       "type": "standard",
       "county_fips": "22071",
       "county_name": "Orleans Parish",
-      "county_fips_all": [
-        "22071"
-      ],
+      "county_fips_all": ["22071"],
       "lat": 29.9511,
       "lng": -90.0715
     },
@@ -354,9 +308,7 @@
       "type": "standard",
       "county_fips": "23005",
       "county_name": "Cumberland County",
-      "county_fips_all": [
-        "23005"
-      ],
+      "county_fips_all": ["23005"],
       "lat": 43.6591,
       "lng": -70.2568
     },
@@ -369,9 +321,7 @@
       "type": "standard",
       "county_fips": "24510",
       "county_name": "Baltimore City",
-      "county_fips_all": [
-        "24510"
-      ],
+      "county_fips_all": ["24510"],
       "lat": 39.2904,
       "lng": -76.6122
     },
@@ -384,9 +334,7 @@
       "type": "standard",
       "county_fips": "26163",
       "county_name": "Wayne County",
-      "county_fips_all": [
-        "26163"
-      ],
+      "county_fips_all": ["26163"],
       "lat": 42.3314,
       "lng": -83.0458
     },
@@ -399,9 +347,7 @@
       "type": "standard",
       "county_fips": "27053",
       "county_name": "Hennepin County",
-      "county_fips_all": [
-        "27053"
-      ],
+      "county_fips_all": ["27053"],
       "lat": 44.9833,
       "lng": -93.2667
     },
@@ -414,9 +360,7 @@
       "type": "standard",
       "county_fips": "28049",
       "county_name": "Hinds County",
-      "county_fips_all": [
-        "28049"
-      ],
+      "county_fips_all": ["28049"],
       "lat": 32.2988,
       "lng": -90.1848
     },
@@ -429,9 +373,7 @@
       "type": "standard",
       "county_fips": "29510",
       "county_name": "St. Louis City",
-      "county_fips_all": [
-        "29510"
-      ],
+      "county_fips_all": ["29510"],
       "lat": 38.627,
       "lng": -90.1994
     },
@@ -444,9 +386,7 @@
       "type": "standard",
       "county_fips": "30049",
       "county_name": "Lewis and Clark County",
-      "county_fips_all": [
-        "30049"
-      ],
+      "county_fips_all": ["30049"],
       "lat": 46.5891,
       "lng": -112.0391
     },
@@ -459,9 +399,7 @@
       "type": "standard",
       "county_fips": "31055",
       "county_name": "Douglas County",
-      "county_fips_all": [
-        "31055"
-      ],
+      "county_fips_all": ["31055"],
       "lat": 41.2565,
       "lng": -95.9345
     },
@@ -474,9 +412,7 @@
       "type": "standard",
       "county_fips": "33013",
       "county_name": "Merrimack County",
-      "county_fips_all": [
-        "33013"
-      ],
+      "county_fips_all": ["33013"],
       "lat": 43.2081,
       "lng": -71.5376
     },
@@ -489,9 +425,7 @@
       "type": "standard",
       "county_fips": "34013",
       "county_name": "Essex County",
-      "county_fips_all": [
-        "34013"
-      ],
+      "county_fips_all": ["34013"],
       "lat": 40.7357,
       "lng": -74.1724
     },
@@ -504,9 +438,7 @@
       "type": "standard",
       "county_fips": "35001",
       "county_name": "Bernalillo County",
-      "county_fips_all": [
-        "35001"
-      ],
+      "county_fips_all": ["35001"],
       "lat": 35.0845,
       "lng": -106.6504
     },
@@ -519,9 +451,7 @@
       "type": "standard",
       "county_fips": "37183",
       "county_name": "Wake County",
-      "county_fips_all": [
-        "37183"
-      ],
+      "county_fips_all": ["37183"],
       "lat": 35.7796,
       "lng": -78.6382
     },
@@ -534,9 +464,7 @@
       "type": "standard",
       "county_fips": "38015",
       "county_name": "Burleigh County",
-      "county_fips_all": [
-        "38015"
-      ],
+      "county_fips_all": ["38015"],
       "lat": 46.8083,
       "lng": -100.7837
     },
@@ -549,9 +477,7 @@
       "type": "standard",
       "county_fips": "39035",
       "county_name": "Cuyahoga County",
-      "county_fips_all": [
-        "39035"
-      ],
+      "county_fips_all": ["39035"],
       "lat": 41.5055,
       "lng": -81.6904
     },
@@ -564,9 +490,7 @@
       "type": "standard",
       "county_fips": "40109",
       "county_name": "Oklahoma County",
-      "county_fips_all": [
-        "40109"
-      ],
+      "county_fips_all": ["40109"],
       "lat": 35.4676,
       "lng": -97.5164
     },
@@ -579,9 +503,7 @@
       "type": "standard",
       "county_fips": "41051",
       "county_name": "Multnomah County",
-      "county_fips_all": [
-        "41051"
-      ],
+      "county_fips_all": ["41051"],
       "lat": 45.5152,
       "lng": -122.6784
     },
@@ -594,9 +516,7 @@
       "type": "standard",
       "county_fips": "42101",
       "county_name": "Philadelphia County",
-      "county_fips_all": [
-        "42101"
-      ],
+      "county_fips_all": ["42101"],
       "lat": 39.9526,
       "lng": -75.1652
     },
@@ -609,9 +529,7 @@
       "type": "standard",
       "county_fips": "44007",
       "county_name": "Providence County",
-      "county_fips_all": [
-        "44007"
-      ],
+      "county_fips_all": ["44007"],
       "lat": 41.824,
       "lng": -71.4128
     },
@@ -624,9 +542,7 @@
       "type": "standard",
       "county_fips": "45019",
       "county_name": "Charleston County",
-      "county_fips_all": [
-        "45019"
-      ],
+      "county_fips_all": ["45019"],
       "lat": 32.7765,
       "lng": -79.9311
     },
@@ -639,9 +555,7 @@
       "type": "standard",
       "county_fips": "46099",
       "county_name": "Minnehaha County",
-      "county_fips_all": [
-        "46099"
-      ],
+      "county_fips_all": ["46099"],
       "lat": 43.546,
       "lng": -96.7313
     },
@@ -654,9 +568,7 @@
       "type": "standard",
       "county_fips": "47037",
       "county_name": "Davidson County",
-      "county_fips_all": [
-        "47037"
-      ],
+      "county_fips_all": ["47037"],
       "lat": 36.1627,
       "lng": -86.7816
     },
@@ -669,9 +581,7 @@
       "type": "standard",
       "county_fips": "49035",
       "county_name": "Salt Lake County",
-      "county_fips_all": [
-        "49035"
-      ],
+      "county_fips_all": ["49035"],
       "lat": 40.7608,
       "lng": -111.891
     },
@@ -684,9 +594,7 @@
       "type": "standard",
       "county_fips": "50007",
       "county_name": "Chittenden County",
-      "county_fips_all": [
-        "50007"
-      ],
+      "county_fips_all": ["50007"],
       "lat": 44.4759,
       "lng": -73.2121
     },
@@ -699,9 +607,7 @@
       "type": "standard",
       "county_fips": "51760",
       "county_name": "Richmond City",
-      "county_fips_all": [
-        "51760"
-      ],
+      "county_fips_all": ["51760"],
       "lat": 37.5407,
       "lng": -77.436
     },
@@ -714,9 +620,7 @@
       "type": "standard",
       "county_fips": "54039",
       "county_name": "Kanawha County",
-      "county_fips_all": [
-        "54039"
-      ],
+      "county_fips_all": ["54039"],
       "lat": 38.3498,
       "lng": -81.6326
     },
@@ -729,9 +633,7 @@
       "type": "standard",
       "county_fips": "55079",
       "county_name": "Milwaukee County",
-      "county_fips_all": [
-        "55079"
-      ],
+      "county_fips_all": ["55079"],
       "lat": 43.0389,
       "lng": -87.9065
     },
@@ -744,9 +646,7 @@
       "type": "standard",
       "county_fips": "56021",
       "county_name": "Laramie County",
-      "county_fips_all": [
-        "56021"
-      ],
+      "county_fips_all": ["56021"],
       "lat": 41.1399,
       "lng": -104.8202
     },
@@ -759,9 +659,7 @@
       "type": "standard",
       "county_fips": "06075",
       "county_name": "San Francisco County",
-      "county_fips_all": [
-        "06075"
-      ],
+      "county_fips_all": ["06075"],
       "lat": 37.7749,
       "lng": -122.4194
     },
@@ -774,9 +672,7 @@
       "type": "standard",
       "county_fips": "48201",
       "county_name": "Harris County",
-      "county_fips_all": [
-        "48201"
-      ],
+      "county_fips_all": ["48201"],
       "lat": 29.7604,
       "lng": -95.3698
     },
@@ -789,9 +685,7 @@
       "type": "standard",
       "county_fips": "06073",
       "county_name": "San Diego County",
-      "county_fips_all": [
-        "06073"
-      ],
+      "county_fips_all": ["06073"],
       "lat": 32.7157,
       "lng": -117.1611
     },
@@ -804,9 +698,7 @@
       "type": "standard",
       "county_fips": "48029",
       "county_name": "Bexar County",
-      "county_fips_all": [
-        "48029"
-      ],
+      "county_fips_all": ["48029"],
       "lat": 29.4241,
       "lng": -98.4936
     },
@@ -819,9 +711,7 @@
       "type": "standard",
       "county_fips": "06085",
       "county_name": "Santa Clara County",
-      "county_fips_all": [
-        "06085"
-      ],
+      "county_fips_all": ["06085"],
       "lat": 37.3382,
       "lng": -121.8863
     },
@@ -834,9 +724,7 @@
       "type": "standard",
       "county_fips": "48453",
       "county_name": "Travis County",
-      "county_fips_all": [
-        "48453"
-      ],
+      "county_fips_all": ["48453"],
       "lat": 30.2672,
       "lng": -97.7431
     },
@@ -849,9 +737,7 @@
       "type": "standard",
       "county_fips": "48439",
       "county_name": "Tarrant County",
-      "county_fips_all": [
-        "48439"
-      ],
+      "county_fips_all": ["48439"],
       "lat": 32.7555,
       "lng": -97.3308
     },
@@ -864,9 +750,7 @@
       "type": "standard",
       "county_fips": "39049",
       "county_name": "Franklin County",
-      "county_fips_all": [
-        "39049"
-      ],
+      "county_fips_all": ["39049"],
       "lat": 39.9612,
       "lng": -82.9988
     },
@@ -879,9 +763,7 @@
       "type": "standard",
       "county_fips": "37119",
       "county_name": "Mecklenburg County",
-      "county_fips_all": [
-        "37119"
-      ],
+      "county_fips_all": ["37119"],
       "lat": 35.2271,
       "lng": -80.8431
     },
@@ -894,9 +776,7 @@
       "type": "standard",
       "county_fips": "48141",
       "county_name": "El Paso County",
-      "county_fips_all": [
-        "48141"
-      ],
+      "county_fips_all": ["48141"],
       "lat": 31.7587,
       "lng": -106.4869
     },
@@ -909,9 +789,7 @@
       "type": "standard",
       "county_fips": "06037",
       "county_name": "Los Angeles County",
-      "county_fips_all": [
-        "06037"
-      ],
+      "county_fips_all": ["06037"],
       "lat": 33.9736,
       "lng": -118.2479
     },
@@ -924,9 +802,7 @@
       "type": "standard",
       "county_fips": "36061",
       "county_name": "New York County",
-      "county_fips_all": [
-        "36061"
-      ],
+      "county_fips_all": ["36061"],
       "lat": 40.7157,
       "lng": -73.9864
     },
@@ -939,9 +815,7 @@
       "type": "standard",
       "county_fips": "17031",
       "county_name": "Cook County",
-      "county_fips_all": [
-        "17031"
-      ],
+      "county_fips_all": ["17031"],
       "lat": 41.8831,
       "lng": -87.6291
     },
@@ -954,9 +828,7 @@
       "type": "standard",
       "county_fips": "48201",
       "county_name": "Harris County",
-      "county_fips_all": [
-        "48201"
-      ],
+      "county_fips_all": ["48201"],
       "lat": 29.7497,
       "lng": -95.3482
     },
@@ -969,9 +841,7 @@
       "type": "standard",
       "county_fips": "04013",
       "county_name": "Maricopa County",
-      "county_fips_all": [
-        "04013"
-      ],
+      "county_fips_all": ["04013"],
       "lat": 33.4515,
       "lng": -112.0701
     },
@@ -984,9 +854,7 @@
       "type": "standard",
       "county_fips": "42101",
       "county_name": "Philadelphia County",
-      "county_fips_all": [
-        "42101"
-      ],
+      "county_fips_all": ["42101"],
       "lat": 39.952,
       "lng": -75.174
     },
@@ -999,9 +867,7 @@
       "type": "standard",
       "county_fips": "48029",
       "county_name": "Bexar County",
-      "county_fips_all": [
-        "48029"
-      ],
+      "county_fips_all": ["48029"],
       "lat": 29.4674,
       "lng": -98.5303
     },
@@ -1014,9 +880,7 @@
       "type": "standard",
       "county_fips": "06073",
       "county_name": "San Diego County",
-      "county_fips_all": [
-        "06073"
-      ],
+      "county_fips_all": ["06073"],
       "lat": 32.7161,
       "lng": -117.126
     },
@@ -1029,9 +893,7 @@
       "type": "standard",
       "county_fips": "48113",
       "county_name": "Dallas County",
-      "county_fips_all": [
-        "48113"
-      ],
+      "county_fips_all": ["48113"],
       "lat": 32.7801,
       "lng": -96.8052
     }

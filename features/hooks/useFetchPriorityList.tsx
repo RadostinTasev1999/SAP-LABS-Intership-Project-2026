@@ -2,42 +2,35 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 export const useFetchPriorityList = (url: string) => {
+  const [priorityList, setPriorityList] = useState({
+    data: [],
+    error: { message: "" },
+  });
 
-    const [priorityList, setPriorityList] = useState({
-        data: [],
-        error: { message: '' }
-    })
+  useEffect(() => {
+    const fetchPriorityList = async (url: string) => {
+      try {
+        const response = await fetch(url);
+        const result = await response.json();
 
-    useEffect(() => {
-        
-        const fetchPriorityList = async(url: string) => {
+        console.log("Result is:", result);
 
-            try {
-                const response = await fetch(url);
-                const result = await response.json();
+        setPriorityList({
+          data: result,
+          error: { message: "" },
+        });
+      } catch (error) {
+        setPriorityList({
+          data: [],
+          error: { message: "Error retrieving priority list" },
+        });
+      }
+    };
 
-                console.log("Result is:", result)
+    fetchPriorityList(url);
+  }, []);
 
-                setPriorityList({
-                    data: result,
-                    error: { message: '' }
-                })
-                
-            } catch (error) {
-                setPriorityList({
-                    data: [],
-                    error: { message: 'Error retrieving priority list' }
-                })
-            }
-
-            
-        }
-
-        fetchPriorityList(url)
-
-    },[])
-
-    return {
-        priorityList
-    }
-}
+  return {
+    priorityList,
+  };
+};

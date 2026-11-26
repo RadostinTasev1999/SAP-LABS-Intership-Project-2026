@@ -1,24 +1,22 @@
-import AppHeader from "@/components/layout/header/Header"
-import AppFooter from "@/components/layout/footer/Footer"
-import CheckoutPage from '@/components/layout/checkout/CheckoutPage'
+import AppHeader from "@/components/layout/header/Header";
+import AppFooter from "@/components/layout/footer/Footer";
+import CheckoutPage from "@/components/layout/checkout/CheckoutPage";
 
-import { footerGridData } from  '@/lib/placeholderdata'
-import { footerBottomData } from '@/lib/placeholderdata'
+import { footerGridData } from "@/lib/placeholderdata";
+import { footerBottomData } from "@/lib/placeholderdata";
 
-export default function BookingPage(){
+export default function BookingPage() {
+  return (
+    <>
+      <AppHeader />
 
-    return(
-        <>
-            <AppHeader
-            />
-            
-            {/* Checkout Page */}
-            <CheckoutPage />
+      {/* Checkout Page */}
+      <CheckoutPage />
 
-            <AppFooter
-                footerGridData={footerGridData}
-                footerBottomData={footerBottomData}
-            />
-        </>
-    )
+      <AppFooter
+        footerGridData={footerGridData}
+        footerBottomData={footerBottomData}
+      />
+    </>
+  );
 }

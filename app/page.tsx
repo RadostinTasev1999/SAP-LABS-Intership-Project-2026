@@ -13,22 +13,17 @@ import { heroAboutData } from "@/lib/placeholderdata";
 import { heroServiceIntro } from "@/lib/placeholderdata";
 import { heroServiceDetails } from "@/lib/placeholderdata";
 
-
 export default function Home() {
-
-
   return (
     <>
       {/* Header */}
       <NavWrapper />
       <main className="min-h-screen bg-cover bg-center bg-[url(/SiteBackgroundImage.png)] bg-fixed">
-
-
         {/* Hero Section */}
         <AppHero
           appHeroProps={appHeroProps}
           heroLayoutCardData={heroLayoutCardData}
-        // renderOffer={renderOffer}
+          // renderOffer={renderOffer}
         />
         {/* Company Service Process Info */}
         <HeroTimeline
