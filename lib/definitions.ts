@@ -234,7 +234,8 @@ export type QuoteDestinationProps = {
   deliveryZip: InputProps;
   transportType: TransportRadioProps;
   submitBtn: LabelProps;
-  dispatchQuoteState: Dispatch<QuoteStateAction>;
+  hideQuoteForm: (action: QuoteStateAction) => void;
+  showQuoteForm: (action: QuoteStateAction) => void;
   handleActiveStep: (state: number) => void;
 };
 
@@ -278,8 +279,19 @@ export type SelectedLocation = {
   lng: number;
 };
 
+// Create Key types for Record object type
+const SHOW_DESTINATION = 'SHOW_DESTINATION'
+const HIDE_DESTINATION = 'HIDE_DESTINATION'
+const SHOW_VEHICLE = 'SHOW_VEHICLE'
+const HIDE_VEHICLE = 'HIDE_VEHICLE'
+const SHOW_CONTACT = 'SHOW_CONTACT'
+const HIDE_CONTACT = 'HIDE_CONTACT'
+
+// create QuoteAction Type
+export type QuoteStateActionType = typeof SHOW_DESTINATION | typeof HIDE_DESTINATION | typeof SHOW_VEHICLE | typeof HIDE_VEHICLE | typeof SHOW_CONTACT | typeof HIDE_CONTACT
+
 export type QuoteStateAction = {
-  type: string;
+  type: QuoteStateActionType;
   field: string;
   value: boolean;
 };
