@@ -1,8 +1,7 @@
 "use client";
 
-import { useFetchPriorityList } from "@/features/hooks/useFetchPriorityList";
-import { useRouter } from "next/navigation";
 import { DashRing } from "@/components/shared/shadcn/dash-ring";
+import { useFetchPriorityList } from "@/features/hooks/useFetchPriorityList";
 import { Alert } from "@mui/material";
 
 import ArrowRight from "@/components/shared/icons/ArrowRight";
@@ -11,15 +10,10 @@ import EmailInput from "./EmailInput";
 import PhoneInput from "./PhoneInput";
 import PriorityInput from "./PriorityInput";
 
-import { QuoteContactProps } from "@/lib/definitions";
-import { ContactErrorState } from "@/lib/definitions";
-import { ContactsAction } from "@/lib/definitions";
-import { ChangeEvent, useState, useEffect } from "react";
-import { useReducer, useCallback } from "react";
-import { useContext } from "react";
 import { QuoteContext } from "@/components/providers/QuoteProvider";
-import { QuoteDataAction } from '@/lib/definitions'
 import { useSubmitQuote } from "@/features/hooks/useSubmitQuote";
+import { QuoteContactProps } from "@/lib/definitions";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 
 const API_URL = "http://localhost:3000/priorityList";
 const POST_URL = "http://localhost:3000/quoteData"
@@ -32,14 +26,18 @@ export default function QuoteContactForm({
 
   const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext)
 
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [priority, setPriority] = useState("As soon as possible");
   const { priorityList } = useFetchPriorityList(API_URL)
   const [phone, setPhone] = useState("");
   
-
+/*
+  contactComplete -> event handler
+  isDisabled, setIsDisabled -> state for button
+  clearInputErrors -> callback which triggers state update using dispatch method
+  contactErrors -> state for managing errors of input fields
+  loading -> state for showing / hiding loading spinner
+*/
   const { contactComplete, isDisabled, setIsDisabled, clearInputErrors, contactErrors, loading } = useSubmitQuote(email,phone, priority,POST_URL)
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
