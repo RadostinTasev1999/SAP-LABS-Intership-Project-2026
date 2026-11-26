@@ -8,6 +8,7 @@ import { useContext, useEffect } from "react";
 import { QuoteContext } from '@/components/providers/QuoteProvider'
 import { QuoteDataAction } from "@/lib/definitions";
 import { QuoteStateAction } from "@/lib/definitions";
+import { useQuoteState } from "@/features/hooks/useQuoteState";
 
 import { styled } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
@@ -100,8 +101,9 @@ export default function QuoteDestinationForm({
   deliveryZip,
   transportType,
   submitBtn,
-  dispatchQuoteState,
   handleActiveStep,
+  hideQuoteForm,
+  showQuoteForm
 }: QuoteDestinationProps) {
 
   const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext)
@@ -182,15 +184,6 @@ export default function QuoteDestinationForm({
     dispatchQuoteDataState(action)
   }
   
-  const hideQuoteForm = (action: QuoteStateAction) => {
-
-    dispatchQuoteState(action)
-  }
-
-  const showQuoteForm = (action: QuoteStateAction) => {
-
-    dispatchQuoteState(action);
-  }
   
   const destinationComplete = useCallback(() => {
     // Validate inputs
@@ -208,13 +201,14 @@ export default function QuoteDestinationForm({
         deliveryLocation: delivery,
         transportType: transport
     }
+    // update global state
     saveDestinationData({ type: 'SET_DESTINATION', field: 'destinationForm', value: data})
     // Mark Destination Stepper as complete
      handleActiveStep(2);
     // Hide Destination form
-      hideQuoteForm({ type: 'hide_destination', field: 'showDestinationForm', value: false })
+      hideQuoteForm({type: 'HIDE_DESTINATION', field: 'showDestinationForm', value: false})
     // Show Vehicle form
-      showQuoteForm({ type: 'show_vehicle', field: 'showVehicleForm', value: true })
+      showQuoteForm({type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true})
   },[origin, delivery, transport])
 
   
