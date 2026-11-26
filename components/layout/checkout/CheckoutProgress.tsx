@@ -39,7 +39,10 @@ export default function CheckoutProgress(){
 
     const { step, handleStepChange } = useContext(CheckoutContext);
 
-
+// value -> determines the active step
+/*
+    StepperTrigger -> calls the Stepper's internal step setter, when clicked. The setter invokes onValueChange
+*/
     return (
         <Stepper
             value={step}
