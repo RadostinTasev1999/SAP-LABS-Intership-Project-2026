@@ -150,13 +150,14 @@ const vehicleComplete = (e: MouseEvent<HTMLButtonElement>) => {
     make: selectedMake,
     model: selectedModel
   }
+  // Update global state
   saveVehicleData({ type: 'SET_VEHICLEDATA', field: 'vehicleDetails', value: data})
   // Hide Vehicle form
-  hideQuoteForm({ type: 'hide_vehicle', field: 'showVehicleForm', value: false})
+  hideQuoteForm({ type: 'HIDE_VEHICLE', field: 'showVehicleForm', value: false})
   // Update stepper
   handleActiveStep(3)
   // Show Contact form
-  showQuoteForm({type: 'show_contact', field: 'showContactForm', value: true })
+  showQuoteForm({ type: 'SHOW_CONTACT', field: 'showContactForm', value: true})
 }
 
 const saveVehicleData = (action: QuoteDataAction) => {
