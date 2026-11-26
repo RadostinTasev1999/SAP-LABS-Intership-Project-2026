@@ -155,8 +155,6 @@ export const useSubmitQuote = (email: string, phone: string, priority:string, PO
              }
             //   Logic if validation passes
 
-            
-
              const data = {
                 email: email,
                 pickupDate: priority,
