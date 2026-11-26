@@ -1,83 +1,33 @@
 "use client";
 
-import React from "react";
 import { QuoteProvider } from "@/components/providers/QuoteProvider";
-import { useRouter } from "next/navigation";
+import React from "react";
 
+import StepperComponent from '@/components/shared/stepper/Stepper';
+import QuoteContactForm from "../../forms/contactForm/ContactForm";
+import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationForm";
 import QuoteVehicleForm from "../../forms/vehicleForm/QuoteVehicleForm";
 import HeroQuoteHeading from "./HeroQuoteHeading";
 import HeroQuoteParagraph from "./HeroQuoteParagraph";
-import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationForm";
-import QuoteContactForm from "../../forms/contactForm/ContactForm";
-import StepperComponent from '@/components/shared/stepper/Stepper'
 
-import { QuoteFormState } from "@/lib/definitions";
+import { useState } from "react";
 
-import { useReducer, useState, useCallback } from "react";
+import { HeroQuoteCardProps, QuoteStateAction } from "@/lib/definitions";
 
-import { HeroQuoteCardProps } from "@/lib/definitions";
-import { QuoteStateAction } from "@/lib/definitions";
+import { useQuoteState } from "@/features/hooks/useQuoteState";
 
-const initialState = {
-  origin: "",
-  delivery: "",
-  transport: "open",
-  year: "",
-  make: "",
-  model: "",
-  isDriving: true,
-  email: "",
-  priority: "",
-  phone: "",
-};
-
-const quoteInitialState = {
-  showDestinationForm: true,
-  showVehicleForm: false,
-  showContactForm: false,
-};
-
-// { type: 'hide_vehicle', field: 'showVehicleForm', value: false}
-// {type: 'show_contact', field: 'showContactForm', value: true }
-const stateReducer = (state: QuoteFormState, action: QuoteStateAction) => {
-  switch (action.type) {
-    case "show_destination":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-    case "hide_destination":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-    case "show_vehicle":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-    case "hide_vehicle":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-    case "show_contact":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-    case "hide_contact":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    default:
-      return {
-        ...state,
-      };
-  }
-};
+// const initialState = {
+//   origin: "",
+//   delivery: "",
+//   transport: "open",
+//   year: "",
+//   make: "",
+//   model: "",
+//   isDriving: true,
+//   email: "",
+//   priority: "",
+//   phone: "",
+// };
 
 
 const quoteReducer = (state: DestinationFormState, action: Action) => {
@@ -161,16 +111,13 @@ export default function HeroQuoteCard({
   deliveryZip,
   transportType,
   submitBtn,
-  securityNote,
   renderOffer
 }: HeroQuoteCardProps) {
 
-  const router = useRouter()
+  const { quoteState, dispatchQuoteState } = useQuoteState();
+
 // ! TODO: implement global state management for quoteData state
-  const [quoteState, dispatchQuoteState] = useReducer(
-    stateReducer,
-    quoteInitialState,
-  );
+  
   const [activeStep, setActiveStep] = useState(1);
 
   const handleActiveStep = (state: number) => {
@@ -274,8 +221,9 @@ export default function HeroQuoteCard({
               deliveryZip={deliveryZip}
               transportType={transportType}
               submitBtn={submitBtn}
-              dispatchQuoteState={dispatchQuoteState}
               handleActiveStep={handleActiveStep}
+              hideQuoteForm={hideQuoteForm}
+              showQuoteForm={showQuoteForm}
             />
           </React.Fragment>
         )}
@@ -290,6 +238,7 @@ export default function HeroQuoteCard({
           <QuoteContactForm
             handleActiveStep={handleActiveStep}
             renderOffer={renderOffer}
+
           />
         )}
 
