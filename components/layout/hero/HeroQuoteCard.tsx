@@ -1,5 +1,6 @@
 "use client";
 
+import {StepKeys, StepValues} from '@/lib/definitions'
 import { QuoteProvider } from "@/components/providers/QuoteProvider";
 import React from "react";
 
@@ -9,84 +10,11 @@ import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationFo
 import QuoteVehicleForm from "../../forms/vehicleForm/QuoteVehicleForm";
 import HeroQuoteHeading from "./HeroQuoteHeading";
 import HeroQuoteParagraph from "./HeroQuoteParagraph";
-<<<<<<< HEAD
-=======
-import QuoteDestinationForm from "../../forms/destinationForm/QuoteDestinationForm";
-import QuoteContactForm from "../../forms/contactForm/ContactForm";
-import StepperComponent from "@/components/shared/stepper/Stepper";
->>>>>>> c778786295c896f9e9966f29d4980ca9525df263
-
-import { useState } from "react";
-
 import { HeroQuoteCardProps, QuoteStateAction } from "@/lib/definitions";
 
 import { useQuoteState } from "@/features/hooks/useQuoteState";
+import { useStepperState } from "@/features/hooks/useStepperState";
 
-// const initialState = {
-//   origin: "",
-//   delivery: "",
-//   transport: "open",
-//   year: "",
-//   make: "",
-//   model: "",
-//   isDriving: true,
-//   email: "",
-//   priority: "",
-//   phone: "",
-// };
-
-const quoteReducer = (state: DestinationFormState, action: Action) => {
-  switch (action.type) {
-    case "SET_ORIGIN":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "SET_DELIVERY":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "SET_TRANSPORT":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "SET_YEAR":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "SET_MAKE":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "SET_MODEL":
-      return {
-        ...state,
-        [action.field]: action.value,
-      };
-
-    case "set_contactdata":
-      return {
-        ...state,
-        email: action.email,
-        priority: action.priority,
-        phone: action.phone,
-      };
-
-    default:
-      return {
-        ...state,
-      };
-  }
-};
 
 const steps = [
   {
@@ -100,14 +28,8 @@ const steps = [
   },
 ];
 
-const initialDestination = {
-  success: "",
-  errors: {
-    origin: "",
-    delivery: "",
-    message: "",
-  },
-};
+
+
 
 export default function HeroQuoteCard({
   quoteHeading,
@@ -120,80 +42,113 @@ export default function HeroQuoteCard({
 }: HeroQuoteCardProps) {
 
   const { quoteState, dispatchQuoteState } = useQuoteState();
+  /*
+    {
+    showDestinationForm: boolean;
+    showVehicleForm: boolean;
+    showContactForm: boolean;
+}
+  */
+  const { activeStep, setActiveStep} = useStepperState();
 
-// ! TODO: implement global state management for quoteData state
-  
-  const [activeStep, setActiveStep] = useState(1);
 
-  const handleActiveStep = (state: number) => {
-    setActiveStep(state);
-  };
+const stepper_indicator: Record<StepKeys,StepValues> = {
+    FIRST: 1,
+    SECOND: 2,
+    THIRD: 3
+  }
 
-  const onStepChange = (step: number) => {
-    switch (step) {
-      case 1:
-        // If Destination form is active, do nothing
-        if (quoteState.showDestinationForm) {
-          return;
-        }
+  const updateActiveStep = (STEP: string) => {
 
-        // hide vehicle or contact infor inputs
-        if (quoteState.showVehicleForm) {
-          dispatchQuoteState({
-            type: "hide_vehicle",
-            field: "showVehicleForm",
-            value: false,
-          });
-        } else if (quoteState.showContactForm) {
-          dispatchQuoteState({
-            type: "hide_contact",
-            field: "showContactForm",
-            value: false,
-          });
-        }
-        // Show destination form
-        dispatchQuoteState({
-          type: "show_destination",
-          field: "showDestinationForm",
-          value: true,
-        });
-        // update active step
-        setActiveStep(step);
 
+    switch (STEP) {
+      case "FIRST":
+        // update state
+        setActiveStep(stepper_indicator[STEP])
         break;
-
-      case 2:
-        // If Vehicle form is active, do nothing
-        if (quoteState.showVehicleForm || quoteState.showDestinationForm) {
-          return;
-        }
-
-        // Hide Contact Info Form
-        if (quoteState.showContactForm) {
-          dispatchQuoteState({
-            type: "hide_contact",
-            field: "showContactForm",
-            value: false,
-          });
-        }
-        // Show Vehicle form
-        dispatchQuoteState({
-          type: "show_vehicle",
-          field: "showVehicleForm",
-          value: true,
-        });
-        // Update Active step
-        setActiveStep(step);
-        break;
-
-      case 3:
-        // Do nothing
-
+      case "SECOND":
+        // update state
+        setActiveStep(stepper_indicator[STEP])
         break;
 
       default:
         break;
     }
+
+  }
+
+  const handleActiveStep = (state: number) => {
+    setActiveStep(state);
+  };
+
+  const updateQuoteState = (action: QuoteStateAction) => {
+
+    dispatchQuoteState(action)
+  }
+
+  
+  const destinationStep = (STEP: string) => {
+
+    if (quoteState.showDestinationForm) {
+      return;
+    }
+    if (quoteState.showVehicleForm) {
+      // Hide vehicle form
+      updateQuoteState({ type: 'HIDE_VEHICLE', field: 'showVehicleForm', value: false })
+    } else if (quoteState.showContactForm) {
+      // Hide contact form
+      updateQuoteState({ type: 'HIDE_CONTACT', field: 'showContactForm', value: false })
+    }
+    // Show destination form
+    updateQuoteState({ type: 'SHOW_DESTINATION', field: 'showDestinationForm', value: true })
+
+    // update active step
+    updateActiveStep(STEP);
+  }
+
+  const vehicleStep = (STEP: string) => {
+    // If Vehicle form is active, do nothing
+        if (quoteState.showVehicleForm || quoteState.showDestinationForm) {
+          return;
+        }
+         // Hide Contact Info Form
+        if (quoteState.showContactForm) {
+          updateQuoteState({ type: 'HIDE_CONTACT', field: 'showContactForm', value: false})
+        }
+        // Show Vehicle form
+        updateQuoteState({ type: 'SHOW_VEHICLE', field: 'showVehicleForm', value: true})
+        
+
+        // Update Active step
+        updateActiveStep(STEP)
+  }
+
+  const onStepChange = (step: number) => {
+
+    const triggered_step = Object.entries(stepper_indicator).find((entry) => entry[1] === step)
+
+    const step_indicator = triggered_step !== undefined ? triggered_step[0] : undefined;
+
+    if (!step_indicator) {
+        return;
+    }
+
+    switch (step_indicator) {
+      case "FIRST":
+        // invoke function to perform business logic
+        
+        destinationStep(step_indicator)
+        break;
+
+      case "SECOND":
+        // invoke function to perform business logic
+        vehicleStep(step_indicator)
+        break;
+    
+      default:
+        break;
+    }
+
   };
 
   // handler for hiding vehicle form
