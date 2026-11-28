@@ -12,9 +12,9 @@ export default function Dashboard() {
   return (
     <React.Fragment>
       <AppHeader />
-
-      <QuoteOffer />
-      {/* -------- */}
+      <div className="w-full min-h-screen bg-slate-100">
+        <QuoteOffer />
+      </div>
       <AppFooter
         footerGridData={footerGridData}
         footerBottomData={footerBottomData}
