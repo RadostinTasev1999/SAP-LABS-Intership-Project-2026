@@ -10,21 +10,17 @@ import EmailInput from "./EmailInput";
 import PhoneInput from "./PhoneInput";
 import PriorityInput from "./PriorityInput";
 
-import { QuoteContext } from "@/components/providers/QuoteProvider";
-import { QuoteDataAction } from "@/lib/definitions";
 import { useSubmitQuote } from "@/features/hooks/useSubmitQuote";
-import { QuoteContactProps } from "@/lib/definitions";
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { QuoteContactFormProp } from "@/lib/definitions";
+import { ChangeEvent, useState } from "react";
 
 const API_URL = "http://localhost:3000/priorityList";
-const POST_URL = "http://localhost:3000/quoteData";
+
 
 export default function QuoteContactForm({
-  handleActiveStep,
-  renderOffer,
-}: QuoteContactProps) {
-  const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext);
-
+  handleActiveStep
+}: QuoteContactFormProp) {
+  
   const [email, setEmail] = useState("");
   const [priority, setPriority] = useState("As soon as possible");
   const { priorityList } = useFetchPriorityList(API_URL);
@@ -36,8 +32,8 @@ export default function QuoteContactForm({
     setIsDisabled,
     clearInputErrors,
     contactErrors,
-    loading,
-  } = useSubmitQuote(email, phone, priority, POST_URL);
+    loading
+  } = useSubmitQuote(email, phone, priority, handleActiveStep);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -107,9 +103,6 @@ export default function QuoteContactForm({
     }
   };
 
-  useEffect(() => {
-    console.log("Quote data state is:", quoteDataState);
-  }, [quoteDataState]);
 
   return (
     <div className="mb-4 p-[18px]">
