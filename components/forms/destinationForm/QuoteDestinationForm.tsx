@@ -1,20 +1,17 @@
 "use client";
 
-import { ErrorState } from "@/lib/definitions";
-import QuotePickupInput from "./QuotePickupInput";
-import QuoteDeliveryInput from "./QuoteDeliveryInput";
-import { DestinationAction } from "@/lib/definitions";
-import { useContext, useEffect } from "react";
+import { stepperSteps } from "@/lib/placeholderdata";
 import { QuoteContext } from "@/components/providers/QuoteProvider";
-import { QuoteDataAction } from "@/lib/definitions";
-import { QuoteStateAction } from "@/lib/definitions";
-import { useQuoteState } from "@/features/hooks/useQuoteState";
+import { DestinationAction, ErrorState, QuoteDataAction } from "@/lib/definitions";
+import { useContext, useEffect } from "react";
+import QuoteDeliveryInput from "./QuoteDeliveryInput";
+import QuotePickupInput from "./QuotePickupInput";
 
-import { styled } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 
-import { ChangeEvent, useReducer, useState, useCallback } from "react";
+import { ChangeEvent, useCallback, useReducer, useState } from "react";
 
 import { SelectedLocation } from "@/lib/definitions";
 
@@ -95,6 +92,8 @@ const errorReducer = (state: ErrorState, action: DestinationAction) => {
 
 const locationRegExp = /^[A-Za-z0-9]+(?:[ .'-][A-Za-z0-9]+)*, [A-Z]{2} \d{5}$/;
 
+
+
 export default function QuoteDestinationForm({
   pickupZip,
   deliveryZip,
@@ -104,7 +103,9 @@ export default function QuoteDestinationForm({
   hideQuoteForm,
   showQuoteForm
 }: QuoteDestinationProps) {
+
   const { dispatchQuoteDataState, quoteDataState } = useContext(QuoteContext);
+ 
 
   const [origin, setOrigin] = useState("");
   const [delivery, setDelivery] = useState("");
@@ -202,7 +203,7 @@ export default function QuoteDestinationForm({
     // update global state
     saveDestinationData({ type: 'SET_DESTINATION', field: 'destinationForm', value: data})
     // Mark Destination Stepper as complete
-    handleActiveStep(2);
+     handleActiveStep(stepperSteps.SECOND);
     // Hide Destination form
       hideQuoteForm({type: 'HIDE_DESTINATION', field: 'showDestinationForm', value: false})
     // Show Vehicle form
@@ -323,19 +324,9 @@ export default function QuoteDestinationForm({
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const API_URL = "http://localhost:3000/quoteData";
-
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(quoteDataState),
-      });
-    };
-
-    // fetchData()
+    
+    console.log('QuoteDataState is:', quoteDataState)
+    
   }, [quoteDataState]);
 
   return (
