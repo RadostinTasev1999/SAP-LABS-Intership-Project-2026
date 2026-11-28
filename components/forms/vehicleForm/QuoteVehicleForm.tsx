@@ -1,4 +1,6 @@
 "use client";
+
+import { stepperSteps } from "@/lib/placeholderdata";
 import { QuoteDataAction } from "@/lib/definitions";
 
 import ArrowRight from "@/components/shared/icons/ArrowRight";
@@ -7,25 +9,23 @@ import VehicleSelectInput from "./VehicleSelectInput";
 
 import { QuoteVehicleProps } from "@/lib/definitions";
 
-import { useContext } from "react";
 import { QuoteContext } from "@/components/providers/QuoteProvider";
+import { useContext } from "react";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { useFetchMakes } from "@/features/hooks/useFetchMakes";
-import { useFetchYears } from "@/features/hooks/useFetchYears";
 import { useFetchModels } from "@/features/hooks/useFetchModels";
+import { useFetchYears } from "@/features/hooks/useFetchYears";
 
-const BASE_API = "https://vpic.nhtsa.dot.gov/api";
-const MAKE_URL = "http://localhost:3000/vehicleMake";
-const YEAR_URL = "http://localhost:3000/vehicleYears";
 
 export default function QuoteVehicleForm({
   hideQuoteForm,
   showQuoteForm,
   handleActiveStep,
 }: QuoteVehicleProps) {
-  const { handleVehicleErrors, dispatchQuoteDataState, quoteDataState } =
+
+  const { handleVehicleErrors, dispatchQuoteDataState } =
     useContext(QuoteContext);
 
   // submit button state
@@ -35,25 +35,19 @@ export default function QuoteVehicleForm({
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMake, setSelectedMake] = useState<string | null>(null);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
-  // vehicle makes
-  const makes = useFetchMakes(MAKE_URL);
+  
   // vehicle years
-  const years = useFetchYears(YEAR_URL);
+  const years = useFetchYears();
+// vehicle makes
+  const makes = useFetchMakes();
 
   // vehicle model
-  const models = useFetchModels(BASE_API, selectedYear, selectedMake);
-  /*
-      {
-        data: [],
-        loading: true,
-        errors: { message: '' }
-    }
-  */
+  const models = useFetchModels(selectedYear, selectedMake);
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    
     const field = e.target.name;
 
-    console.log("Field is:", field);
 
     switch (field) {
       case "selectedYear":
@@ -155,27 +149,27 @@ export default function QuoteVehicleForm({
     });
     // Hide Vehicle form
     hideQuoteForm({
-      type: "hide_vehicle",
-      field: "showVehicleForm",
-      value: false,
-    });
+      type: 'HIDE_VEHICLE',
+      field: 'showVehicleForm',
+      value: false
+    })
+   
     // Update stepper
-    handleActiveStep(3);
+    handleActiveStep(stepperSteps.THIRD);
     // Show Contact form
     showQuoteForm({
-      type: "show_contact",
-      field: "showContactForm",
-      value: true,
-    });
+      type: 'SHOW_CONTACT',
+      field: 'showContactForm',
+      value: true
+    })
+   
   };
 
   const saveVehicleData = (action: QuoteDataAction) => {
     dispatchQuoteDataState(action);
   };
 
-  useEffect(() => {
-    console.log("New state is:", quoteDataState);
-  }, [quoteDataState]);
+  
 
   return (
     <div className="mb-4 p-[18px]">
