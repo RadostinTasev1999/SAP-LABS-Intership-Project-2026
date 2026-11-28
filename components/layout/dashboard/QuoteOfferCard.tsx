@@ -1,10 +1,23 @@
-import { CheckCircle } from "lucide-react";
-import ApproximateEqualsIcon from "@/components/shared/icons/ApproximateEquals";
-import { useQuoteOffer } from "@/features/hooks/useQuoteOffer";
+'use client'
 
-const DB_URL = "http://localhost:3000/quoteData";
-export default function QuoteOfferCard() {
-  const { destinationState } = useQuoteOffer(DB_URL);
+import ApproximateEqualsIcon from "@/components/shared/icons/ApproximateEquals";
+import { CheckCircle } from "lucide-react";
+import { QuoteCardData } from '@/lib/definitions';
+import { useCalculateOffer } from "@/features/hooks/quoteDashboard/useCalculateOffer";
+
+
+export default function QuoteOfferCard({
+  recordData,
+  updateRecord
+}: QuoteCardData) {
+
+  const pickupLocation = recordData?.destinationForm.pickupLocation;
+  const deliveryLocation = recordData?.destinationForm.deliveryLocation
+
+
+  useCalculateOffer(updateRecord, pickupLocation, deliveryLocation)
+
+    
 
   return (
     <div className="min-w-xs sm:col-span-2 sm:mx-auto my-[100px] sm:rounded-2xl backdrop-blur-xs sm:border sm:border-slate-300 bg-blue-100/80 p-7 sm:px-4 sm:py-[22px]">
@@ -16,17 +29,17 @@ export default function QuoteOfferCard() {
       {/* Route information */}
       <div className="flex flex-wrap items-center gap-3 rounded-lg px-5 py-4 text-[13px] sm:px-4 sm:py-3.5">
         <span className="font-semibold">
-          📍{destinationState.pickupLocation}
+          📍{recordData?.destinationForm.pickupLocation}
         </span>
 
         <span className="text-xl font-bold">→</span>
 
         <span className="font-semibold">
-          📍{destinationState.deliveryLocation}
+          📍{recordData?.destinationForm.deliveryLocation}
         </span>
 
         <span className="inline-flex items-center gap-1 font-semibold text-xs">
-          <ApproximateEqualsIcon />2 000 Miles
+          <ApproximateEqualsIcon /> Miles
         </span>
       </div>
 
@@ -56,7 +69,7 @@ export default function QuoteOfferCard() {
                   className="text-3xl font-extrabold tracking-tight text-slate-900"
                 >
                   <b className="mr-1 text-3xl font-semibold">$</b>
-                  999
+                  
                 </div>
               </div>
             </div>
@@ -128,6 +141,7 @@ export default function QuoteOfferCard() {
       <button
         type="button"
         className="mt-2 w-full border-b border-slate-400 font-semibold text-green-600 sm:bg-green-600 sm:border sm:border-slate-300 sm:rounded-xl px-3.5 py-2.5 text-base sm:text-white hover:bg-green-500"
+        // onClick={handleOfferConfirm}
       >
         Continue to booking
       </button>
@@ -135,9 +149,90 @@ export default function QuoteOfferCard() {
       <button
         type="button"
         className="mt-2 w-full border-b border-slate-400 font-semibold text-slate-800 sm:border sm:border-slate-300 sm:rounded-xl sm:bg-white/80 px-3.5 py-2.5 text-base hover:bg-gray-50"
+        // onClick={handleRouteBack}
       >
-        ← Edit Quote
+      Back to Quote
       </button>
     </div>
   );
 }
+
+
+/*
+  const { offerCard, calculatePrice, setOfferCard, setCalculatePrice } = useOffer()
+  const { router } = useDashboardRouter()
+
+  const handleOfferConfirm = (e: MouseEvent<HTMLButtonElement>) => {
+
+    console.log('Offer Card is:', offerCard)
+    router.replace('/checkout')
+
+  }
+
+  const handleRouteBack = (e: MouseEvent<HTMLButtonElement>) => {
+
+    router.back();
+  }
+
+  useEffect(() => {
+
+    if (!calculatePrice) {
+      return;
+    }
+    
+
+    // Logic to fetch api to calculate carrer market rates (price before broker fee)
+    const calculateCarrierPrice = async() => {
+
+      const API_URL = process.env.NEXT_PUBLIC_MARKET_PRICE
+
+      if (!API_URL) {
+        throw new Error('Unable to retrieve API_URL from environment variable')
+      }
+
+      const pickupArray = offerCard.pickupLocation.split(" ");
+      
+      const pickupZip = Number(pickupArray[pickupArray.length - 1]);
+
+      const deliveryArray = offerCard.deliveryLocation.split(" ");
+      const deliveryZip = Number(deliveryArray[deliveryArray.length - 1])
+
+      const query = `/quote?fromZip=${pickupZip}&toZip=${deliveryZip}&vehicleType=sedan`
+
+      try {
+          
+        const response = await fetch(`${API_URL}${query}`);
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error('Failed to fetch API')
+        }
+
+        const quoteResult = result.quote;
+
+
+        setOfferCard((state) => ({...state, price: quoteResult.price, miles: quoteResult.distance}))
+        
+       
+        saveOfferDetails({
+          pickupLocation: offerCard.pickupLocation, 
+          deliveryLocation: offerCard.deliveryLocation,
+          price: quoteResult.price, 
+          miles: quoteResult.distance
+        })
+
+        setCalculatePrice(false)
+
+        
+
+      } catch (error) {
+        throw new Error('Failed to fetch API')
+      }
+
+
+    }
+
+    calculateCarrierPrice()
+
+  },[calculatePrice])
+*/
