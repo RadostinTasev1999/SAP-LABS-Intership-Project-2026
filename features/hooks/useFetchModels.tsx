@@ -9,7 +9,6 @@ type ResultObj = {
 };
 
 export const useFetchModels = (
-  base_url: string,
   selectedYear: number | null,
   selectedMake: string | null,
 ) => {
@@ -19,47 +18,37 @@ export const useFetchModels = (
     errors: { message: "" },
   });
 
-  /*
-        {
-        data: [],
-        loading: true,
-        errors: { message: '' }
-    }
-    */
+
 
   useEffect(() => {
     if (!selectedYear || !selectedMake) {
-      console.log(
-        `Selected year is: ${selectedYear}, Selected make is: ${selectedMake}`,
-      );
+      
       return;
     }
 
     // Fetch API
-    console.log(
-      `After if condition values: ${selectedYear}, Selected make is: ${selectedMake}`,
-    );
 
     const fetchModels = async (
-      base_url: string,
       selectedYear: number,
       selectedMake: string,
     ) => {
       // construct API URL
+      const url = process.env.NEXT_PUBLIC_BASE_URL
+
+      if (!url) {
+        throw new Error('Could not retrieve BASE_URL environment variable')
+      }
+
       const query = `/vehicles/GetModelsForMakeYear/make/${selectedMake}/modelyear/${selectedYear}?format=json`;
-      const api_url = `${base_url}${query}`;
+      const api_url = `${url}${query}`;
 
       try {
         const response = await fetch(api_url);
         const result = await response.json();
 
-        // console.log('Result in fetchModels function is:', result.Results)
-        console.log(result);
         const model_names = result.Results.map(
           (el: ResultObj) => el.Model_Name,
         );
-
-        console.log("Model names are:", model_names);
 
         setModels({
           data: model_names,
@@ -75,7 +64,8 @@ export const useFetchModels = (
       }
     };
 
-    fetchModels(base_url, selectedYear, selectedMake);
+    fetchModels(selectedYear, selectedMake);
+
   }, [selectedYear, selectedMake]);
 
   return models;
